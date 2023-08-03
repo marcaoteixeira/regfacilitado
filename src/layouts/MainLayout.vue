@@ -56,7 +56,7 @@ const linksList = [
   {
     title: "Regimento",
     caption: "chat.quasar.dev",
-    icon: "chat",
+    icon: "tab",
     link: "#/regimento",
   },
   {
