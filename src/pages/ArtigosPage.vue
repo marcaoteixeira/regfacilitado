@@ -3,9 +3,36 @@
     <h5>Artigos</h5>
     <q-card>
       <q-card-section>
-
         <div class="text-body1">{{ artigo }}</div>
         <span class="text-body1" v-html="caput"></span>
+
+        <span v-for="inciso in incisos" :key="inciso.id">
+          <template v-if="id === inciso.id_artigo">
+            <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+            <span v-for="alinea in alineas" :key="alinea.id">
+              <template v-if="inciso.id === alinea.id_inciso">
+                <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+              </template>
+            </span>
+          </template>
+        </span>
+
+        <span v-for="paragrafo in paragrafos" :key="paragrafo.id">
+          <template v-if="id === paragrafo.id_artigo">
+            <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
+            </p><br>
+            <span v-for="inciso in incisos" :key="inciso.id">
+              <template v-if="paragrafo.id === inciso.id_paragrafo">
+                <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                <span v-for="alinea in alineas" :key="alinea.id">
+                  <template v-if="inciso.id === alinea.id_inciso">
+                    <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                  </template>
+                </span>
+              </template>
+            </span>
+          </template>
+        </span>
       </q-card-section>
     </q-card>
   </q-page>
@@ -17,6 +44,30 @@ import axios from "axios";
 
 export default defineComponent({
   created() {
+
+
+    axios.post("http://localhost:8686/admin/inciso/list").then(res => {
+      console.log(res);
+      this.incisos = res.data;
+      //console.log(this.artigos);
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
+      console.log(res);
+      this.paragrafos = res.data;
+      //console.log(this.artigos);
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/admin/alinea/list").then(res => {
+      console.log(res);
+      this.alineas = res.data;
+      //console.log(this.artigos);
+    }).catch(err => {
+      console.log(err);
+    });
+
     axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
       this.id = res.data.id
@@ -30,7 +81,10 @@ export default defineComponent({
   data() {
     return {
       artigo: '',
-      caput: ''
+      caput: '',
+      incisos: [],
+      paragrafos: [],
+      alineas: []
 
 
     }
