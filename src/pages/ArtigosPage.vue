@@ -45,25 +45,21 @@ import axios from "axios";
 export default defineComponent({
   created() {
 
-
-    axios.post("http://localhost:8686/admin/inciso/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
-      //console.log(this.artigos);
     }).catch(err => {
       console.log(err);
     });
-    axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
-      //console.log(this.artigos);
     }).catch(err => {
       console.log(err);
     });
-    axios.post("http://localhost:8686/admin/alinea/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
-      //console.log(this.artigos);
     }).catch(err => {
       console.log(err);
     });
