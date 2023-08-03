@@ -4,7 +4,7 @@
     <q-card>
       <q-card-section>
         <div class="text-body1">{{ artigo }}</div>
-        <span class="text-body1" v-html="caput"></span>
+        <div class="text-body1" v-html="caput"></div>
 
         <span v-for="inciso in incisos" :key="inciso.id">
           <template v-if="id === inciso.id_artigo">
