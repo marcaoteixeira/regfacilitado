@@ -2,7 +2,7 @@
   <q-page>
     <h6 align="center">Regimento</h6>
 
-    <span v-for="titulo in titulos" :key="titulo.id">
+    <span v-for="titulo in  titulos " :key="titulo.id">
       <q-card dark bordered class="bg-grey-9 my-card">
         <q-card-section>
           <div class="text-body1" align="center">{{ titulo.titulo }}</div>
@@ -13,7 +13,7 @@
               </span>
             </template>
           </span>
-          <span v-for="capitulo in capitulos" :key="capitulo.id">
+          <span v-for="capitulo in  capitulos " :key="capitulo.id">
             <template v-if="titulo.id === capitulo.id_titulo">
               <span>
                 <div class="text-capition">{{ capitulo.capitulo }}</div>
@@ -42,12 +42,16 @@
                   </span>
                 </template>
               </span>
-              <span v-for="artigo in artigos" :key="artigo.id">
+              <span v-for="artigo in  artigos " :key="artigo.id">
                 <template v-if="capitulo.id === artigo.id_capitulo">
                   <span>
-                    <router-link :to="{ name: 'artigos', state: { id: artigo.id } }">
-                      <q-btn color="black">{{ artigo.artigo }}</q-btn>&nbsp;
-                    </router-link>
+
+                    <q-btn color="black">
+                      <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
+                        <span font-color="white">{{ artigo.artigo }}</span>
+                      </router-link>
+                    </q-btn>
+
                   </span>
                 </template>
               </span>
@@ -79,7 +83,9 @@ export default defineComponent({
     axios
       .post("http://18.229.118.205:8686/admin/artigo/list")
       .then((res) => {
+        console.log(res)
         this.artigos = res.data;
+        console.log(artigos)
       })
       .catch((err) => {
         console.log(err);
@@ -111,6 +117,7 @@ export default defineComponent({
   data() {
     return {
 
+      id: '',
       titulos: [],
       capitulos: [],
       secoes: [],

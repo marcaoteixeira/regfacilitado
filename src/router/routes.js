@@ -1,3 +1,4 @@
+import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
     path: "/",
@@ -12,7 +13,7 @@ const routes = [
         component: () => import("pages/RegimentoPage.vue"),
       },
       {
-        path: "/artigos",
+        path: "/artigos/:id",
         name: "artigos",
         component: () => import("pages/ArtigosPage.vue"),
       },
