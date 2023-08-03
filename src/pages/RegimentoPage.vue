@@ -45,7 +45,9 @@
               <span v-for="artigo in artigos" :key="artigo.id">
                 <template v-if="capitulo.id === artigo.id_capitulo">
                   <span>
-                    <q-btn color="black">{{ artigo.artigo }}</q-btn>&nbsp;
+                    <router-link :to="{ name: 'artigos', state: { id: artigo.id } }">
+                      <q-btn color="black">{{ artigo.artigo }}</q-btn>&nbsp;
+                    </router-link>
                   </span>
                 </template>
               </span>
@@ -104,6 +106,19 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
+
+  },
+  data() {
+    return {
+
+      titulos: [],
+      capitulos: [],
+      secoes: [],
+      subsecoes: [],
+      artigos: []
+
+
+    }
 
   },
 });
