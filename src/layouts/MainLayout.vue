@@ -2,14 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header>
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> Regimento Facilitado </q-toolbar-title>
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-md-md">
@@ -21,11 +14,7 @@
       <q-list>
         <q-item-label header>Menu</q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -54,54 +43,61 @@ const linksList = [
     link: "",
   },
   {
-    title: "Regimento",
-    caption: "chat.quasar.dev",
+    title: "Regimento Facilitado",
+    caption: "",
     icon: "tab",
     link: "#/regimento",
   },
   {
     title: "Questões de Ordem",
     caption: "forum.ac",
-    caption: "@quasarframework",
+    caption: "",
     icon: "rss_feed",
     link: "https://twitter.quasar.dev",
   },
   {
     title: "Facilidades",
-    caption: "@QuasarFramework",
+    caption: "",
     icon: "public",
     link: "#/facilidades",
   },
   {
     title: "Indice Dinâmico",
-    caption: "Community Quasar projects",
+    caption: "",
     icon: "favorite",
     link: "https://awesome.quasar.dev",
   },
   {
     title: "Cursos",
-    caption: "Community Quasar projects",
+    caption: "",
     icon: "favorite",
     link: "https://awesome.quasar.dev",
   },
   {
     title: "Podcasts",
-    caption: "Community Quasar projects",
+    caption: "",
     icon: "favorite",
     link: "https://awesome.quasar.dev",
   },
   {
     title: "Infográficos",
-    caption: "Community Quasar projects",
+    caption: "",
     icon: "favorite",
+    link: "https://aweguntsome.quasar.dev",
+  },
+  {
+    title: "Cards de Estudo",
+    caption: "Perguntas e respostas frequentes",
+    icon: "drafts",
     link: "https://awesome.quasar.dev",
   },
   {
     title: "Contatos",
-    caption: "Community Quasar projects",
+    caption: "",
     icon: "drafts",
     link: "https://awesome.quasar.dev",
   },
+
 ];
 
 export default defineComponent({
