@@ -21,6 +21,37 @@
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
             </p><br>
+            <span v-for="conteudo in conteudos" :key="conteudo.id">
+
+              <template v-if="paragrafo.id === conteudo.id_paragrafo && conteudo.id_tipo === 18">
+                <span text-color="black">Notas</span>
+                <span v-html=conteudo.conteudo></span>
+
+                <!--<q-dialog v-model="fixed">
+                    <q-card>
+                      <q-card-section>
+                        <div class="text-h6">Terms of Agreement</div>
+                      </q-card-section>
+
+                      <q-separator />
+
+                      <q-card-section style="max-height: 50vh" class="scroll">
+                        <span v-html=conteudo.conteudo></span>
+
+                      </q-card-section>
+
+                      <q-separator />
+
+                      <q-card-actions align="right">
+                        <q-btn flat label="Decline" color="primary" v-close-popup />
+                        <q-btn flat label="Accept" color="primary" v-close-popup />
+                      </q-card-actions>
+                    </q-card>
+                  </q-dialog>-->
+              </template>
+
+            </span>
+
             <span v-for="inciso in incisos" :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
@@ -72,15 +103,59 @@ export default defineComponent({
 
     }).catch(err => {
       console.log(err);
-    })
+    });
+    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
+      this.conteudo = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
   },
+  /*created() {
+
+    axios.post("http://localhost:8686/admin/inciso/list").then(res => {
+      console.log(res);
+      this.incisos = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
+      console.log(res);
+      this.paragrafos = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/admin/alinea/list").then(res => {
+      console.log(res);
+      this.alineas = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
+
+    axios.get("http://localhost:8686/admin/artigo/" + this.$route.params.id).then(res => {
+      console.log(res);
+      this.id = res.data.id
+      this.artigo = res.data.artigo
+      this.caput = res.data.caput
+
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
+      this.conteudos = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
+
+  },*/
+
   data() {
     return {
       artigo: '',
       caput: '',
       incisos: [],
       paragrafos: [],
-      alineas: []
+      alineas: [],
+      conteudos: [],
 
 
     }
