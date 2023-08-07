@@ -181,19 +181,19 @@ export default defineComponent({
        console.log(err);
      });*/
 
-},
+
   data() {
-  return {
+    return {
 
-    id: '',
-    titulos: [],
-    capitulos: [],
-    secoes: [],
-    subsecoes: [],
-    artigos: []
+      id: '',
+      titulos: [],
+      capitulos: [],
+      secoes: [],
+      subsecoes: [],
+      artigos: []
 
-  }
+    }
 
-},
+  },
 });
 </script>
