@@ -104,8 +104,8 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
-    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
-      this.conteudo = res.data;
+    axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
+      this.conteudos = res.data;
     }).catch(err => {
       console.log(err);
     });
