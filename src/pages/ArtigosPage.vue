@@ -22,32 +22,33 @@
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
             </p><br>
             <span v-for="conteudo in conteudos" :key="conteudo.id">
-
               <template v-if="paragrafo.id === conteudo.id_paragrafo && conteudo.id_tipo === 18">
-                <span text-color="black">Notas</span>
-                <span v-html=conteudo.conteudo></span>
+                <!-- <span text-color="black">Notas</span>
+                <span v-html=conteudo.conteudo></span> -->
 
-                <!--<q-dialog v-model="fixed">
-                    <q-card>
-                      <q-card-section>
-                        <div class="text-h6">Terms of Agreement</div>
-                      </q-card-section>
+                <q-dialog v-model="showDialog">
+                  <q-card>
+                    <q-card-section>
+                      <div>Notas</div>
+                    </q-card-section>
 
-                      <q-separator />
+                    <q-separator />
 
-                      <q-card-section style="max-height: 50vh" class="scroll">
-                        <span v-html=conteudo.conteudo></span>
+                    <q-card-section style="max-height: 50vh" class="scroll">
 
-                      </q-card-section>
+                      <span v-html=conteudo.conteudo></span>
 
-                      <q-separator />
+                    </q-card-section>
 
-                      <q-card-actions align="right">
-                        <q-btn flat label="Decline" color="primary" v-close-popup />
-                        <q-btn flat label="Accept" color="primary" v-close-popup />
-                      </q-card-actions>
-                    </q-card>
-                  </q-dialog>-->
+                    <q-separator />
+
+                    <q-card-actions align="right">
+                      <q-btn flat label="Fechar" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+                <q-btn label="Notas" @click="showDialog = true" />
+
               </template>
 
             </span>
@@ -157,6 +158,7 @@ export default defineComponent({
       paragrafos: [],
       alineas: [],
       conteudos: [],
+      showDialog: false,
 
 
     }
