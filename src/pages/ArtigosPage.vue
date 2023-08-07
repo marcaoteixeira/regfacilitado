@@ -110,6 +110,7 @@ export default defineComponent({
       console.log(err);
     });
   },
+  /*djasdjasd*/
   /*created() {
 
     axios.post("http://localhost:8686/admin/inciso/list").then(res => {
