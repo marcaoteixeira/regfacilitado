@@ -7,7 +7,7 @@
         <div class="text-body1" v-html="caput"></div>
 
         <span v-for="inciso in incisos" :key="inciso.id">
-          <template v-if="id === inciso.id_artigo">
+          <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
             <span v-for="alinea in alineas" :key="alinea.id">
               <template v-if="inciso.id === alinea.id_inciso">
