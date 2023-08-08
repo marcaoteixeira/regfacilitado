@@ -75,7 +75,7 @@ import { defineComponent } from "vue";
 import axios from "axios";
 
 export default defineComponent({
-  created() {
+  /*created() {
 
     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -110,9 +110,9 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
-  },
+  },*/
   /*djasdjasd*/
-  /*created() {
+  created() {
 
     axios.post("http://localhost:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -148,7 +148,7 @@ export default defineComponent({
       console.log(err);
     });
 
-  },*/
+  },
 
   data() {
     return {
