@@ -24,40 +24,30 @@
             <span v-for="conteudo in  conteudos " :key="conteudo.id">
               <template v-if="paragrafo.id === conteudo.id_paragrafo && conteudo.id_tipo === 18">
 
-                <!-- < q - dialog v - model=" showDialog">
+                <q-dialog v-model="conteudo.showDialog">
                   <q-card>
                     <q-card-section>
                       <div>Notas</div>
                     </q-card-section>
-
                     <q-separator />
-
                     <q-card-section style="max-height: 50vh" class="scroll">
-                      <span v-for=" nota  in  notas " :key=" nota.id ">
-                        <template v-if=" paragrafo.id === nota.id_paragrafo ">
-                          <span v-html= conteudo.conteudo ></span>
-                        </template>
-                      </span>
-
-
-
+                      <span v-html=conteudo.conteudo></span>
                     </q-card-section>
-
                     <q-separator />
-
                     <q-card-actions align="right">
                       <q-btn flat label="Fechar" color="primary" v-close-popup />
                     </q-card-actions>
                   </q-card>
-                  </q-dialog>
-                <q-btn label="Notas" @click="showDialog = true" /> -->
-                <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas">
+                </q-dialog>
+
+                <q-btn label="Notas" @click="conteudo.showDialog = true" />
+                <!-- <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas">
                   <q-card>
                     <q-card-section v-model="conteudo.showDialog">
                       <span v-html=conteudo.conteudo></span> </q-card-section>
 
                   </q-card>
-                </q-expansion-item>
+                </q-expansion-item> -->
 
               </template>
 
