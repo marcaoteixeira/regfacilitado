@@ -17,46 +17,56 @@
           </template>
         </span>
 
-        <span v-for="paragrafo in paragrafos" :key="paragrafo.id">
+        <span v-for="paragrafo in  paragrafos " :key="paragrafo.id">
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
-            </p><br>
-            <span v-for="conteudo in conteudos" :key="conteudo.id">
+            </p>
+            <span v-for="conteudo in  conteudos " :key="conteudo.id">
               <template v-if="paragrafo.id === conteudo.id_paragrafo && conteudo.id_tipo === 18">
-                <!-- <span text-color="black">Notas</span>
-                <span v-html=conteudo.conteudo></span> -->
 
-                <q-dialog v-model="showDialog">
+                <!-- < q - dialog v - model=" showDialog">
+                <q-card>
+                  <q-card-section>
+                    <div>Notas</div>
+                  </q-card-section>
+
+                  <q-separator />
+
+                  <q-card-section style="max-height: 50vh" class="scroll">
+                    <span v-for=" nota  in  notas " :key=" nota.id ">
+                      <template v-if=" paragrafo.id === nota.id_paragrafo ">
+                        <span v-html= conteudo.conteudo ></span>
+                      </template>
+                    </span>
+
+
+
+                  </q-card-section>
+
+                  <q-separator />
+
+                  <q-card-actions align="right">
+                    <q-btn flat label="Fechar" color="primary" v-close-popup />
+                  </q-card-actions>
+                </q-card>
+                </q-dialog>
+                <q-btn label="Notas" @click="showDialog = true" /> -->
+                <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas" v-bind:regant=>
                   <q-card>
                     <q-card-section>
-                      <div>Notas</div>
-                    </q-card-section>
+                      <span v-html=conteudo.conteudo></span> </q-card-section>
 
-                    <q-separator />
-
-                    <q-card-section style="max-height: 50vh" class="scroll">
-
-                      <span v-html=conteudo.conteudo></span>
-
-                    </q-card-section>
-
-                    <q-separator />
-
-                    <q-card-actions align="right">
-                      <q-btn flat label="Fechar" color="primary" v-close-popup />
-                    </q-card-actions>
                   </q-card>
-                </q-dialog>
-                <q-btn label="Notas" @click="showDialog = true" />
+                </q-expansion-item>
 
               </template>
 
             </span>
 
-            <span v-for="inciso in incisos" :key="inciso.id">
+            <span v-for=" inciso  in  incisos " :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
-                <span v-for="alinea in alineas" :key="alinea.id">
+                <span v-for=" alinea  in  alineas " :key="alinea.id">
                   <template v-if="inciso.id === alinea.id_inciso">
                     <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
                   </template>
@@ -147,6 +157,11 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
+    axios.post("http://localhost:8686/listnota").then(res => {
+      this.notas = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
 
   },
 
@@ -158,12 +173,13 @@ export default defineComponent({
       paragrafos: [],
       alineas: [],
       conteudos: [],
+      notas: [],
       showDialog: false,
-
 
     }
 
   },
+
 });
 
 </script>
