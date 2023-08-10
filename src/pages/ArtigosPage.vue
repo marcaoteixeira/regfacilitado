@@ -53,7 +53,7 @@
                 <q-btn label="Notas" @click="showDialog = true" /> -->
                 <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas">
                   <q-card>
-                    <q-card-section>
+                    <q-card-section v-model="conteudo.showDialog">
                       <span v-html=conteudo.conteudo></span> </q-card-section>
 
                   </q-card>
@@ -154,6 +154,9 @@ export default defineComponent({
     });
     axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
+      for (const conteudo of this.conteudos) {
+        conteudo.showDialog = false;
+      }
     }).catch(err => {
       console.log(err);
     });
