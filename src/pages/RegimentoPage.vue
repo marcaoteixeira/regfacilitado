@@ -10,7 +10,7 @@
             <template v-if="titulo.id === artigo.id_titulo && artigo.id_capitulo === null">
               <span>
 
-                <q-btn color="white">
+                <q-btn color="black">
                   <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                     <span font-color="white">{{ artigo.artigo }}</span>
                   </router-link>
@@ -28,7 +28,7 @@
                 <template v-if="capitulo.id === artigo.id_capitulo && artigo.id_secao === null">
                   <span>
 
-                    <q-btn color="white">
+                    <q-btn color="black">
                       <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                         <span font-color="white">{{ artigo.artigo }}</span>
                       </router-link>
@@ -44,7 +44,7 @@
                     <template v-if="secao.id === artigo.id_secao && artigo.id_subsecao === null">
                       <span>
 
-                        <q-btn color="white">
+                        <q-btn color="black">
                           <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                             <span font-color="white">{{ artigo.artigo }}</span>
                           </router-link>
@@ -60,7 +60,7 @@
                         <template v-if="subsecao.id === artigo.id_subsecao">
                           <span>
 
-                            <q-btn color="white">
+                            <q-btn color="black">
                               <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                                 <span font-color="white">{{ artigo.artigo }}</span>
                               </router-link>
@@ -197,3 +197,13 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+q-btn {
+  background-color: #0c8367;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+</style>

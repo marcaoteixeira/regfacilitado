@@ -21,17 +21,17 @@
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
             </p>
-            <span v-for="conteudo in  conteudos " :key="conteudo.id">
-              <template v-if="paragrafo.id === conteudo.id_paragrafo && conteudo.id_tipo === 18">
+            <span v-for="nota in  notas " :key="nota.id">
+              <template v-if="paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18">
 
-                <q-dialog v-model="conteudo.showDialog">
+                <q-dialog v-model="nota.showDialog">
                   <q-card>
                     <q-card-section>
                       <div>Notas</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section style="max-height: 50vh" class="scroll">
-                      <span v-html=conteudo.conteudo></span>
+                      <span v-html="nota.conteudo"></span>
                     </q-card-section>
                     <q-separator />
                     <q-card-actions align="right">
@@ -40,7 +40,7 @@
                   </q-card>
                 </q-dialog>
 
-                <q-btn label="Notas" @click="conteudo.showDialog = true" />
+                <q-btn label="Notas" @click="nota.showDialog = true" />
                 <!-- <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas">
                   <q-card>
                     <q-card-section v-model="conteudo.showDialog">
@@ -144,14 +144,17 @@ export default defineComponent({
     });
     axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
-      for (const conteudo of this.conteudos) {
-        conteudo.showDialog = false;
-      }
+      // for (const conteudo of this.conteudos) {
+      //  conteudo.showDialog = false;
+      // }
     }).catch(err => {
       console.log(err);
     });
     axios.post("http://localhost:8686/listnota").then(res => {
       this.notas = res.data;
+      for (const nota of this.notas) {
+        nota.showDialog = false;
+      }
     }).catch(err => {
       console.log(err);
     });
