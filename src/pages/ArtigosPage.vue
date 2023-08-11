@@ -75,7 +75,43 @@ import { defineComponent } from "vue";
 import axios from "axios";
 
 export default defineComponent({
-  /*created() {
+  /* created() {
+
+     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
+       console.log(res);
+       this.incisos = res.data;
+     }).catch(err => {
+       console.log(err);
+     });
+     axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
+       console.log(res);
+       this.paragrafos = res.data;
+     }).catch(err => {
+       console.log(err);
+     });
+     axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
+       console.log(res);
+       this.alineas = res.data;
+     }).catch(err => {
+       console.log(err);
+     });
+
+     axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
+       console.log(res);
+       this.id = res.data.id
+       this.artigo = res.data.artigo
+       this.caput = res.data.caput
+
+     }).catch(err => {
+       console.log(err);
+     });
+     axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
+       this.conteudos = res.data;
+     }).catch(err => {
+       console.log(err);
+     });
+   },*/
+  created() {
 
     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -107,12 +143,25 @@ export default defineComponent({
     });
     axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
+      // for (const conteudo of this.conteudos) {
+      //  conteudo.showDialog = false;
+      // }
     }).catch(err => {
       console.log(err);
     });
-  },*/
-  /*djasdjasd*/
-  created() {
+
+    axios.post("http://18.229.118.205:8686/admin/listnota").then(res => {
+      this.notas = res.data;
+      for (const nota of this.notas) {
+        nota.showDialog = false;
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+
+  },
+
+  /*created() {
 
     axios.post("http://localhost:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -150,6 +199,7 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
+
     axios.post("http://localhost:8686/listnota").then(res => {
       this.notas = res.data;
       for (const nota of this.notas) {
@@ -159,7 +209,7 @@ export default defineComponent({
       console.log(err);
     });
 
-  },
+  },*/
 
   data() {
     return {
