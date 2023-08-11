@@ -150,7 +150,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/listnota").then(res => {
+    axios.post("http://18.229.118.205:8686/listnota").then(res => {
       this.notas = res.data;
       for (const nota of this.notas) {
         nota.showDialog = false;
