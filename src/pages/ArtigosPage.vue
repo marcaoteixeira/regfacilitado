@@ -26,7 +26,7 @@
                 <!-- <span text-color="black">Notas</span>
                 <span v-html=conteudo.conteudo></span> -->
 
-                <q-dialog v-model="showDialog">
+                <q-dialog v-model="conteudo.showDialog">
                   <q-card>
                     <q-card-section>
                       <div>Notas</div>
@@ -47,7 +47,7 @@
                     </q-card-actions>
                   </q-card>
                 </q-dialog>
-                <q-btn label="Notas" @click="showDialog = true" />
+                <q-btn label="Notas" @click="conteudo.showDialog = true" />
 
               </template>
 
@@ -107,11 +107,16 @@ export default defineComponent({
     });
     axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
+      for (const conteudo of this.conteudos) {
+        conteudo.showDialog = false;
+      }
+
+
     }).catch(err => {
       console.log(err);
     });
   },
-  /*djasdjasd*/
+
   /*created() {
 
     axios.post("http://localhost:8686/admin/inciso/list").then(res => {
