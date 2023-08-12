@@ -18,28 +18,40 @@
         </span>
 
         <span v-for="paragrafo in  paragrafos " :key="paragrafo.id">
-
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
             </p>
-            <template v-if="paragrafo.notasConteudos">
-              <q-dialog v-model="paragrafo.showDialog">
-                <q-card>
-                  <q-card-section>
-                    <div>Notas</div>
-                  </q-card-section>
-                  <q-separator />
-                  <q-card-section style="max-height: 50vh" class="scroll">
-                    <span v-html="paragrafo.notasConteudos"></span>
-                  </q-card-section>
-                  <q-separator />
-                  <q-card-actions align="right">
-                    <q-btn flat label="Fechar" color="primary" v-close-popup />
-                  </q-card-actions>
-                </q-card>
-              </q-dialog>
-              <q-btn label="Notas" @click="paragrafo.showDialog = true" />
-            </template>
+            <span v-for="nota in  notas " :key="nota.id">
+              <template v-if="paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18">
+
+                <q-dialog v-model="nota.showDialog">
+                  <q-card>
+                    <q-card-section>
+                      <div>Notas</div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section style="max-height: 50vh" class="scroll">
+                      <span v-html="nota.conteudo"></span>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-actions align="right">
+                      <q-btn flat label="Fechar" color="primary" v-close-popup />
+                    </q-card-actions>
+                  </q-card>
+                </q-dialog>
+
+                <q-btn label="Notas" @click="nota.showDialog = true" />
+                <!-- <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas">
+                  <q-card>
+                    <q-card-section v-model="conteudo.showDialog">
+                      <span v-html=conteudo.conteudo></span> </q-card-section>
+
+                  </q-card>
+                </q-expansion-item> -->
+
+              </template>
+
+            </span>
 
             <span v-for=" inciso  in  incisos " :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
@@ -107,6 +119,12 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
+    axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
+      console.log(res);
+      this.paragrafos = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
     axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
@@ -123,52 +141,25 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
-
     axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
+      // for (const conteudo of this.conteudos) {
+      //  conteudo.showDialog = false;
+      // }
     }).catch(err => {
       console.log(err);
     });
 
-    const parPromise = axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
-      console.log(res);
-      this.paragrafos = res.data;
-      return this.paragrafos;
+    axios.post("http://18.229.118.205:8686/listnota").then(res => {
+      this.notas = res.data;
+      for (const nota of this.notas) {
+        nota.showDialog = false;
+      }
     }).catch(err => {
       console.log(err);
     });
 
-    const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
-      this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
-      return this.notas;
-    }).catch(err => {
-      console.log(err);
-    });
-
-    Promise.all([parPromise, notasPromise])
-      .then((rets) => {
-        this.paragrafos.map(par => {
-          const notasDesteParagrafo = this.notas.filter(nota => (par.id === nota.id_paragrafo && nota.id_tipo === 18))
-          par.notasConteudos = null;
-          if (!Array.isArray(notasDesteParagrafo) || !notasDesteParagrafo.length) {
-            return par;
-          }
-          par.showDialog = false;
-          par.notasConteudos = notasDesteParagrafo
-            .reduce((conteudo, currentValue) => {
-              return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, '<ul>') + '</ul>'
-
-          return par;
-        });
-      })
   },
-
-
-  // Vamos juntar os conteudos de todas as notas de um parágrafo
-  // Quando
-
-  // paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18
 
   /*created() {
 
