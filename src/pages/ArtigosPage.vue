@@ -23,7 +23,7 @@
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
             </p>
             <template v-if="paragrafo.notasConteudos">
-              <q-dialog v-model="paragrafo.showDialog">
+              <!-- <q-dialog v-model="paragrafo.showDialog">
                 <q-card>
                   <q-card-section>
                     <div>Notas</div>
@@ -38,8 +38,15 @@
                   </q-card-actions>
                 </q-card>
               </q-dialog>
-              <q-btn label="Notas" @click="paragrafo.showDialog = true" />
+              <q-btn label="Notas" @click="paragrafo.showDialog = true" />-->
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=paragrafo.notasConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
             </template>
+
 
             <span v-for=" inciso  in  incisos " :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
@@ -63,42 +70,11 @@ import { defineComponent } from "vue";
 import axios from "axios";
 
 export default defineComponent({
-  /* created() {
 
-     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
-       console.log(res);
-       this.incisos = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
-     axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
-       console.log(res);
-       this.paragrafos = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
-     axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
-       console.log(res);
-       this.alineas = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
+  // Vamos juntar os conteudos de todas as notas de um parágrafo
+  // Quando
 
-     axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
-       console.log(res);
-       this.id = res.data.id
-       this.artigo = res.data.artigo
-       this.caput = res.data.caput
-
-     }).catch(err => {
-       console.log(err);
-     });
-     axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
-       this.conteudos = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
-   },*/
+  // paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18
   created() {
 
     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
@@ -163,12 +139,6 @@ export default defineComponent({
         });
       })
   },
-
-
-  // Vamos juntar os conteudos de todas as notas de um parágrafo
-  // Quando
-
-  // paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18
 
   /*created() {
 
