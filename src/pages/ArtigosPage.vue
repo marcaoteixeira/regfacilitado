@@ -10,6 +10,15 @@
           <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
+            <template v-if="inciso.qordensConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=inciso.qordensConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
             <template v-if="inciso.notasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                 <q-card class="bg-teal-0">
@@ -23,6 +32,28 @@
             <span v-for="alinea in alineas" :key="alinea.id">
               <template v-if="inciso.id === alinea.id_inciso">
                 <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+
+                <template v-if="alinea.qordensConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de ordem"
+                    class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=alinea.qordensConteudos></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template>
+
+                <template v-if="alinea.notasConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=alinea.notasConteudos></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template>
+
+
+
               </template>
             </span>
           </template>
@@ -33,6 +64,7 @@
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
             </p>
+
             <template v-if="paragrafo.qordensConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
                 <q-card class="bg-teal-0">
@@ -41,6 +73,7 @@
                 </q-card>
               </q-expansion-item>
             </template><br>
+
             <template v-if="paragrafo.notasConteudos">
               <!-- <q-dialog v-model="paragrafo.showDialog">
                 <q-card>
@@ -74,6 +107,17 @@
               <template v-if="paragrafo.id === inciso.id_paragrafo">
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
+
+                <template v-if="incisos.qordensConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
+                    class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=inciso.qordensConteudos></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template><br>
+
                 <template v-if="inciso.notasConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                     <q-card class="bg-teal-0">
@@ -86,6 +130,16 @@
                 <span v-for=" alinea  in  alineas " :key="alinea.id">
                   <template v-if="inciso.id === alinea.id_inciso">
                     <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+
+                    <template v-if="alinea.qordensConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de ordem"
+                        class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=alinea.qordensConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
 
                     <template v-if="alinea.notasConteudos">
                       <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
@@ -231,6 +285,9 @@ export default defineComponent({
 
     Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise])
       .then((rets) => {
+
+        // Pega as notas
+
         this.paragrafos.map(par => {
           const notasDesteParagrafo = this.notas.filter(nota => (par.id === nota.id_paragrafo && nota.id_tipo === 18))
           par.notasConteudos = null;
@@ -272,6 +329,9 @@ export default defineComponent({
 
           return ali;
         });
+
+        //pega as questões de ordem
+
         this.paragrafos.map(qopar => {
           const qosDesteParagrafo = this.qordens.filter(qordem => (qopar.id === qordem.id_paragrafo && qordem.id_tipo === 8))
           qopar.qordensConteudos = null;
@@ -285,6 +345,35 @@ export default defineComponent({
             }, '<ul>') + '</ul>'
 
           return qopar;
+        });
+
+        this.incisos.map(qoinc => {
+          const qosDesteInciso = this.qordens.filter(qordem => (qoinc.id === qordem.id_inciso && qordem.id_tipo === 8))
+          qoinc.qordensConteudos = null;
+          if (!Array.isArray(qosDesteInciso) || !qosDesteInciso.length) {
+            return qoinc;
+          }
+          qoinc.showDialog = false;
+          qoinc.qordensConteudos = qosDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return qoinc;
+        });
+        this.alineas.map(qoali => {
+          const qosDestaAlinea = this.qordens.filter(qordem => (qoali.id === qordem.id_inciso && qordem.id_tipo === 8))
+          qoali.qordensConteudos = null;
+          if (!Array.isArray(qosDestaAlinea) || !qosDestaAlinea.length) {
+            return qoinc;
+          }
+          qoali.showDialog = false;
+          qoali.qordensConteudos = qosDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return qoali;
         });
 
       })
