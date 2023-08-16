@@ -365,7 +365,7 @@ export default defineComponent({
           const qosDestaAlinea = this.qordens.filter(qordem => (qoali.id === qordem.id_inciso && qordem.id_tipo === 8))
           qoali.qordensConteudos = null;
           if (!Array.isArray(qosDestaAlinea) || !qosDestaAlinea.length) {
-            return qoinc;
+            return qoali;
           }
           qoali.showDialog = false;
           qoali.qordensConteudos = qosDestaAlinea
