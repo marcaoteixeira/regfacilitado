@@ -171,87 +171,22 @@ export default defineComponent({
   // Vamos juntar os conteudos de todas as notas de um parágrafo
   // Quando
 
-  // paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18
-  /* created() {
-
-     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
-       console.log(res);
-       this.incisos = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
-     axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
-       console.log(res);
-       this.alineas = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
-
-     axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
-       console.log(res);
-       this.id = res.data.id
-       this.artigo = res.data.artigo
-       this.caput = res.data.caput
-
-     }).catch(err => {
-       console.log(err);
-     });
-
-     axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
-       this.conteudos = res.data;
-     }).catch(err => {
-       console.log(err);
-     });
-
-     const parPromise = axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
-       console.log(res);
-       this.paragrafos = res.data;
-       return this.paragrafos;
-     }).catch(err => {
-       console.log(err);
-     });
-
-     const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
-       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
-       return this.notas;
-     }).catch(err => {
-       console.log(err);
-     });
-
-     Promise.all([parPromise, notasPromise])
-       .then((rets) => {
-         this.paragrafos.map(par => {
-           const notasDesteParagrafo = this.notas.filter(nota => (par.id === nota.id_paragrafo && nota.id_tipo === 18))
-           par.notasConteudos = null;
-           if (!Array.isArray(notasDesteParagrafo) || !notasDesteParagrafo.length) {
-             return par;
-           }
-           par.showDialog = false;
-           par.notasConteudos = notasDesteParagrafo
-             .reduce((conteudo, currentValue) => {
-               return conteudo + `<li>${currentValue.conteudo}</li>`;
-             }, '<ul>') + '</ul>'
-
-           return par;
-         });
-       })
-   },*/
   created() {
 
-    const incisoPromise = axios.post("http://localhost:8686/admin/inciso/list").then(res => {
+    const incisoPromise = axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
     }).catch(err => {
       console.log(err);
     });
-    const alineaPromise = axios.post("http://localhost:8686/admin/alinea/list").then(res => {
+    const alineaPromise = axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-    axios.get("http://localhost:8686/admin/artigo/" + this.$route.params.id).then(res => {
+    axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
       this.id = res.data.id
       this.artigo = res.data.artigo
@@ -268,7 +203,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    const parPromise = axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
+    const parPromise = axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
       return this.paragrafos;
@@ -378,8 +313,6 @@ export default defineComponent({
 
       })
   },
-
-
   data() {
     return {
       artigo: '',
