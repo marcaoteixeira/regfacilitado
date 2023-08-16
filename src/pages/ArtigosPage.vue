@@ -196,7 +196,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    const qosPromise = axios.post("http://localhost:8686/listqordem").then(res => {
+    const qosPromise = axios.post("http://18.229.118.205:8686/listqordem").then(res => {
       this.qordens = res.data.map(qordem => ({ ...qordem, showDialog: false }));
       return this.qordens;
     }).catch(err => {
@@ -211,7 +211,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    const notasPromise = axios.post("http://localhost:8686/listnota").then(res => {
+    const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
       return this.notas;
     }).catch(err => {
