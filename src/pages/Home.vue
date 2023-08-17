@@ -3,7 +3,7 @@
     <q-header>
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title> Regimento Facilitado </q-toolbar-title>
+        <q-toolbar-title> Regimento Interno Facilitado </q-toolbar-title>
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-md-md">
         <div class="text-subtitlel"></div>
@@ -43,7 +43,7 @@ const linksList = [
     link: "",
   },
   {
-    title: "Regimento Facilitado",
+    title: "Regimento Interno Facilitado",
     caption: "",
     icon: "menu_book",
     link: "#/regimento",

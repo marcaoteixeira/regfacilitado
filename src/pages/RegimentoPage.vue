@@ -1,7 +1,5 @@
 <template>
   <q-page>
-    <h6 align="center">Regimento</h6>
-
     <span v-for="titulo in  titulos " :key="titulo.id">
       <q-card dark bordered class="bg-grey-9 my-card">
         <q-card-section>
