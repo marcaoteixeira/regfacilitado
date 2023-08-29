@@ -3,19 +3,20 @@
     <!--<h5>Artigos</h5>-->
     <q-card>
       <q-card-section>
-        <div class="text-body1">{{ artigo }}</div>
-        <div class="text-body1" v-html="caput"></div>
+        <!-- <div class="text-body1">{{ artigo }}</div>
+        <div class="text-body1" v-html="caput"></div> -->
+        <span v-for="artigo in artigos" :key="artigo.id">
+          <p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span></p>
+          <template v-if="artigo.qordensConteudos">
+            <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
+              <q-card class="bg-teal-0">
+                <q-card-section>
+                  <span v-html=artigo.qordensConteudos></span> </q-card-section>
+              </q-card>
+            </q-expansion-item>
+          </template><br>
 
-        <template v-if="artigos.qordensConteudos">
-          <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
-            <q-card class="bg-teal-0">
-              <q-card-section>
-                <span v-html=artigos.qordensConteudos></span> </q-card-section>
-            </q-card>
-          </q-expansion-item>
-        </template><br>
-
-
+        </span>
         <span v-for="inciso in incisos" :key="inciso.id">
           <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
@@ -185,13 +186,21 @@ export default defineComponent({
 
     const artigoPromise = axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
-      this.artigos = res.data;
+      //this.artigos = res.data;
       this.id = res.data.id
       this.artigo = res.data.artigo
       this.caput = res.data.caput
     }).catch(err => {
       console.log(err);
     })
+
+    const artigosPromise = axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
+      console.log(res);
+      this.artigos = res.data;
+      this.artigos = this.artigos.filter(c => c.id == this.id)
+    }).catch(err => {
+      console.log(err);
+    });
 
     const incisoPromise = axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -228,7 +237,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise, artigoPromise])
+    Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise, artigosPromise, artigoPromise])
       .then((rets) => {
 
         // Pega as notas
