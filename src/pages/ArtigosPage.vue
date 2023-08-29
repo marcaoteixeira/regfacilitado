@@ -5,19 +5,23 @@
       <q-card-section>
         <!-- <div class="text-body1">{{ artigo }}</div>
         <div class="text-body1" v-html="caput"></div> -->
-        <span v-for="artigo in artigos" :key="artigo.id">
-          <p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span></p>
-          <template v-if="artigo.qordensConteudos">
-            <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
-              <q-card class="bg-teal-0">
-                <q-card-section>
-                  <span v-html=artigo.qordensConteudos></span> </q-card-section>
-              </q-card>
-            </q-expansion-item>
-          </template><br>
+        <span v-for="artigo in      artigos     " :key="artigo.id">
+          <p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
+          </p>
+          <template v-if="artigo.id != null">
+
+            <template v-if="artigo.qordensConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=artigo.qordensConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+          </template>
 
         </span>
-        <span v-for="inciso in incisos" :key="inciso.id">
+        <span v-for="     inciso      in      incisos     " :key="inciso.id">
           <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
@@ -40,7 +44,7 @@
             </template>
 
 
-            <span v-for="alinea in alineas" :key="alinea.id">
+            <span v-for="     alinea      in      alineas     " :key="alinea.id">
               <template v-if="inciso.id === alinea.id_inciso">
                 <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
 
@@ -70,7 +74,7 @@
           </template>
         </span>
 
-        <span v-for="paragrafo in  paragrafos " :key="paragrafo.id">
+        <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
 
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
@@ -114,7 +118,7 @@
 
 
 
-            <span v-for=" inciso  in  incisos " :key="inciso.id">
+            <span v-for="      inciso       in       incisos      " :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
@@ -138,7 +142,7 @@
                   </q-expansion-item>
                 </template>
 
-                <span v-for=" alinea  in  alineas " :key="alinea.id">
+                <span v-for="      alinea       in       alineas      " :key="alinea.id">
                   <template v-if="inciso.id === alinea.id_inciso">
                     <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
 
@@ -287,7 +291,7 @@ export default defineComponent({
         //pega as questões de ordem
 
         this.artigos.map(qoart => {
-          const qosDesteArtigo = this.qordens.filter(qordem => (qoart.id === qordem.id_artigo && qordem.id_tipo === 8))
+          const qosDesteArtigo = this.qordens.filter(qordem => (qoart.id === qordem.id_artigo && qordem.id_paragrafo === null && qordem.id_inciso === null && qordem.id_alinea === null && qordem.id_tipo === 8))
           qoart.qordensConteudos = null;
           if (!Array.isArray(qosDesteArtigo) || !qosDesteArtigo.length) {
             return qoart;
