@@ -6,6 +6,16 @@
         <div class="text-body1">{{ artigo }}</div>
         <div class="text-body1" v-html="caput"></div>
 
+        <template v-if="artigos.qordensConteudos">
+          <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
+            <q-card class="bg-teal-0">
+              <q-card-section>
+                <span v-html=artigos.qordensConteudos></span> </q-card-section>
+            </q-card>
+          </q-expansion-item>
+        </template><br>
+
+
         <span v-for="inciso in incisos" :key="inciso.id">
           <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
@@ -173,6 +183,16 @@ export default defineComponent({
 
   created() {
 
+    const artigoPromise = axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
+      console.log(res);
+      this.artigos = res.data;
+      this.id = res.data.id
+      this.artigo = res.data.artigo
+      this.caput = res.data.caput
+    }).catch(err => {
+      console.log(err);
+    })
+
     const incisoPromise = axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
@@ -182,16 +202,6 @@ export default defineComponent({
     const alineaPromise = axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
-    }).catch(err => {
-      console.log(err);
-    });
-
-    axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
-      console.log(res);
-      this.id = res.data.id
-      this.artigo = res.data.artigo
-      this.caput = res.data.caput
-
     }).catch(err => {
       console.log(err);
     });
@@ -218,7 +228,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise])
+    Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise, artigoPromise])
       .then((rets) => {
 
         // Pega as notas
@@ -266,6 +276,22 @@ export default defineComponent({
         });
 
         //pega as questões de ordem
+
+        this.artigos.map(qoart => {
+          const qosDesteArtigo = this.qordens.filter(qordem => (qoart.id === qordem.id_artigo && qordem.id_tipo === 8))
+          qoart.qordensConteudos = null;
+          if (!Array.isArray(qosDesteArtigo) || !qosDesteArtigo.length) {
+            return qoart;
+          }
+          qoart.showDialog = false;
+          qoart.qordensConteudos = qosDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return qoart;
+        });
+
 
         this.paragrafos.map(qopar => {
           const qosDesteParagrafo = this.qordens.filter(qordem => (qopar.id === qordem.id_paragrafo && qordem.id_tipo === 8))
@@ -317,6 +343,7 @@ export default defineComponent({
     return {
       artigo: '',
       caput: '',
+      artigos: [],
       incisos: [],
       paragrafos: [],
       alineas: [],
