@@ -123,7 +123,7 @@
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
 
-                <template v-if="incisos.qordensConteudos">
+                <template v-if="inciso.qordensConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
                     class="bg-teal-1">
                     <q-card class="bg-teal-0">
@@ -307,7 +307,7 @@ export default defineComponent({
 
 
         this.paragrafos.map(qopar => {
-          const qosDesteParagrafo = this.qordens.filter(qordem => (qopar.id === qordem.id_paragrafo && qordem.id_tipo === 8))
+          const qosDesteParagrafo = this.qordens.filter(qordem => (qopar.id === qordem.id_paragrafo && qordem.id_inciso === null && qordem.id_alinea === null && qordem.id_tipo === 8))
           qopar.qordensConteudos = null;
           if (!Array.isArray(qosDesteParagrafo) || !qosDesteParagrafo.length) {
             return qopar;
