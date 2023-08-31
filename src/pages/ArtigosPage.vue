@@ -384,6 +384,4 @@ export default defineComponent({
 
 });
 
-//sadadadasd
-
 </script>
