@@ -134,7 +134,7 @@ export default defineComponent({
   },
   /*created() {
     axios
-      .post("http://localhost:8686/admin/titulo/list")
+      .post("http://18.229.118.205:8686/admin/titulo/list")
       .then((res) => {
         this.titulos = res.data;
       })
@@ -142,7 +142,7 @@ export default defineComponent({
         console.log(err);
       });
     axios
-      .post("http://localhost:8686/admin/artigo/list")
+      .post("http://18.229.118.205:8686/admin/artigo/list")
       .then((res) => {
         console.log(res)
         this.artigos = res.data;
@@ -152,33 +152,33 @@ export default defineComponent({
         console.log(err);
       });
     axios
-      .post("http://localhost:8686/admin/capitulo/list")
+      .post("http://18.229.118.205:8686/admin/capitulo/list")
       .then((res) => {
         this.capitulos = res.data;
       })
       .catch((err) => {
         console.log(err);
       });
-    axios.post("http://localhost:8686/admin/secao/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/secao/list").then(res => {
       this.secoes = res.data;
       this.secoes = this.secoes.filter(c => c.id_capitulo === this.capitulo.id)
     }).catch(err => {
       console.log(err);
     });
 
-    axios.post("http://localhost:8686/admin/subsecao/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/subsecao/list").then(res => {
       this.subsecoes = res.data;
       this.subsecoes = this.subsecoes.filter(c => c.id_secao === this.secao.id)
 
     }).catch(err => {
       console.log(err);
     });
-    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
       this.conteudo = res.data;
     }).catch(err => {
       console.log(err);
 
-    }); axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
+    }); axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
       this.conteudo = res.data;
     }).catch(err => {
       console.log(err);

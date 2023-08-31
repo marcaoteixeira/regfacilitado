@@ -123,12 +123,12 @@
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
 
-                <template v-if="inciso.qordensConteudos">
+                <template v-if="inciso.qordensConteudosp">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
                     class="bg-teal-1">
                     <q-card class="bg-teal-0">
                       <q-card-section>
-                        <span v-html=inciso.qordensConteudos></span> </q-card-section>
+                        <span v-html=inciso.qordensConteudosp></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
                 </template><br>
@@ -322,7 +322,7 @@ export default defineComponent({
         });
 
         this.incisos.map(qoinc => {
-          const qosDesteInciso = this.qordens.filter(qordem => (qoinc.id === qordem.id_inciso && qordem.id_tipo === 8))
+          const qosDesteInciso = this.qordens.filter(qordem => (qoinc.id === qordem.id_inciso && qordem.id_paragrafo === null && qordem.id_tipo === 8))
           qoinc.qordensConteudos = null;
           if (!Array.isArray(qosDesteInciso) || !qosDesteInciso.length) {
             return qoinc;
@@ -335,8 +335,22 @@ export default defineComponent({
 
           return qoinc;
         });
+        this.incisos.map(qoincp => {
+          const qosDesteIncisop = this.qordens.filter(qordem => (qoincp.id === qordem.id_inciso && qordem.id_paragrafo != null && qordem.id_tipo === 8))
+          qoincp.qordensConteudosp = null;
+          if (!Array.isArray(qosDesteIncisop) || !qosDesteIncisop.length) {
+            return qoincp;
+          }
+          qoincp.showDialog = false;
+          qoincp.qordensConteudosp = qosDesteIncisop
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return qoincp;
+        });
         this.alineas.map(qoali => {
-          const qosDestaAlinea = this.qordens.filter(qordem => (qoali.id === qordem.id_inciso && qordem.id_tipo === 8))
+          const qosDestaAlinea = this.qordens.filter(qordem => (qoali.id === qordem.id_alinea && qordem.id_tipo === 8))
           qoali.qordensConteudos = null;
           if (!Array.isArray(qosDestaAlinea) || !qosDestaAlinea.length) {
             return qoali;
