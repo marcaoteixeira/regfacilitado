@@ -18,6 +18,17 @@
                 </q-card>
               </q-expansion-item>
             </template><br>
+
+            <template v-if="artigo.praticasConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=artigo.praticasConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
+
           </template>
 
         </span>
@@ -33,6 +44,16 @@
                 </q-card>
               </q-expansion-item>
             </template><br>
+
+            <template v-if="inciso.praticasConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=inciso.praticasConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
 
             <template v-if="inciso.notasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
@@ -54,6 +75,14 @@
                     <q-card class="bg-teal-0">
                       <q-card-section>
                         <span v-html=alinea.qordensConteudos></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template>
+                <template v-if="alinea.praticasConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=alinea.praticasConteudos></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
                 </template>
@@ -85,6 +114,15 @@
                 <q-card class="bg-teal-0">
                   <q-card-section>
                     <span v-html=paragrafo.qordensConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
+            <template v-if="paragrafo.praticasConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=paragrafo.praticasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
             </template><br>
@@ -133,6 +171,15 @@
                   </q-expansion-item>
                 </template><br>
 
+                <template v-if="inciso.praticasConteudosp">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Praticas" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=inciso.praticasConteudosp></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template><br>
+
                 <template v-if="inciso.notasConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                     <q-card class="bg-teal-0">
@@ -152,6 +199,14 @@
                         <q-card class="bg-teal-0">
                           <q-card-section>
                             <span v-html=alinea.qordensConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+                    <template v-if="alinea.praticasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=alinea.praticasConteudos></span> </q-card-section>
                         </q-card>
                       </q-expansion-item>
                     </template>
@@ -188,7 +243,7 @@ export default defineComponent({
 
   created() {
 
-    const artigoPromise = axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
+    const artigoPromise = axios.get("http://localhost:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
       //this.artigos = res.data;
       this.id = res.data.id
@@ -198,7 +253,7 @@ export default defineComponent({
       console.log(err);
     })
 
-    const artigosPromise = axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
+    const artigosPromise = axios.post("http://localhost:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = res.data;
       this.artigos = this.artigos.filter(c => c.id == this.id)
@@ -206,27 +261,20 @@ export default defineComponent({
       console.log(err);
     });
 
-    const incisoPromise = axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
+    const incisoPromise = axios.post("http://localhost:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
     }).catch(err => {
       console.log(err);
     });
-    const alineaPromise = axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
+    const alineaPromise = axios.post("http://localhost:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-    const qosPromise = axios.post("http://18.229.118.205:8686/listqordem").then(res => {
-      this.qordens = res.data.map(qordem => ({ ...qordem, showDialog: false }));
-      return this.qordens;
-    }).catch(err => {
-      console.log(err);
-    });
-
-    const parPromise = axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
+    const parPromise = axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
       return this.paragrafos;
@@ -234,14 +282,29 @@ export default defineComponent({
       console.log(err);
     });
 
-    const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
+    const qosPromise = axios.post("http://localhost:8686/listqordem").then(res => {
+      this.qordens = res.data.map(qordem => ({ ...qordem, showDialog: false }));
+      return this.qordens;
+    }).catch(err => {
+      console.log(err);
+    });
+
+    const praPromise = axios.post("http://localhost:8686/listpratica").then(res => {
+      this.praticas = res.data.map(pratica => ({ ...pratica, showDialog: false }));
+      return this.praticas;
+    }).catch(err => {
+      console.log(err);
+    });
+
+    const notasPromise = axios.post("http://localhost:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
       return this.notas;
     }).catch(err => {
       console.log(err);
     });
 
-    Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise, artigosPromise, artigoPromise])
+    Promise.all([parPromise, notasPromise, incisoPromise, alineaPromise, qosPromise, artigosPromise, artigoPromise,
+      praPromise])
       .then((rets) => {
 
         // Pega as notas
@@ -364,6 +427,81 @@ export default defineComponent({
           return qoali;
         });
 
+        //pega as práticas
+
+        this.artigos.map(praart => {
+          const praDesteArtigo = this.praticas.filter(pratica => (praart.id === pratica.id_artigo && pratica.id_paragrafo === null && pratica.id_inciso === null && pratica.id_alinea === null && pratica.id_tipo === 15))
+          praart.praticasConteudos = null;
+          if (!Array.isArray(praDesteArtigo) || !praDesteArtigo.length) {
+            return praart;
+          }
+          praart.showDialog = false;
+          praart.praticasConteudos = praDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return praart;
+        });
+
+        this.paragrafos.map(prapar => {
+          const praDesteParagrafo = this.praticas.filter(pratica => (prapar.id === pratica.id_paragrafo && pratica.id_inciso === null && pratica.id_alinea === null && pratica.id_tipo === 15))
+          prapar.praticasConteudos = null;
+          if (!Array.isArray(praDesteParagrafo) || !praDesteParagrafo.length) {
+            return prapar;
+          }
+          prapar.showDialog = false;
+          prapar.praticasConteudos = praDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return prapar;
+        });
+
+        this.incisos.map(prainc => {
+          const praDesteInciso = this.praticas.filter(pratica => (prainc.id === pratica.id_inciso && pratica.id_paragrafo === null && pratica.id_tipo === 15))
+          prainc.praticasConteudos = null;
+          if (!Array.isArray(praDesteInciso) || !praDesteInciso.length) {
+            return prainc;
+          }
+          prainc.showDialog = false;
+          prainc.praticasConteudos = praDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return prainc;
+        });
+        this.incisos.map(praincp => {
+          const praDesteIncisop = this.praticas.filter(pratica => (praincp.id === pratica.id_inciso && pratica.id_paragrafo != null && pratica.id_tipo === 8))
+          praincp.praticasConteudosp = null;
+          if (!Array.isArray(praDesteIncisop) || !praDesteIncisop.length) {
+            return praincp;
+          }
+          praincp.showDialog = false;
+          praincp.praticasConteudosp = praDesteIncisop
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return praincp;
+        });
+        this.alineas.map(praali => {
+          const praDestaAlinea = this.praticas.filter(pratica => (praali.id === pratica.id_alinea && pratica.id_tipo === 15))
+          praali.praticasConteudos = null;
+          if (!Array.isArray(praDestaAlinea) || !praDestaAlinea.length) {
+            return praali;
+          }
+          praali.showDialog = false;
+          praali.praticasConteudos = praDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return praali;
+        });
+
       })
   },
   data() {
@@ -383,5 +521,5 @@ export default defineComponent({
   },
 
 });
-
+//atualizar
 </script>
