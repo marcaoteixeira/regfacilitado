@@ -65,8 +65,8 @@
             </template>
 
 
-            <span v-for="     alinea      in      alineas     " :key="alinea.id">
-              <template v-if="inciso.id === alinea.id_inciso">
+            <span v-for="alinea in alineas" :key="alinea.id">
+              <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                 <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
 
                 <template v-if="alinea.qordensConteudos">
@@ -151,15 +151,9 @@
                 </q-card>
               </q-expansion-item>
             </template>
-
-
-
-
-
             <span v-for="      inciso       in       incisos      " :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
-
 
                 <template v-if="inciso.qordensConteudosp">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
@@ -190,7 +184,7 @@
                 </template>
 
                 <span v-for="      alinea       in       alineas      " :key="alinea.id">
-                  <template v-if="inciso.id === alinea.id_inciso">
+                  <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
                     <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
 
                     <template v-if="alinea.qordensConteudos">
