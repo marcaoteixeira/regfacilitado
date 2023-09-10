@@ -3,8 +3,13 @@
     <!--<h5>Artigos</h5>-->
     <q-card>
       <q-card-section>
+<<<<<<< HEAD
         <span class="text-body1">{{ artigo }}</span>
         <span class="text-body1" v-html="caput"></span>
+=======
+        <div class="text-body1">{{ artigo }}</div>
+        <div class="text-body1" v-html="caput"></div>
+>>>>>>> 70052d094c14589877c8c3583a221f11222b96ef
         <span v-for="artigo in      artigos     " :key="artigo.id">
           <!--<p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
           </p> -->
