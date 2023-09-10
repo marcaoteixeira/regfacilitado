@@ -28,6 +28,17 @@
               </q-expansion-item>
             </template><br>
 
+            <template v-if="artigo.decisoesConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon=""
+                label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=artigo.decisoesConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
+
             <template v-if="artigo.praticasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
                 <q-card class="bg-teal-0">
@@ -59,6 +70,16 @@
                 <q-card class="bg-teal-0">
                   <q-card-section>
                     <span v-html=inciso.consultasConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
+            <template v-if="inciso.decisoesConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon=""
+                label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=inciso.decisoesConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
             </template><br>
@@ -106,6 +127,16 @@
                   </q-expansion-item>
                 </template>
 
+                <template v-if="alinea.decisoesConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon=""
+                    label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=alinea.decisoesConteudos></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template><br>
+
                 <template v-if="alinea.praticasConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
                     <q-card class="bg-teal-0">
@@ -151,6 +182,16 @@
                 <q-card class="bg-teal-0">
                   <q-card-section>
                     <span v-html=paragrafo.consultasConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template><br>
+
+            <template v-if="paragrafo.decisoesConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon=""
+                label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=paragrafo.decisoesConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
             </template><br>
@@ -211,6 +252,16 @@
                   </q-expansion-item>
                 </template><br>
 
+                <template v-if="inciso.decisoesConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon=""
+                    label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=inciso.decisoesConteudosp></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template><br>
+
                 <template v-if="inciso.praticasConteudosp">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Praticas" class="bg-teal-1">
                     <q-card class="bg-teal-0">
@@ -251,6 +302,16 @@
                         </q-card>
                       </q-expansion-item>
                     </template>
+
+                    <template v-if="alinea.decisoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon=""
+                        label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=alinea.decisoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template><br>
 
                     <template v-if="alinea.praticasConteudos">
                       <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
@@ -568,78 +629,229 @@ export default defineComponent({
         });
         //pega as consultas
 
-        this.artigos.map(praart => {
-          const praDesteArtigo = this.praticas.filter(pratica => (praart.id === pratica.id_artigo && pratica.id_paragrafo === null && pratica.id_inciso === null && pratica.id_alinea === null && pratica.id_tipo === 15))
-          praart.praticasConteudos = null;
-          if (!Array.isArray(praDesteArtigo) || !praDesteArtigo.length) {
-            return praart;
+        this.artigos.map(conart => {
+          const conDesteArtigo = this.consultas.filter(consulta => (conart.id === consulta.id_artigo && consulta.id_paragrafo === null && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
+          conart.consultasConteudos = null;
+          if (!Array.isArray(conDesteArtigo) || !conDesteArtigo.length) {
+            return conart;
           }
-          praart.showDialog = false;
-          praart.praticasConteudos = praDesteArtigo
+          conart.showDialog = false;
+          conart.consultasConteudos = conDesteArtigo
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return praart;
+          return conart;
         });
 
-        this.paragrafos.map(prapar => {
-          const praDesteParagrafo = this.praticas.filter(pratica => (prapar.id === pratica.id_paragrafo && pratica.id_inciso === null && pratica.id_alinea === null && pratica.id_tipo === 15))
-          prapar.praticasConteudos = null;
-          if (!Array.isArray(praDesteParagrafo) || !praDesteParagrafo.length) {
-            return prapar;
+        this.paragrafos.map(conpar => {
+          const conDesteParagrafo = this.consultas.filter(consulta => (conpar.id === consulta.id_paragrafo && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
+          conpar.consultasConteudos = null;
+          if (!Array.isArray(conDesteParagrafo) || !conDesteParagrafo.length) {
+            return conpar;
           }
-          prapar.showDialog = false;
-          prapar.praticasConteudos = praDesteParagrafo
+          conpar.showDialog = false;
+          conpar.consultasConteudos = conDesteParagrafo
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return prapar;
+          return conpar;
         });
 
-        this.incisos.map(prainc => {
-          const praDesteInciso = this.praticas.filter(pratica => (prainc.id === pratica.id_inciso && pratica.id_paragrafo === null && pratica.id_tipo === 15))
-          prainc.praticasConteudos = null;
-          if (!Array.isArray(praDesteInciso) || !praDesteInciso.length) {
-            return prainc;
+        this.incisos.map(coninc => {
+          const conDesteInciso = this.consultas.filter(consulta => (coninc.id === consulta.id_inciso && consulta.id_paragrafo === null && consulta.id_tipo === 9))
+          coninc.consultasConteudos = null;
+          if (!Array.isArray(conDesteInciso) || !conDesteInciso.length) {
+            return coninc;
           }
-          prainc.showDialog = false;
-          prainc.praticasConteudos = praDesteInciso
+          coninc.showDialog = false;
+          coninc.consultasConteudos = conDesteInciso
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return prainc;
+          return coninc;
         });
-        this.incisos.map(praincp => {
-          const praDesteIncisop = this.praticas.filter(pratica => (praincp.id === pratica.id_inciso && pratica.id_paragrafo != null && pratica.id_tipo === 8))
-          praincp.praticasConteudosp = null;
-          if (!Array.isArray(praDesteIncisop) || !praDesteIncisop.length) {
-            return praincp;
+        this.incisos.map(conincp => {
+          const conDesteIncisop = this.consultas.filter(consulta => (conincp.id === consulta.id_inciso && consulta.id_paragrafo != null && consulta.id_tipo === 8))
+          conincp.consultasConteudosp = null;
+          if (!Array.isArray(conDesteIncisop) || !conDesteIncisop.length) {
+            return conincp;
           }
-          praincp.showDialog = false;
-          praincp.praticasConteudosp = praDesteIncisop
+          conincp.showDialog = false;
+          conincp.consultasConteudosp = conDesteIncisop
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return praincp;
+          return conincp;
         });
-        this.alineas.map(praali => {
-          const praDestaAlinea = this.praticas.filter(pratica => (praali.id === pratica.id_alinea && pratica.id_tipo === 15))
-          praali.praticasConteudos = null;
-          if (!Array.isArray(praDestaAlinea) || !praDestaAlinea.length) {
-            return praali;
+        this.alineas.map(conali => {
+          const conDestaAlinea = this.consultas.filter(consulta => (conali.id === consulta.id_alinea && consulta.id_tipo === 9))
+          conali.consultasConteudos = null;
+          if (!Array.isArray(conDestaAlinea) || !conDestaAlinea.length) {
+            return conali;
           }
-          praali.showDialog = false;
-          praali.praticasConteudos = praDestaAlinea
+          conali.showDialog = false;
+          conali.consultasConteudos = conDestaAlinea
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return praali;
+          return conali;
         });
+
+        //pega as consultas
+
+        this.artigos.map(conart => {
+          const conDesteArtigo = this.consultas.filter(consulta => (conart.id === consulta.id_artigo && consulta.id_paragrafo === null && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
+          conart.consultasConteudos = null;
+          if (!Array.isArray(conDesteArtigo) || !conDesteArtigo.length) {
+            return conart;
+          }
+          conart.showDialog = false;
+          conart.consultasConteudos = conDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return conart;
+        });
+
+        this.paragrafos.map(conpar => {
+          const conDesteParagrafo = this.consultas.filter(consulta => (conpar.id === consulta.id_paragrafo && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
+          conpar.consultasConteudos = null;
+          if (!Array.isArray(conDesteParagrafo) || !conDesteParagrafo.length) {
+            return conpar;
+          }
+          conpar.showDialog = false;
+          conpar.consultasConteudos = conDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return conpar;
+        });
+
+        this.incisos.map(coninc => {
+          const conDesteInciso = this.consultas.filter(consulta => (coninc.id === consulta.id_inciso && consulta.id_paragrafo === null && consulta.id_tipo === 9))
+          coninc.consultasConteudos = null;
+          if (!Array.isArray(conDesteInciso) || !conDesteInciso.length) {
+            return coninc;
+          }
+          coninc.showDialog = false;
+          coninc.consultasConteudos = conDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return coninc;
+        });
+        this.incisos.map(conincp => {
+          const conDesteIncisop = this.consultas.filter(consulta => (conincp.id === consulta.id_inciso && consulta.id_paragrafo != null && consulta.id_tipo === 9))
+          conincp.consultasConteudosp = null;
+          if (!Array.isArray(conDesteIncisop) || !conDesteIncisop.length) {
+            return conincp;
+          }
+          conincp.showDialog = false;
+          conincp.consultasConteudosp = conDesteIncisop
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return conincp;
+        });
+        this.alineas.map(conali => {
+          const conDestaAlinea = this.consultas.filter(consulta => (conali.id === consulta.id_alinea && consulta.id_tipo === 9))
+          conali.consultasConteudos = null;
+          if (!Array.isArray(conDestaAlinea) || !conDestaAlinea.length) {
+            return conali;
+          }
+          conali.showDialog = false;
+          conali.consultasConteudos = conDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return conali;
+        });
+
+        //pega as decisões da Presidência
+
+        this.artigos.map(decpart => {
+          const decpDesteArtigo = this.decisoes.filter(decisao => (decpart.id === decisao.id_artigo && decisao.id_paragrafo === null && decisao.id_inciso === null && decisao.id_alinea === null && decisao.id_tipo === 10))
+          decpart.decisoesConteudos = null;
+          if (!Array.isArray(decpDesteArtigo) || !decpDesteArtigo.length) {
+            return decpart;
+          }
+          decpart.showDialog = false;
+          decpart.decisoesConteudos = decpDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return decpart;
+        });
+
+        this.paragrafos.map(decppar => {
+          const decpDesteParagrafo = this.decisoes.filter(decisao => (decppar.id === decisao.id_paragrafo && decisao.id_inciso === null && decisao.id_alinea === null && decisao.id_tipo === 10))
+          decppar.decisoesConteudos = null;
+          if (!Array.isArray(decpDesteParagrafo) || !decpDesteParagrafo.length) {
+            return decppar;
+          }
+          decppar.showDialog = false;
+          decppar.decisoesConteudos = decpDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return decppar;
+        });
+
+        this.incisos.map(decpinc => {
+          const decpDesteInciso = this.decisoes.filter(decisao => (decpinc.id === decisao.id_inciso && decisao.id_paragrafo === null && decisao.id_tipo === 10))
+          decpinc.decisoesConteudos = null;
+          if (!Array.isArray(decpDesteInciso) || !decpDesteInciso.length) {
+            return decpinc;
+          }
+          decpinc.showDialog = false;
+          decpinc.decisoesConteudos = decpDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return decpinc;
+        });
+        this.incisos.map(decpincp => {
+          const decpDesteIncisop = this.decisoes.filter(decisao => (decpincp.id === decisao.id_inciso && decisao.id_paragrafo != null && decisao.id_tipo === 10))
+          decpincp.decisoesConteudosp = null;
+          if (!Array.isArray(decpDesteIncisop) || !decpDesteIncisop.length) {
+            return conincp;
+          }
+          decpincp.showDialog = false;
+          decpincp.decisoesConteudosp = decpDesteIncisop
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return decpincp;
+        });
+        this.alineas.map(decpali => {
+          const decpDestaAlinea = this.decisoes.filter(decisao => (decpali.id === decisao.id_alinea && decisao.id_tipo === 10))
+          conali.consultasConteudos = null;
+          if (!Array.isArray(conDestaAlinea) || !conDestaAlinea.length) {
+            return conali;
+          }
+          decpali.showDialog = false;
+          decpali.decisoesConteudos = decpDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return decpali;
+        });
+
 
       })
   },
