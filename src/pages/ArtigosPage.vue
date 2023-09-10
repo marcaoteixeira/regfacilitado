@@ -349,6 +349,7 @@ export default defineComponent({
       console.log(err);
     });
 
+<<<<<<< HEAD
     const conPromise = axios.post("http://18.229.118.205:8686/listconsulta").then(res => {
       this.consultas = res.data.map(consulta => ({ ...consulta, showDialog: false }));
       return this.consultas;
@@ -372,6 +373,8 @@ export default defineComponent({
 
 
 
+=======
+>>>>>>> 197cb27542dcdf7ec060a0bb561dbc091e10c20a
     const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
       return this.notas;
