@@ -3,11 +3,11 @@
     <!--<h5>Artigos</h5>-->
     <q-card>
       <q-card-section>
-        <!-- <div class="text-body1">{{ artigo }}</div>
-        <div class="text-body1" v-html="caput"></div> -->
+        <div class="text-body1">{{ artigo }}</div>
+        <div class="text-body1" v-html="caput"></div>
         <span v-for="artigo in      artigos     " :key="artigo.id">
-          <p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
-          </p>
+          <!-- <p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
+          </p>-->
           <template v-if="artigo.id != null">
 
             <template v-if="artigo.qordensConteudos">
