@@ -3,13 +3,9 @@
     <!--<h5>Artigos</h5>-->
     <q-card>
       <q-card-section>
-<<<<<<< HEAD
         <span class="text-body1">{{ artigo }}</span>
         <span class="text-body1" v-html="caput"></span>
-=======
-        <div class="text-body1">{{ artigo }}</div>
-        <div class="text-body1" v-html="caput"></div>
->>>>>>> 70052d094c14589877c8c3583a221f11222b96ef
+
         <span v-for="artigo in      artigos     " :key="artigo.id">
           <!--<p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
           </p> -->
@@ -349,7 +345,6 @@ export default defineComponent({
       console.log(err);
     });
 
-<<<<<<< HEAD
     const conPromise = axios.post("http://18.229.118.205:8686/listconsulta").then(res => {
       this.consultas = res.data.map(consulta => ({ ...consulta, showDialog: false }));
       return this.consultas;
@@ -373,8 +368,6 @@ export default defineComponent({
 
 
 
-=======
->>>>>>> 197cb27542dcdf7ec060a0bb561dbc091e10c20a
     const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
       return this.notas;
@@ -401,7 +394,7 @@ export default defineComponent({
             }, '<ul>') + '</ul>'
           return par
 
-          return qopar;
+          return par;
         });
         this.incisos.map(inc => {
           const notasDesteInciso = this.notas.filter(nota => (inc.id === nota.id_inciso && nota.id_tipo === 18))
