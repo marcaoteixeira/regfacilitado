@@ -7,7 +7,7 @@
         <div class="text-body1" v-html="caput"></div>
 
         <span v-for="inciso in incisos" :key="inciso.id">
-          <template v-if="id === inciso.id_artigo">
+          <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
             <span v-for="alinea in alineas" :key="alinea.id">
               <template v-if="inciso.id === alinea.id_inciso">
@@ -17,46 +17,50 @@
           </template>
         </span>
 
-        <span v-for="paragrafo in paragrafos" :key="paragrafo.id">
+        <span v-for="paragrafo in  paragrafos " :key="paragrafo.id">
           <template v-if="id === paragrafo.id_artigo">
             <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
-            </p><br>
-            <span v-for="conteudo in conteudos" :key="conteudo.id">
-              <template v-if="paragrafo.id === conteudo.id_paragrafo && conteudo.id_tipo === 18">
-                <!-- <span text-color="black">Notas</span>
-                <span v-html=conteudo.conteudo></span> -->
+            </p>
+            <span v-for="nota in  notas " :key="nota.id">
+              <template v-if="paragrafo.id === nota.id_paragrafo && nota.id_tipo === 18">
 
-                <q-dialog v-model="conteudo.showDialog">
+                <q-dialog v-model="co.showDialog">
+                  <q-dialog v-model="nota.showDialog">
+                    >>>>>>> eff1be251651befdf3aff0d81270e848982fd144
+                    <q-card>
+                      <q-card-section>
+                        <div>Notas</div>
+                      </q-card-section>
+                      <q-separator />
+                      <q-card-section style="max-height: 50vh" class="scroll">
+                        <span v-html="nota.conteudo"></span>
+                      </q-card-section>
+                      <q-separator />
+                      <q-card-actions align="right">
+                        <q-btn flat label="Fechar" color="primary" v-close-popup />
+                      </q-card-actions>
+                    </q-card>
+                  </q-dialog>
+                  <q-btn label="Notas" @click="conteudo.showDialog = true" />
+
+
+                  <q-btn label="Notas" @click="nota.showDialog = true" />
+                  <!-- <q-expansion-item dense dense-toggle expand-separator icon="edit" label="Notas">
                   <q-card>
-                    <q-card-section>
-                      <div>Notas</div>
-                    </q-card-section>
+                    <q-card-section v-model="conteudo.showDialog">
+                      <span v-html=conteudo.conteudo></span> </q-card-section>
 
-                    <q-separator />
-
-                    <q-card-section style="max-height: 50vh" class="scroll">
-
-                      <span v-html=conteudo.conteudo></span>
-
-                    </q-card-section>
-
-                    <q-separator />
-
-                    <q-card-actions align="right">
-                      <q-btn flat label="Fechar" color="primary" v-close-popup />
-                    </q-card-actions>
                   </q-card>
-                </q-dialog>
-                <q-btn label="Notas" @click="conteudo.showDialog = true" />
+                </q-expansion-item> -->
 
               </template>
 
             </span>
 
-            <span v-for="inciso in incisos" :key="inciso.id">
+            <span v-for=" inciso  in  incisos " :key="inciso.id">
               <template v-if="paragrafo.id === inciso.id_paragrafo">
                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
-                <span v-for="alinea in alineas" :key="alinea.id">
+                <span v-for=" alinea  in  alineas " :key="alinea.id">
                   <template v-if="inciso.id === alinea.id_inciso">
                     <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
                   </template>
@@ -75,7 +79,7 @@ import { defineComponent } from "vue";
 import axios from "axios";
 
 export default defineComponent({
-  created() {
+  /*created() {
 
     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -115,9 +119,14 @@ export default defineComponent({
     }).catch(err => {
       console.log(err);
     });
+<<<<<<< HEAD
   },
 
   /*created() {
+
+  },*/
+  /*djasdjasd*/
+  created() {
 
     axios.post("http://localhost:8686/admin/inciso/list").then(res => {
       console.log(res);
@@ -149,11 +158,22 @@ export default defineComponent({
     });
     axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
+      // for (const conteudo of this.conteudos) {
+      //  conteudo.showDialog = false;
+      // }
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/listnota").then(res => {
+      this.notas = res.data;
+      for (const nota of this.notas) {
+        nota.showDialog = false;
+      }
     }).catch(err => {
       console.log(err);
     });
 
-  },*/
+  },
 
   data() {
     return {
@@ -163,12 +183,13 @@ export default defineComponent({
       paragrafos: [],
       alineas: [],
       conteudos: [],
+      notas: [],
       showDialog: false,
-
 
     }
 
   },
+
 });
 
 </script>

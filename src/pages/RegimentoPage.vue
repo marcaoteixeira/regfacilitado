@@ -10,7 +10,7 @@
             <template v-if="titulo.id === artigo.id_titulo && artigo.id_capitulo === null">
               <span>
 
-                <q-btn color="white">
+                <q-btn color="black">
                   <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                     <span font-color="white">{{ artigo.artigo }}</span>
                   </router-link>
@@ -28,7 +28,7 @@
                 <template v-if="capitulo.id === artigo.id_capitulo && artigo.id_secao === null">
                   <span>
 
-                    <q-btn color="white">
+                    <q-btn color="black">
                       <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                         <span font-color="white">{{ artigo.artigo }}</span>
                       </router-link>
@@ -44,7 +44,7 @@
                     <template v-if="secao.id === artigo.id_secao && artigo.id_subsecao === null">
                       <span>
 
-                        <q-btn color="white">
+                        <q-btn color="black">
                           <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                             <span font-color="white">{{ artigo.artigo }}</span>
                           </router-link>
@@ -60,7 +60,7 @@
                         <template v-if="subsecao.id === artigo.id_subsecao">
                           <span>
 
-                            <q-btn color="white">
+                            <q-btn color="black">
                               <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
                                 <span font-color="white">{{ artigo.artigo }}</span>
                               </router-link>
@@ -91,52 +91,9 @@ import {
 import axios from "axios";
 
 export default defineComponent({
-  created() {
-    axios
-      .post("http://18.229.118.205:8686/admin/titulo/list")
-      .then((res) => {
-        this.titulos = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    axios
-      .post("http://18.229.118.205:8686/admin/artigo/list")
-      .then((res) => {
-        console.log(res)
-        this.artigos = res.data;
-
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    axios
-      .post("http://18.229.118.205:8686/admin/capitulo/list")
-      .then((res) => {
-        this.capitulos = res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    axios.post("http://18.229.118.205:8686/admin/secao/list").then(res => {
-      this.secoes = res.data;
-      this.secoes = this.secoes.filter(c => c.id_capitulo === this.capitulo.id)
-    }).catch(err => {
-      console.log(err);
-    });
-
-    axios.post("http://18.229.118.205:8686/admin/subsecao/list").then(res => {
-      this.subsecoes = res.data;
-      this.subsecoes = this.subsecoes.filter(c => c.id_secao === this.secao.id)
-
-    }).catch(err => {
-      console.log(err);
-    });
-
-  },
   /* created() {
      axios
-       .post("http://localhost:8686/admin/titulo/list")
+       .post("http://18.229.118.205:8686/admin/titulo/list")
        .then((res) => {
          this.titulos = res.data;
        })
@@ -144,7 +101,7 @@ export default defineComponent({
          console.log(err);
        });
      axios
-       .post("http://localhost:8686/admin/artigo/list")
+       .post("http://18.229.118.205:8686/admin/artigo/list")
        .then((res) => {
          console.log(res)
          this.artigos = res.data;
@@ -154,33 +111,76 @@ export default defineComponent({
          console.log(err);
        });
      axios
-       .post("http://localhost:8686/admin/capitulo/list")
+       .post("http://18.229.118.205:8686/admin/capitulo/list")
        .then((res) => {
          this.capitulos = res.data;
        })
        .catch((err) => {
          console.log(err);
        });
-     axios.post("http://localhost:8686/admin/secao/list").then(res => {
+     axios.post("http://18.229.118.205:8686/admin/secao/list").then(res => {
        this.secoes = res.data;
        this.secoes = this.secoes.filter(c => c.id_capitulo === this.capitulo.id)
      }).catch(err => {
        console.log(err);
      });
 
-     axios.post("http://localhost:8686/admin/subsecao/list").then(res => {
+     axios.post("http://18.229.118.205:8686/admin/subsecao/list").then(res => {
        this.subsecoes = res.data;
        this.subsecoes = this.subsecoes.filter(c => c.id_secao === this.secao.id)
 
      }).catch(err => {
        console.log(err);
      });
-     axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
-       this.conteudo = res.data;
-     }).catch(err => {
-       console.log(err);
-     });*/
 
+   },*/
+  created() {
+    axios
+      .post("http://localhost:8686/admin/titulo/list")
+      .then((res) => {
+        this.titulos = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .post("http://localhost:8686/admin/artigo/list")
+      .then((res) => {
+        console.log(res)
+        this.artigos = res.data;
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .post("http://localhost:8686/admin/capitulo/list")
+      .then((res) => {
+        this.capitulos = res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios.post("http://localhost:8686/admin/secao/list").then(res => {
+      this.secoes = res.data;
+      this.secoes = this.secoes.filter(c => c.id_capitulo === this.capitulo.id)
+    }).catch(err => {
+      console.log(err);
+    });
+
+    axios.post("http://localhost:8686/admin/subsecao/list").then(res => {
+      this.subsecoes = res.data;
+      this.subsecoes = this.subsecoes.filter(c => c.id_secao === this.secao.id)
+
+    }).catch(err => {
+      console.log(err);
+    });
+    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
+      this.conteudo = res.data;
+    }).catch(err => {
+      console.log(err);
+    });
+  },
 
   data() {
     return {
@@ -197,3 +197,13 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+q-btn {
+  background-color: #0c8367;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+</style>
