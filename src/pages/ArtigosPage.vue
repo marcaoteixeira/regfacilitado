@@ -18,6 +18,7 @@
                 </q-card>
               </q-expansion-item>
             </template><br>
+
             <template v-if="artigo.consultasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
                 <q-card class="bg-teal-0">
@@ -567,77 +568,77 @@ export default defineComponent({
         });
         //pega as consultas
 
-        this.artigos.map(conart => {
-          const conDesteArtigo = this.consultas.filter(consulta => (conart.id === consulta.id_artigo && consulta.id_paragrafo === null && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
-          conart.consultasConteudos = null;
-          if (!Array.isArray(conDesteArtigo) || !conDesteArtigo.length) {
-            return conart;
+        this.artigos.map(praart => {
+          const praDesteArtigo = this.praticas.filter(pratica => (praart.id === pratica.id_artigo && pratica.id_paragrafo === null && pratica.id_inciso === null && pratica.id_alinea === null && pratica.id_tipo === 15))
+          praart.praticasConteudos = null;
+          if (!Array.isArray(praDesteArtigo) || !praDesteArtigo.length) {
+            return praart;
           }
-          conart.showDialog = false;
-          conart.consultasConteudos = conDesteArtigo
+          praart.showDialog = false;
+          praart.praticasConteudos = praDesteArtigo
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return conart;
+          return praart;
         });
 
-        this.paragrafos.map(conpar => {
-          const conDesteParagrafo = this.consultas.filter(consulta => (conpar.id === consulta.id_paragrafo && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
-          conpar.consultasConteudos = null;
-          if (!Array.isArray(conDesteParagrafo) || !conDesteParagrafo.length) {
-            return conpar;
+        this.paragrafos.map(prapar => {
+          const praDesteParagrafo = this.praticas.filter(pratica => (prapar.id === pratica.id_paragrafo && pratica.id_inciso === null && pratica.id_alinea === null && pratica.id_tipo === 15))
+          prapar.praticasConteudos = null;
+          if (!Array.isArray(praDesteParagrafo) || !praDesteParagrafo.length) {
+            return prapar;
           }
-          conpar.showDialog = false;
-          conpar.consultasConteudos = conDesteParagrafo
+          prapar.showDialog = false;
+          prapar.praticasConteudos = praDesteParagrafo
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return conpar;
+          return prapar;
         });
 
-        this.incisos.map(coninc => {
-          const conDesteInciso = this.consultas.filter(consulta => (coninc.id === consulta.id_inciso && consulta.id_paragrafo === null && consulta.id_tipo === 9))
-          coninc.consultaConteudos = null;
-          if (!Array.isArray(conDesteInciso) || !conDesteInciso.length) {
-            return coninc;
+        this.incisos.map(prainc => {
+          const praDesteInciso = this.praticas.filter(pratica => (prainc.id === pratica.id_inciso && pratica.id_paragrafo === null && pratica.id_tipo === 15))
+          prainc.praticasConteudos = null;
+          if (!Array.isArray(praDesteInciso) || !praDesteInciso.length) {
+            return prainc;
           }
-          coninc.showDialog = false;
-          coninc.consultasConteudos = conDesteInciso
+          prainc.showDialog = false;
+          prainc.praticasConteudos = praDesteInciso
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return coninc;
+          return prainc;
         });
-        this.incisos.map(conincp => {
-          const conDesteIncisop = this.consultas.filter(consulta => (conincp.id === consulta.id_inciso && consulta.id_paragrafo != null && consulta.id_tipo === 9))
-          conincp.consultasConteudosp = null;
-          if (!Array.isArray(conDesteIncisop) || !conDesteIncisop.length) {
+        this.incisos.map(praincp => {
+          const praDesteIncisop = this.praticas.filter(pratica => (praincp.id === pratica.id_inciso && pratica.id_paragrafo != null && pratica.id_tipo === 8))
+          praincp.praticasConteudosp = null;
+          if (!Array.isArray(praDesteIncisop) || !praDesteIncisop.length) {
             return praincp;
           }
-          conincp.showDialog = false;
-          conincp.consultasConteudosp = conDesteIncisop
+          praincp.showDialog = false;
+          praincp.praticasConteudosp = praDesteIncisop
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return conincp;
+          return praincp;
         });
-        this.alineas.map(conali => {
-          const conDestaAlinea = this.consultas.filter(consulta => (conali.id === consulta.id_alinea && consulta.id_tipo === 9))
-          conali.consultasConteudos = null;
-          if (!Array.isArray(conDestaAlinea) || !conDestaAlinea.length) {
-            return conali;
+        this.alineas.map(praali => {
+          const praDestaAlinea = this.praticas.filter(pratica => (praali.id === pratica.id_alinea && pratica.id_tipo === 15))
+          praali.praticasConteudos = null;
+          if (!Array.isArray(praDestaAlinea) || !praDestaAlinea.length) {
+            return praali;
           }
-          conali.showDialog = false;
-          conali.consultasConteudos = conDestaAlinea
+          praali.showDialog = false;
+          praali.praticasConteudos = praDestaAlinea
             .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
             }, '<ul>') + '</ul>'
 
-          return conali;
+          return praali;
         });
 
       })
