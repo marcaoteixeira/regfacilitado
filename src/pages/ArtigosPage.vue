@@ -3,7 +3,7 @@
     <!--<h5>Artigos</h5>-->
     <q-card>
       <q-card-section>
-        <span class="text-body1">{{ artigo }}</span>
+        <span class="text-body1">{{ artigo }} - </span>
         <span class="text-body1" v-html="caput"></span>
 
         <span v-for="artigo in      artigos     " :key="artigo.id">
@@ -14,10 +14,10 @@
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem" class="bg-teal-1">
                 <q-card class="bg-teal-0">
                   <q-card-section>
-                    <span v-html=artigo.qordensConteudos></span> </q-card-section>
+                    <span v-html=artigo.qordensConteudos></span> </q-card-section><br>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="artigo.consultasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
@@ -26,7 +26,7 @@
                     <span v-html=artigo.consultasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="artigo.decisoesConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon=""
@@ -36,7 +36,16 @@
                     <span v-html=artigo.decisoesConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
+
+            <template v-if="artigo.recursosConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=artigo.recursosConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template>
 
 
             <template v-if="artigo.praticasConteudos">
@@ -46,7 +55,7 @@
                     <span v-html=artigo.praticasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
 
           </template>
@@ -63,7 +72,7 @@
                     <span v-html=inciso.qordensConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="inciso.consultasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
@@ -72,7 +81,7 @@
                     <span v-html=inciso.consultasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="inciso.decisoesConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon=""
@@ -80,6 +89,15 @@
                 <q-card class="bg-teal-0">
                   <q-card-section>
                     <span v-html=inciso.decisoesConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template>
+
+            <template v-if="inciso.recursosConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=inciso.recursosConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
             </template><br>
@@ -91,7 +109,7 @@
                     <span v-html=inciso.praticasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
 
             <template v-if="inciso.notasConteudos">
@@ -135,7 +153,16 @@
                         <span v-html=alinea.decisoesConteudos></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
-                </template><br>
+                </template>
+
+                <template v-if="alinea.recursosConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=alinea.recursosConteudos></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template>
 
                 <template v-if="alinea.praticasConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
@@ -175,7 +202,7 @@
                     <span v-html=paragrafo.qordensConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="paragrafo.consultasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
@@ -184,7 +211,7 @@
                     <span v-html=paragrafo.consultasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="paragrafo.decisoesConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon=""
@@ -194,7 +221,16 @@
                     <span v-html=paragrafo.decisoesConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
+
+            <template v-if="paragrafo.recursosConteudos">
+              <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                <q-card class="bg-teal-0">
+                  <q-card-section>
+                    <span v-html=paragrafo.recursosConteudos></span> </q-card-section>
+                </q-card>
+              </q-expansion-item>
+            </template>
 
             <template v-if="paragrafo.praticasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
@@ -203,7 +239,7 @@
                     <span v-html=paragrafo.praticasConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="paragrafo.notasConteudos">
               <!-- <q-dialog v-model="paragrafo.showDialog">
@@ -241,7 +277,7 @@
                         <span v-html=inciso.qordensConteudosp></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
-                </template><br>
+                </template>
 
                 <template v-if="inciso.consultasConteudosp">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
@@ -250,7 +286,7 @@
                         <span v-html=inciso.consultasConteudosp></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
-                </template><br>
+                </template>
 
                 <template v-if="inciso.decisoesConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon=""
@@ -260,7 +296,16 @@
                         <span v-html=inciso.decisoesConteudosp></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
-                </template><br>
+                </template>
+
+                <template v-if="inciso.recursosConteudosp">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=inciso.recursosConteudosp></span> </q-card-section>
+                    </q-card>
+                  </q-expansion-item>
+                </template>
 
                 <template v-if="inciso.praticasConteudosp">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Praticas" class="bg-teal-1">
@@ -269,7 +314,7 @@
                         <span v-html=inciso.praticasConteudosp></span> </q-card-section>
                     </q-card>
                   </q-expansion-item>
-                </template><br>
+                </template>
 
                 <template v-if="inciso.notasConteudos">
                   <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
@@ -311,7 +356,16 @@
                             <span v-html=alinea.decisoesConteudos></span> </q-card-section>
                         </q-card>
                       </q-expansion-item>
-                    </template><br>
+                    </template>
+
+                    <template v-if="alinea.recursosConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=alinea.recursosConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
 
                     <template v-if="alinea.praticasConteudos">
                       <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
@@ -422,13 +476,11 @@ export default defineComponent({
     });
 
     const recPromise = axios.post("http://18.229.118.205:8686/listrec").then(res => {
-      this.recs = res.data.map(rec => ({ ...rec, showDialog: false }));
-      return this.recs;
+      this.recursos = res.data.map(recurso => ({ ...recurso, showDialog: false }));
+      return this.recursos;
     }).catch(err => {
       console.log(err);
     });
-
-
 
     const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
@@ -456,7 +508,6 @@ export default defineComponent({
             }, '<ul>') + '</ul>'
           return par
 
-          return par;
         });
         this.incisos.map(inc => {
           const notasDesteInciso = this.notas.filter(nota => (inc.id === nota.id_inciso && nota.id_tipo === 18))
@@ -506,6 +557,19 @@ export default defineComponent({
 
 
         this.paragrafos.map(qopar => {
+          const qosDesteParagrafo = this.qordens.filter(qordem => (qopar.id === qordem.id_paragrafo && qordem.id_inciso === null && qordem.id_alinea === null && qordem.id_tipo === 8))
+          qopar.qordensConteudos = null;
+          if (!Array.isArray(qosDesteParagrafo) || !qosDesteParagrafo.length) {
+            return qopar;
+          }
+          qopar.showDialog = false;
+          qopar.qordensConteudos = qosDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return qopar;
+
 
         });
 
@@ -702,80 +766,6 @@ export default defineComponent({
           return conali;
         });
 
-        //pega as consultas
-
-        this.artigos.map(conart => {
-          const conDesteArtigo = this.consultas.filter(consulta => (conart.id === consulta.id_artigo && consulta.id_paragrafo === null && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
-          conart.consultasConteudos = null;
-          if (!Array.isArray(conDesteArtigo) || !conDesteArtigo.length) {
-            return conart;
-          }
-          conart.showDialog = false;
-          conart.consultasConteudos = conDesteArtigo
-            .reduce((conteudo, currentValue) => {
-              return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, '<ul>') + '</ul>'
-
-          return conart;
-        });
-
-        this.paragrafos.map(conpar => {
-          const conDesteParagrafo = this.consultas.filter(consulta => (conpar.id === consulta.id_paragrafo && consulta.id_inciso === null && consulta.id_alinea === null && consulta.id_tipo === 9))
-          conpar.consultasConteudos = null;
-          if (!Array.isArray(conDesteParagrafo) || !conDesteParagrafo.length) {
-            return conpar;
-          }
-          conpar.showDialog = false;
-          conpar.consultasConteudos = conDesteParagrafo
-            .reduce((conteudo, currentValue) => {
-              return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, '<ul>') + '</ul>'
-
-          return conpar;
-        });
-
-        this.incisos.map(coninc => {
-          const conDesteInciso = this.consultas.filter(consulta => (coninc.id === consulta.id_inciso && consulta.id_paragrafo === null && consulta.id_tipo === 9))
-          coninc.consultasConteudos = null;
-          if (!Array.isArray(conDesteInciso) || !conDesteInciso.length) {
-            return coninc;
-          }
-          coninc.showDialog = false;
-          coninc.consultasConteudos = conDesteInciso
-            .reduce((conteudo, currentValue) => {
-              return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, '<ul>') + '</ul>'
-
-          return coninc;
-        });
-        this.incisos.map(conincp => {
-          const conDesteIncisop = this.consultas.filter(consulta => (conincp.id === consulta.id_inciso && consulta.id_paragrafo != null && consulta.id_tipo === 9))
-          conincp.consultasConteudosp = null;
-          if (!Array.isArray(conDesteIncisop) || !conDesteIncisop.length) {
-            return conincp;
-          }
-          conincp.showDialog = false;
-          conincp.consultasConteudosp = conDesteIncisop
-            .reduce((conteudo, currentValue) => {
-              return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, '<ul>') + '</ul>'
-
-          return conincp;
-        });
-        this.alineas.map(conali => {
-          const conDestaAlinea = this.consultas.filter(consulta => (conali.id === consulta.id_alinea && consulta.id_tipo === 9))
-          conali.consultasConteudos = null;
-          if (!Array.isArray(conDestaAlinea) || !conDestaAlinea.length) {
-            return conali;
-          }
-          conali.showDialog = false;
-          conali.consultasConteudos = conDestaAlinea
-            .reduce((conteudo, currentValue) => {
-              return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, '<ul>') + '</ul>'
-
-          return conali;
-        });
 
         //pega as decisões da Presidência
 
@@ -852,6 +842,80 @@ export default defineComponent({
           return decpali;
         });
 
+        //pega os recursos
+
+        this.artigos.map(recart => {
+          const recDesteArtigo = this.recusos.filter(recurso => (recart.id === recurso.id_artigo && recurso.id_paragrafo === null && recurso.id_inciso === null && recurso.id_alinea === null && recurso.id_tipo === 12))
+          recart.recursosConteudos = null;
+          if (!Array.isArray(recDesteArtigo) || !recDesteArtigo.length) {
+            return recart;
+          }
+          recart.showDialog = false;
+          recart.recursosConteudos = recDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return recart;
+        });
+
+        this.paragrafos.map(recpar => {
+          const recDesteParagrafo = this.recursos.filter(recurso => (recpar.id === recurso.id_paragrafo && recurso.id_inciso === null && recurso.id_alinea === null && recurso.id_tipo === 12))
+          recpar.recursosConteudos = null;
+          if (!Array.isArray(recDesteParagrafo) || !recDesteParagrafo.length) {
+            return recpar;
+          }
+          recpar.showDialog = false;
+          recpar.recursosConteudos = recDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return recpar;
+        });
+
+        this.incisos.map(recinc => {
+          const recDesteInciso = this.recursos.filter(recurso => (recinc.id === recurso.id_inciso && recurso.id_paragrafo === null && recurso.id_tipo === 12))
+          recinc.recursosConteudos = null;
+          if (!Array.isArray(recDesteInciso) || !recDesteInciso.length) {
+            return recinc;
+          }
+          recinc.showDialog = false;
+          recinc.recursosConteudos = recDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return recinc;
+        });
+        this.incisos.map(recincp => {
+          const recDesteIncisop = this.recursos.filter(recurso => (recincp.id === recurso.id_inciso && recurso.id_paragrafo != null && recurso.id_tipo === 12))
+          recincp.recursosConteudosp = null;
+          if (!Array.isArray(conDesteIncisop) || !conDesteIncisop.length) {
+            return conincp;
+          }
+          recincp.showDialog = false;
+          recincp.recursosConteudosp = recDesteIncisop
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return recincp;
+        });
+        this.alineas.map(recali => {
+          const recDestaAlinea = this.recursos.filter(recurso => (recali.id === recurso.id_alinea && recurso.id_tipo === 12))
+          recali.recursosConteudos = null;
+          if (!Array.isArray(recDestaAlinea) || !recDestaAlinea.length) {
+            return recali;
+          }
+          recali.showDialog = false;
+          recali.recursosConteudos = recDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return recali;
+        });
 
       })
   },
