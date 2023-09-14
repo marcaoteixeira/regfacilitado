@@ -13,12 +13,14 @@ const routes = [
         component: () => import("pages/RegimentoPage.vue"),
       },
       {
+        path: "/regimentofull",
+        component: () => import("pages/RegimentoFull.vue"),
+      },
+      {
         path: "/artigos/:id",
         name: "artigos",
         component: () => import("pages/ArtigosPage.vue"),
       },
-
-
     ],
   },
 
