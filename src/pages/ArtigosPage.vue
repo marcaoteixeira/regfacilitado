@@ -100,7 +100,7 @@
                     <span v-html=inciso.recursosConteudos></span> </q-card-section>
                 </q-card>
               </q-expansion-item>
-            </template><br>
+            </template>
 
             <template v-if="inciso.praticasConteudos">
               <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
