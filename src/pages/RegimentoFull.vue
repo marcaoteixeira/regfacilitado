@@ -26,7 +26,7 @@
                     </template>
                   </span>
                   <span v-for="alinea in alineas" :key="alinea.id">
-                    <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                    <template v-if="alinea.id_inciso === inciso.id">
                       <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
                       <span v-for="conteudo in conteudos" :key="conteudo.id">
                         <template v-if="conteudo.id_alinea == alinea.id">
@@ -55,7 +55,8 @@
                         </template>
                       </span>
                       <span v-for="alinea in alineas" :key="alinea.id">
-                        <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+                        <template v-if="inciso.id === alinea.id_inciso">
+                          <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
 
                           <span v-for="conteudo in conteudos" :key="conteudo.id">
                             <template v-if="conteudo.id_alinea === alinea.id">
@@ -103,7 +104,7 @@
                         </span>
 
                         <span v-for="alinea in alineas" :key="alinea.id">
-                          <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                          <template v-if="alinea.id_inciso === inciso.id">
                             <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
                             <span v-for="conteudo in conteudos" :key="conteudo.id">
                               <template v-if="conteudo.id_alinea === alinea.id">
@@ -132,7 +133,8 @@
                               </template>
                             </span>
                             <span v-for="alinea in alineas" :key="alinea.id">
-                              <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+                              <template v-if="alinea.id_inciso === inciso.id">
+                                <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
 
                                 <span v-for="conteudo in conteudos" :key="conteudo.id">
                                   <template v-if="conteudo.id_alinea === alinea.id">
@@ -173,7 +175,7 @@
                           <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
                             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
                             <span v-for="alinea in alineas" :key="alinea.id">
-                              <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                              <template v-if="alinea.id_inciso === inciso.id">
                                 <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
                               </template>
                             </span>
@@ -199,7 +201,7 @@
                                   </template>
                                 </span>
                                 <span v-for="alinea in alineas" :key="alinea.id">
-                                  <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+                                  <template v-if="alinea.id_inciso === inciso.id">
 
                                     <span v-for="conteudo in conteudos" :key="conteudo.id">
                                       <template v-if="conteudo.id_alinea === alinea.id">
@@ -237,7 +239,7 @@
                             </span>
 
                             <span v-for="     inciso      in      incisos     " :key="inciso.id">
-                              <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
+                              <template v-if="artigo.id === inciso.id_artigo">
                                 <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span>
                                 </p>
                                 <span v-for="alinea in alineas" :key="alinea.id">
@@ -311,7 +313,7 @@ import axios from "axios";
 export default defineComponent({
   created() {
     axios
-      .post("http://18.229.118.205:8686/admin/titulo/list")
+      .post("http://localhost:8686/admin/titulo/list")
       .then((res) => {
         this.titulos = res.data;
       })
@@ -320,21 +322,21 @@ export default defineComponent({
       });
 
     axios
-      .post("http://18.229.118.205:8686/admin/capitulo/list")
+      .post("http://localhost:8686/admin/capitulo/list")
       .then((res) => {
         this.capitulos = res.data;
       })
       .catch((err) => {
         console.log(err);
       });
-    axios.post("http://18.229.118.205:8686/admin/secao/list").then(res => {
+    axios.post("http://localhost:8686/admin/secao/list").then(res => {
       this.secoes = res.data;
       this.secoes = this.secoes.filter(c => c.id_capitulo === this.capitulo.id)
     }).catch(err => {
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/subsecao/list").then(res => {
+    axios.post("http://localhost:8686/admin/subsecao/list").then(res => {
       this.subsecoes = res.data;
       this.subsecoes = this.subsecoes.filter(c => c.id_secao === this.secao.id)
 
@@ -343,7 +345,7 @@ export default defineComponent({
     });
 
     axios
-      .post("http://18.229.118.205:8686/admin/artigo/list")
+      .post("http://localhost:8686/admin/artigo/list")
       .then((res) => {
         console.log(res)
         this.artigos = res.data;
@@ -354,7 +356,7 @@ export default defineComponent({
       });
 
     axios
-      .post("http://18.229.118.205:8686/admin/paragrafo/list")
+      .post("http://localhost:8686/admin/paragrafo/list")
       .then((res) => {
         console.log(res)
         this.paragrafos = res.data;
@@ -364,7 +366,7 @@ export default defineComponent({
         console.log(err);
       });
     axios
-      .post("http://18.229.118.205:8686/admin/inciso/list")
+      .post("http://localhost:8686/admin/inciso/list")
       .then((res) => {
         console.log(res)
         this.incisos = res.data;
@@ -374,7 +376,17 @@ export default defineComponent({
         console.log(err);
       });
     axios
-      .post("http://18.229.118.205:8686/admin/artigo/list")
+      .post("http://localhost:8686/admin/alinea/list")
+      .then((res) => {
+        console.log(res)
+        this.alineas = res.data;
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .post("http://localhost:8686/admin/artigo/list")
       .then((res) => {
         console.log(res)
         this.artigos = res.data;
@@ -384,7 +396,7 @@ export default defineComponent({
         console.log(err);
       });
 
-    axios.post("http://18.229.118.205:8686/admin/conteudo/list").then(res => {
+    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
 
     }).catch(err => {
@@ -404,7 +416,7 @@ export default defineComponent({
       subsecoes: [],
       artigos: [],
       paragrafos: [],
-      incisoso: [],
+      incisos: [],
       alineas: [],
       conteudos: []
 
