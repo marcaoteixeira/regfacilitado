@@ -1,56 +1,220 @@
 <template>
   <q-page>
     <span v-for="titulo in  titulos " :key="titulo.id">
-      <q-card dark bordered class="bg-grey-9 my-card">
+      <q-card>
         <q-card-section>
-          <div class="text-body1" align="center">{{ titulo.titulo }}</div>
+          <div class="text-body1" align="center">{{ titulo.titulo }}</div><br>
           <span v-for="artigo in artigos" :key="artigo.id">
             <template v-if="titulo.id === artigo.id_titulo && artigo.id_capitulo === null">
-              <span>
-                <q-btn color="black">
-                  <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
-                    <span font-color="white">{{ artigo.artigo }}</span>
-                  </router-link>
-                </q-btn>
-              </span>
+
+              <span font-color="white">{{ artigo.artigo }}</span>
+              <span v-html=artigo.caput></span><br>
+
               <span v-for="conteudo in conteudos" :key="conteudo.id">
                 <template
                   v-if="conteudo.id_artigo === artigo.id && conteudo.id_paragrafo === null && conteudo.id_inciso === null && conteudo.id_alinea == null">
-                  <span v-html=conteudo.conteudo></span>
+                  <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
                 </template>
               </span>
+
+              <span v-for="     inciso      in      incisos     " :key="inciso.id">
+                <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
+                  <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                  <span v-for="conteudo in conteudos" :key="conteudo.id">
+                    <template v-if="conteudo.id_inciso === inciso.id">
+                      <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                    </template>
+                  </span>
+                  <span v-for="alinea in alineas" :key="alinea.id">
+                    <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                      <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                      <span v-for="conteudo in conteudos" :key="conteudo.id">
+                        <template v-if="conteudo.id_alinea == alinea.id">
+                          <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                        </template>
+                      </span>
+                    </template>
+                  </span>
+                </template>
+              </span>
+
+              <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
+                <template v-if="artigo.id === paragrafo.id_artigo">
+                  <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span></p>
+                  <span v-for="conteudo in conteudos" :key="conteudo.id">
+                    <template v-if="conteudo.id_paragrafo === paragrafo.id">
+                      <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                    </template>
+                  </span>
+                  <span v-for="      inciso       in       incisos      " :key="inciso.id">
+                    <template v-if="paragrafo.id === inciso.id_paragrafo">
+
+                      <span v-for="conteudo in conteudos" :key="conteudo.id">
+                        <template v-if="conteudo.id_inciso === inciso.id">
+                          <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                        </template>
+                      </span>
+                      <span v-for="alinea in alineas" :key="alinea.id">
+                        <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+
+                          <span v-for="conteudo in conteudos" :key="conteudo.id">
+                            <template v-if="conteudo.id_alinea === alinea.id">
+                              <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                            </template>
+                          </span>
+
+                        </template>
+                      </span>
+
+                    </template>
+                  </span>
+                </template>
+              </span>
+
+
             </template>
           </span>
           <span v-for="capitulo in  capitulos " :key="capitulo.id">
             <template v-if="titulo.id === capitulo.id_titulo">
               <span>
-                <div class="text-capition">{{ capitulo.capitulo }}</div>
+                <div class="text-capition">{{ capitulo.capitulo }}</div><br>
               </span>
               <span v-for="artigo in artigos" :key="artigo.id">
                 <template v-if="capitulo.id === artigo.id_capitulo && artigo.id_secao === null">
                   <span>
 
-                    <q-btn color="black">
-                      <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
-                        <span font-color="white">{{ artigo.artigo }}</span>
-                      </router-link>
-                    </q-btn>
+                    <span font-color="white">{{ artigo.artigo }}</span>
+                    <span v-html=artigo.caput></span><br><br>
+
+                    <span v-for="conteudo in conteudos" :key="conteudo.id">
+                      <template
+                        v-if="conteudo.id_artigo === artigo.id && conteudo.id_paragrafo === null && conteudo.id_inciso === null && conteudo.id_alinea == null">
+                        <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                      </template>
+                    </span>
+
+                    <span v-for="     inciso      in      incisos     " :key="inciso.id">
+                      <template v-if="artigo.id === inciso.id_artigo && inciso.id_paragrafo === null">
+                        <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                        <span v-for="conteudo in conteudos" :key="conteudo.id">
+                          <template v-if="conteudo.id_inciso === inciso.id">
+                            <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                          </template>
+                        </span>
+
+                        <span v-for="alinea in alineas" :key="alinea.id">
+                          <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                            <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                            <span v-for="conteudo in conteudos" :key="conteudo.id">
+                              <template v-if="conteudo.id_alinea === alinea.id">
+                                <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                              </template>
+                            </span>
+                          </template>
+                        </span>
+                      </template>
+                    </span>
+                    <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
+                      <template v-if="artigo.id === paragrafo.id_artigo">
+                        <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
+                        </p>
+                        <span v-for="conteudo in conteudos" :key="conteudo.id">
+                          <template v-if="conteudo.id_paragrafo === paragrafo.id">
+                            <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                          </template>
+                        </span>
+                        <span v-for="      inciso       in       incisos      " :key="inciso.id">
+                          <template v-if="paragrafo.id === inciso.id_paragrafo">
+
+                            <span v-for="conteudo in conteudos" :key="conteudo.id">
+                              <template v-if="conteudo.id_inciso === inciso.id">
+                                <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                              </template>
+                            </span>
+                            <span v-for="alinea in alineas" :key="alinea.id">
+                              <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+
+                                <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                  <template v-if="conteudo.id_alinea === alinea.id">
+                                    <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                                  </template>
+                                </span>
+
+                              </template>
+                            </span>
+
+                          </template>
+                        </span>
+                      </template>
+                    </span>
 
                   </span>
+
                 </template>
               </span>
               <span v-for="secao in secoes" :key="secao.id">
+
                 <template v-if="capitulo.id === secao.id_capitulo">
-                  <div class="text-capition">{{ secao.secao }}</div>
+                  <div class="text-capition">{{ secao.secao }}</div><br>
                   <span v-for="artigo in artigos" :key="artigo.id">
                     <template v-if="secao.id === artigo.id_secao && artigo.id_subsecao === null">
                       <span>
+                        <span font-color="white">{{ artigo.artigo }}</span>
+                        <span v-html=artigo.caput></span><br><br>
 
-                        <q-btn color="black">
-                          <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
-                            <span font-color="white">{{ artigo.artigo }}</span>
-                          </router-link>
-                        </q-btn>
+                        <span v-for="conteudo in conteudos" :key="conteudo.id">
+                          <template
+                            v-if="conteudo.id_artigo === artigo.id && conteudo.id_paragrafo === null && conteudo.id_inciso === null && conteudo.id_alinea == null">
+                            <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                          </template>
+                        </span>
+
+                        <span v-for="     inciso      in      incisos     " :key="inciso.id">
+                          <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
+                            <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                            <span v-for="alinea in alineas" :key="alinea.id">
+                              <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                                <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                              </template>
+                            </span>
+                          </template>
+                        </span>
+
+                        <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
+                          <template v-if="artigo.id === paragrafo.id_artigo">
+                            <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span
+                                v-html=paragrafo.caput></span>
+                            </p>
+                            <span v-for="conteudo in conteudos" :key="conteudo.id">
+                              <template v-if="conteudo.id_paragrafo === paragrafo.id">
+                                <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                              </template>
+                            </span>
+                            <span v-for="      inciso       in       incisos      " :key="inciso.id">
+                              <template v-if="paragrafo.id === inciso.id_paragrafo">
+
+                                <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                  <template v-if="conteudo.id_inciso === inciso.id">
+                                    <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                                  </template>
+                                </span>
+                                <span v-for="alinea in alineas" :key="alinea.id">
+                                  <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+
+                                    <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                      <template v-if="conteudo.id_alinea === alinea.id">
+                                        <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                                      </template>
+                                    </span>
+
+                                  </template>
+                                </span>
+
+                              </template>
+                            </span>
+                          </template>
+                        </span>
+
 
                       </span>
                     </template>
@@ -62,11 +226,63 @@
                         <template v-if="subsecao.id === artigo.id_subsecao">
                           <span>
 
-                            <q-btn color="black">
-                              <router-link :to="{ name: 'artigos', params: { id: artigo.id } }">
-                                <span font-color="white">{{ artigo.artigo }}</span>
-                              </router-link>
-                            </q-btn>
+                            <span font-color="white">{{ artigo.artigo }}</span>
+                            <span v-html=artigo.caput></span><br><br>
+
+                            <span v-for="conteudo in conteudos" :key="conteudo.id">
+                              <template
+                                v-if="conteudo.id_artigo === artigo.id && conteudo.id_paragrafo === null && conteudo.id_inciso === null && conteudo.id_alinea == null">
+                                <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                              </template>
+                            </span>
+
+                            <span v-for="     inciso      in      incisos     " :key="inciso.id">
+                              <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
+                                <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span>
+                                </p>
+                                <span v-for="alinea in alineas" :key="alinea.id">
+                                  <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                                    <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                                  </template>
+                                </span>
+                              </template>
+                            </span>
+
+                            <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
+                              <template v-if="artigo.id === paragrafo.id_artigo">
+                                <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span
+                                    v-html=paragrafo.caput></span>
+                                </p>
+                                <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                  <template v-if="conteudo.id_paragrafo === paragrafo.id">
+                                    <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                                  </template>
+                                </span>
+                                <span v-for="      inciso       in       incisos      " :key="inciso.id">
+                                  <template v-if="paragrafo.id === inciso.id_paragrafo">
+
+                                    <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                      <template v-if="conteudo.id_inciso === inciso.id">
+                                        <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                                      </template>
+                                    </span>
+                                    <span v-for="alinea in alineas" :key="alinea.id">
+                                      <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+
+                                        <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                          <template v-if="conteudo.id_alinea === alinea.id">
+                                            <b font-color="blue"><span font-color="blue"
+                                                v-html=conteudo.conteudo></span></b>
+                                          </template>
+                                        </span>
+
+                                      </template>
+                                    </span>
+
+                                  </template>
+                                </span>
+                              </template>
+                            </span>
 
                           </span>
                         </template>
