@@ -172,11 +172,24 @@
                         </span>
 
                         <span v-for="     inciso      in      incisos     " :key="inciso.id">
-                          <template v-if="id === inciso.id_artigo && inciso.id_paragrafo === null">
+                          <template v-if="artigo.id === inciso.id_artigo && inciso.id_paragrafo === null">
                             <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                            <span v-for="conteudo in conteudos" :key="conteudo.id">
+                              <template v-if="conteudo.id_inciso === inciso.id">
+                                <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                              </template>
+                            </span>
+
                             <span v-for="alinea in alineas" :key="alinea.id">
                               <template v-if="alinea.id_inciso === inciso.id">
                                 <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+
+                                <span v-for="conteudo in conteudos" :key="conteudo.id">
+                                  <template v-if="conteudo.id_alinea === alinea.id">
+                                    <b font-color="blue"><span font-color="blue" v-html=conteudo.conteudo></span></b>
+                                  </template>
+                                </span>
+
                               </template>
                             </span>
                           </template>
