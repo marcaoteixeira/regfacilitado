@@ -333,10 +333,11 @@ import {
   defineComponent
 } from "vue";
 import axios from "axios";
+import { runSequentialPromises } from "quasar";
 
 export default defineComponent({
   created() {
-    axios
+    const tituloPromise = axios
       .post("http://localhost:8686/admin/titulo/list")
       .then((res) => {
         this.titulos = res.data;
@@ -345,7 +346,7 @@ export default defineComponent({
         console.log(err);
       });
 
-    axios
+    const capituloPromise = axios
       .post("http://localhost:8686/admin/capitulo/list")
       .then((res) => {
         this.capitulos = res.data;
@@ -353,14 +354,14 @@ export default defineComponent({
       .catch((err) => {
         console.log(err);
       });
-    axios.post("http://localhost:8686/admin/secao/list").then(res => {
+    const secaoPoromise = axios.post("http://localhost:8686/admin/secao/list").then(res => {
       this.secoes = res.data;
       this.secoes = this.secoes.filter(c => c.id_capitulo === this.capitulo.id)
     }).catch(err => {
       console.log(err);
     });
 
-    axios.post("http://localhost:8686/admin/subsecao/list").then(res => {
+    const subsecaoPoromise = axios.post("http://localhost:8686/admin/subsecao/list").then(res => {
       this.subsecoes = res.data;
       this.subsecoes = this.subsecoes.filter(c => c.id_secao === this.secao.id)
 
@@ -368,7 +369,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    axios
+    const artigoPromise = axios
       .post("http://localhost:8686/admin/artigo/list")
       .then((res) => {
         console.log(res)
@@ -379,7 +380,7 @@ export default defineComponent({
         console.log(err);
       });
 
-    axios
+    const paragrafoPromise = axios
       .post("http://localhost:8686/admin/paragrafo/list")
       .then((res) => {
         console.log(res)
@@ -389,7 +390,7 @@ export default defineComponent({
       .catch((err) => {
         console.log(err);
       });
-    axios
+    const incisoPromise = axios
       .post("http://localhost:8686/admin/inciso/list")
       .then((res) => {
         console.log(res)
@@ -399,7 +400,7 @@ export default defineComponent({
       .catch((err) => {
         console.log(err);
       });
-    axios
+    const alineaPromise = axios
       .post("http://localhost:8686/admin/alinea/list")
       .then((res) => {
         console.log(res)
@@ -409,23 +410,23 @@ export default defineComponent({
       .catch((err) => {
         console.log(err);
       });
-    axios
-      .post("http://localhost:8686/admin/artigo/list")
-      .then((res) => {
-        console.log(res)
-        this.artigos = res.data;
 
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
+    const conteudoPromise = axios.post("http://localhost:8686/admin/conteudo/list").then(res => {
       this.conteudos = res.data;
 
     }).catch(err => {
       console.log(err);
     });
+
+    const qosPromise = axios.post("http://localhost:8686/listqordem").then(res => {
+      this.qordens = res.data.map(qordem => ({ ...qordem, showDialog: false }));
+      return this.qordens;
+    }).catch(err => {
+      console.log(err);
+    });
+
+    Promise.all([tituloPromise, capituloPromise, secaoPoromise, subsecaoPoromise, artigoPromise,
+      paragrafoPromise, incisoPromise, alineaPromise, conteudoPromise, qosPromise])
 
   },
 
