@@ -1,10 +1,10 @@
 <template>
   <q-page>
     <!--  <h5>Artigos</h5> -->
-    <q-card align="top">
+    <q-card>
       <q-card-section>
         <swiper>
-          <swiper-slide v-for="artigo in      artigos     " :key="artigo.id" :virtual-index="artigo.id">
+          <swiper-slide v-for="artigo in artigos" :key="artigo.id">
 
             <span>
 
@@ -704,24 +704,38 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref } from 'vue';
 import axios from "axios";
-import { Virtual } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
+
+
 
 // Import Swiper styles
 import 'swiper/css';
+import 'swiper/css/pagination';
 
-//import 'vue3-carousel/dist/carousel.css'
-//import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 export default defineComponent({
 
   components: {
     Swiper,
     SwiperSlide,
-  },
 
+  },
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+
+
+    };
+  },
 
   /*components: {
     Carousel,
@@ -734,15 +748,15 @@ export default defineComponent({
 
   created() {
 
-    axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
-      console.log(res);
-      //this.artigos = res.data;
-      this.id = res.data.id
-      this.artigo = res.data.artigo
-      this.caput = res.data.caput
-    }).catch(err => {
-      console.log(err);
-    })
+    /* axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
+       console.log(res);
+       //this.artigos = res.data;
+       this.id = res.data.id
+       this.artigo = res.data.artigo
+       this.caput = res.data.caput
+     }).catch(err => {
+       console.log(err);
+     })*/
 
     axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
@@ -1687,6 +1701,7 @@ export default defineComponent({
       conteudos: [],
       notas: [],
       showDialog: false,
+
 
 
     }
