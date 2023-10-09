@@ -4,7 +4,7 @@
     <q-card align="top">
       <q-card-section>
         <swiper :slides-per-view="1" :space-between="50" @swiper="onSwiper" @slideChange="onSlideChange">
-          <swiper-slide v-for="artigo in      artigos     " :key="artigo.id">
+          <swiper-slide v-for="artigo in      artigos     " :key="artigo.id" :virtual-index="artigo.id">
 
             <span>
 
@@ -706,6 +706,7 @@
 <script>
 import { defineComponent } from "vue";
 import axios from "axios";
+import { Virtual } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
 // Import Swiper styles
