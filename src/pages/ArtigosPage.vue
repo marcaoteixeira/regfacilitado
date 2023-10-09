@@ -1628,6 +1628,85 @@ export default defineComponent({
 
           return obsali;
         });
+        //pega as notas
+
+        this.artigos.map(obsart => {
+          const obsDesteArtigo = this.observacoes.filter(observacao => (obsart.id === observacao.id_artigo && observacao.id_paragrafo === null && observacao.id_inciso === null && observacao.id_alinea === null && observacao.id_tipo === 17))
+          obsart.observacoesConteudos = null;
+          if (!Array.isArray(obsDesteArtigo) || !obsDesteArtigo.length) {
+            return obsart;
+          }
+          obsart.showDialog = false;
+          obsart.observacoesConteudos = obsDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return obsart;
+        });
+
+
+        this.paragrafos.map(obspar => {
+          const obsDesteParagrafo = this.observacoes.filter(observacao => (obspar.id === observacao.id_paragrafo && observacao.id_inciso === null && observacao.id_alinea === null && observacao.id_tipo === 17))
+          obspar.observacoesConteudos = null;
+          if (!Array.isArray(obsDesteParagrafo) || !obsDesteParagrafo.length) {
+            return obspar;
+          }
+          obspar.showDialog = false;
+          obspar.observacoesConteudos = obsDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return obspar;
+
+
+        });
+
+        this.incisos.map(obsinc => {
+          const obsDesteInciso = this.observacoes.filter(observacao => (obsinc.id === observacao.id_inciso && observacao.id_paragrafo === null && observacao.id_alinea === null && observacao.id_tipo === 17))
+          obsinc.observacoesConteudos = null;
+          if (!Array.isArray(obsDesteInciso) || !obsDesteInciso.length) {
+            return obsinc;
+          }
+          obsinc.showDialog = false;
+          obsinc.observacoesConteudos = obsDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return obsinc;
+        });
+        this.incisos.map(obsincp => {
+          const obsDesteIncisop = this.observacoes.filter(observacao => (obsincp.id === observacao.id_inciso && observacao.id_paragrafo != null && observacao.id_alinea != null && observacao.id_tipo === 17))
+          obsincp.observacoesConteudosp = null;
+          if (!Array.isArray(obsDesteIncisop) || !obsDesteIncisop.length) {
+            return obsincp;
+          }
+          obsincp.showDialog = false;
+          obsincp.observacoesConteudosp = obsDesteIncisop
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return obsincp;
+        });
+
+        this.alineas.map(obsali => {
+          const obsDestaAlinea = this.observacoes.filter(observacao => (obsali.id === observacao.id_alinea && observacao.id_tipo === 17))
+          obsali.observacoesConteudos = null;
+          if (!Array.isArray(obsDestaAlinea) || !obsDestaAlinea.length) {
+            return obsali;
+          }
+          obsali.showDialog = false;
+          obsali.observacoesConteudos = obsDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return obsali;
+        });
+
 
 
 
