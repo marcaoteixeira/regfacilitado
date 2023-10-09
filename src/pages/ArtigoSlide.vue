@@ -2,445 +2,449 @@
   <q-page>
     <!--  <h5>Artigos</h5> -->
     <q-card>
-      <q-card-section>
-        <swiper :modules="modules" :slides-per-view="1" :space-between="5" navigation :scrollbar="{ draggable: true }"
-          @swiper="onSwiper" @slideChange="onSlideChange">
-          <swiper-slide v-for="artigo in artigos" :key="artigo.id">
+      <div class="q-pa-md">
+        <div class="q-gutter-md">
+          <swiper :modules="modules" :slides-per-view="1" :space-between="5" navigation :scrollbar="{ draggable: true }"
+            @swiper="onSwiper" @slideChange="onSlideChange">
+            <swiper-slide v-for="artigo in artigos" :key="artigo.id">
 
-            <span>
+              <span>
 
-              <span class="text-body1">{{ artigo.artigo }} - </span>
-              <span class="text-body1" v-html="artigo.caput"></span>
-              <!--<p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
+                <span class="text-body1">{{ artigo.artigo }} - </span>
+                <span class="text-body1" v-html="artigo.caput"></span>
+                <!--<p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
               </p> -->
-              <template v-if="artigo.id != null">
-                <template v-if="artigo.qordensConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
-                    class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.qordensConteudos></span> </q-card-section><br>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.consultasConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.consultasConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.decisoesConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon=""
-                    label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.decisoesConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.recursosConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.recursosConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.reclamacoesConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.reclamacoesConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.sumulasConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.sumulasConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.stfsConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
-                    class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.stfsConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-
-                <template v-if="artigo.praticasConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.praticasConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.precedentesConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.precedentesConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-                <template v-if="artigo.observacoesConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações" class="bg-teal-1">
-                    <q-card class="bg-teal-0">
-                      <q-card-section>
-                        <span v-html=artigo.observacoesConteudos></span> </q-card-section>
-                    </q-card>
-                  </q-expansion-item>
-                </template>
-
-
-              </template>
-              <span v-for="     inciso      in      incisos     " :key="inciso.id">
-                <template v-if="artigo.id === inciso.id_artigo && inciso.id_paragrafo === null">
-                  <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
-
-                  <template v-if="inciso.qordensConteudos">
+                <template v-if="artigo.id != null">
+                  <template v-if="artigo.qordensConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
                       class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.qordensConteudos></span> </q-card-section>
+                          <span v-html=artigo.qordensConteudos></span> </q-card-section><br>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.consultasConteudos">
+                  <template v-if="artigo.consultasConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.consultasConteudos></span> </q-card-section>
+                          <span v-html=artigo.consultasConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.decisoesConteudos">
+                  <template v-if="artigo.decisoesConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon=""
                       label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.decisoesConteudos></span> </q-card-section>
+                          <span v-html=artigo.decisoesConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.recursosConteudos">
+                  <template v-if="artigo.recursosConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.recursosConteudos></span> </q-card-section>
+                          <span v-html=artigo.recursosConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-
-                  <template v-if="inciso.reclamacoesConteudos">
+                  <template v-if="artigo.reclamacoesConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.reclamacoesConteudos></span> </q-card-section>
+                          <span v-html=artigo.reclamacoesConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.sumulasConteudos">
+                  <template v-if="artigo.sumulasConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.sumulasConteudos></span> </q-card-section>
+                          <span v-html=artigo.sumulasConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.stfsConteudos">
+                  <template v-if="artigo.stfsConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
                       class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.stfsConteudos></span> </q-card-section>
+                          <span v-html=artigo.stfsConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
 
-                  <template v-if="inciso.praticasConteudos">
+                  <template v-if="artigo.praticasConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.praticasConteudos></span> </q-card-section>
+                          <span v-html=artigo.praticasConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.precedentesConteudos">
+                  <template v-if="artigo.precedentesConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.precedentesConteudos></span> </q-card-section>
+                          <span v-html=artigo.precedentesConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.observacoesConteudos">
+                  <template v-if="artigo.observacoesConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
-                          <span v-html=inciso.observacoesConteudos></span> </q-card-section>
+                          <span v-html=artigo.observacoesConteudos></span> </q-card-section>
                       </q-card>
                     </q-expansion-item>
                   </template>
 
-                  <template v-if="inciso.notasConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=inciso.notasConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
 
-                  <span v-for="alinea in alineas" :key="alinea.id">
-                    <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
-                      <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                </template>
+                <span v-for="     inciso      in      incisos     " :key="inciso.id">
+                  <template v-if="artigo.id === inciso.id_artigo && inciso.id_paragrafo === null">
+                    <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
 
-                      <template v-if="alinea.qordensConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de ordem"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.qordensConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.consultasConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.consultasConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.decisoesConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon=""
-                          label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.decisoesConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.recursosConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.recursosConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.reclamacoesConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.reclamacoesConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.sumulasConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.sumulasConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.stfsConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.stfsConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-
-                      <template v-if="alinea.praticasConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.praticasConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.precedentesConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.precedentesConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="alinea.observacoesConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.observacoesConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-
-                      <template v-if="alinea.notasConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=alinea.notasConteudos></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-
-
+                    <template v-if="inciso.qordensConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
+                        class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.qordensConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
                     </template>
-                  </span>
-                </template>
-              </span>
+
+                    <template v-if="inciso.consultasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.consultasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.decisoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon=""
+                        label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.decisoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.recursosConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.recursosConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+
+                    <template v-if="inciso.reclamacoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.reclamacoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.sumulasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.sumulasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.stfsConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
+                        class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.stfsConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+
+                    <template v-if="inciso.praticasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.praticasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.precedentesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.precedentesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.observacoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.observacoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="inciso.notasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=inciso.notasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <span v-for="alinea in alineas" :key="alinea.id">
+                      <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
+                        <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+
+                        <template v-if="alinea.qordensConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de ordem"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.qordensConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.consultasConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.consultasConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.decisoesConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon=""
+                            label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.decisoesConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.recursosConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.recursosConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.reclamacoesConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.reclamacoesConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.sumulasConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.sumulasConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.stfsConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.stfsConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+
+                        <template v-if="alinea.praticasConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.praticasConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.precedentesConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.precedentesConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="alinea.observacoesConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.observacoesConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+
+                        <template v-if="alinea.notasConteudos">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=alinea.notasConteudos></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
 
 
 
-
-              <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
-
-                <template v-if="artigo.id === paragrafo.id_artigo">
-                  <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
-                  </p>
-
-                  <template v-if="paragrafo.qordensConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
-                      class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.qordensConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
+                      </template>
+                    </span>
                   </template>
-
-                  <template v-if="paragrafo.consultasConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.consultasConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
-
-                  <template v-if="paragrafo.decisoesConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon=""
-                      label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.decisoesConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
-
-                  <template v-if="paragrafo.recursosConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.recursosConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
-
-                  <template v-if="paragrafo.reclamacoesConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.reclamacoesConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
-
-                  <template v-if="paragrafo.sumulasConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.sumulasConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
-
-                  <template v-if="paragrafo.stfsConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
-                      class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.stfsConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
+                </span>
 
 
-                  <template v-if="paragrafo.praticasConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.praticasConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
 
-                  <template v-if="paragrafo.precedentesConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.precedentesConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
 
-                  <template v-if="paragrafo.observacoesConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.observacoesConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
+                <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
 
-                  <template v-if="paragrafo.notasConteudos">
-                    <!-- <q-dialog v-model="paragrafo.showDialog">
+                  <template v-if="artigo.id === paragrafo.id_artigo">
+                    <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
+                    </p>
+
+                    <template v-if="paragrafo.qordensConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
+                        class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.qordensConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.consultasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.consultasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.decisoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon=""
+                        label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.decisoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.recursosConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.recursosConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.reclamacoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.reclamacoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.sumulasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.sumulasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.stfsConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
+                        class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.stfsConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+
+                    <template v-if="paragrafo.praticasConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.praticasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.precedentesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.precedentesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.observacoesConteudos">
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.observacoesConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
+                    </template>
+
+                    <template v-if="paragrafo.notasConteudos">
+                      <!-- <q-dialog v-model="paragrafo.showDialog">
                 <q-card>
                   <q-card-section>
                     <div>Notas</div>
@@ -456,248 +460,254 @@
                 </q-card>
               </q-dialog>
               <q-btn label="Notas" @click="paragrafo.showDialog = true" />-->
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
-                      <q-card class="bg-teal-0">
-                        <q-card-section>
-                          <span v-html=paragrafo.notasConteudos></span> </q-card-section>
-                      </q-card>
-                    </q-expansion-item>
-                  </template>
-
-                  <span v-for="      inciso       in       incisos      " :key="inciso.id">
-                    <template v-if="paragrafo.id === inciso.id_paragrafo">
-                      <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
-
-                      <template v-if="inciso.qordensConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.qordensConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.consultasConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.consultasConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.decisoesConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon=""
-                          label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.decisoesConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.recursosConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.recursosConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.reclamacoesConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.reclamacoesConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.sumulasConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.sumulasConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.stfsConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.stfsConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-
-                      <template v-if="inciso.praticasConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=incisos.praticasConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.precedentesConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=incisos.precedentesConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <template v-if="inciso.observacoesConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
-                          class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.observacoesConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-
-                      <template v-if="inciso.notasConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
-                          <q-card class="bg-teal-0">
-                            <q-card-section>
-                              <span v-html=inciso.notasConteudosp></span> </q-card-section>
-                          </q-card>
-                        </q-expansion-item>
-                      </template>
-
-                      <span v-for="alinea in alineas" :key="alinea.id">
-                        <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
-                          <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
-
-                          <template v-if="alinea.qordensConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de ordem"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.qordensConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.consultasConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.consultasConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.decisoesConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon=""
-                              label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.decisoesConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.recursosConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.recursosConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.reclamacoesConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.reclamacoesConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.sumulasConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.sumulasConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.stfsConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.stfsConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-
-                          <template v-if="alinea.praticasConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.praticasConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.precedentesConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.precedentesConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.observacoesConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
-                              class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.observacoesConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-
-                          <template v-if="alinea.notasConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
-                              <q-card class="bg-teal-0">
-                                <q-card-section>
-                                  <span v-html=alinea.notasConteudos></span> </q-card-section>
-                              </q-card>
-                            </q-expansion-item>
-                          </template>
-                        </template>
-                      </span>
+                      <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                        <q-card class="bg-teal-0">
+                          <q-card-section>
+                            <span v-html=paragrafo.notasConteudos></span> </q-card-section>
+                        </q-card>
+                      </q-expansion-item>
                     </template>
-                  </span>
-                </template>
+
+                    <span v-for="      inciso       in       incisos      " :key="inciso.id">
+                      <template v-if="paragrafo.id === inciso.id_paragrafo">
+                        <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+
+                        <template v-if="inciso.qordensConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de Ordem"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.qordensConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.consultasConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.consultasConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.decisoesConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon=""
+                            label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.decisoesConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.recursosConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.recursosConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.reclamacoesConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.reclamacoesConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.sumulasConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas" class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.sumulasConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.stfsConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.stfsConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+
+                        <template v-if="inciso.praticasConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=incisos.praticasConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.precedentesConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=incisos.precedentesConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <template v-if="inciso.observacoesConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
+                            class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.observacoesConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+
+                        <template v-if="inciso.notasConteudosp">
+                          <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                            <q-card class="bg-teal-0">
+                              <q-card-section>
+                                <span v-html=inciso.notasConteudosp></span> </q-card-section>
+                            </q-card>
+                          </q-expansion-item>
+                        </template>
+
+                        <span v-for="alinea in alineas" :key="alinea.id">
+                          <template v-if="inciso.id === alinea.id_inciso && alinea.id_paragrafo != null">
+                            <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+
+                            <template v-if="alinea.qordensConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Questões de ordem"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.qordensConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.consultasConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Consultas"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.consultasConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.decisoesConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon=""
+                                label="Decisões da Presidência (Ato do Presidente)" class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.decisoesConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.recursosConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Recursos"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.recursosConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.reclamacoesConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Reclamações"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.reclamacoesConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.sumulasConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Sumulas"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.sumulasConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.stfsConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="STF - MS - ADI - HC"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.stfsConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+
+                            <template v-if="alinea.praticasConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Práticas"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.praticasConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.precedentesConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Precedentes"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.precedentesConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.observacoesConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.observacoesConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+
+                            <template v-if="alinea.notasConteudos">
+                              <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas"
+                                class="bg-teal-1">
+                                <q-card class="bg-teal-0">
+                                  <q-card-section>
+                                    <span v-html=alinea.notasConteudos></span> </q-card-section>
+                                </q-card>
+                              </q-expansion-item>
+                            </template>
+                          </template>
+                        </span>
+                      </template>
+                    </span>
+                  </template>
+                </span>
               </span>
-            </span>
-          </swiper-slide>
-        </swiper>
-      </q-card-section>
+            </swiper-slide>
+          </swiper>
+        </div>
+      </div>
+
     </q-card>
   </q-page>
 </template>
@@ -1732,5 +1742,4 @@ export default defineComponent({
 .carousel__next {
   box-sizing: content-box;
   border: 5px solid white;
-}
-</style>
+}</style>
