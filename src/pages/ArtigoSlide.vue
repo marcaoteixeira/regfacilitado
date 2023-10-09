@@ -3,7 +3,8 @@
     <!--  <h5>Artigos</h5> -->
     <q-card>
       <q-card-section>
-        <swiper>
+        <swiper :modules="modules" :slides-per-view="1" :space-between="5" navigation :scrollbar="{ draggable: true }"
+          @swiper="onSwiper" @slideChange="onSlideChange">
           <swiper-slide v-for="artigo in artigos" :key="artigo.id">
 
             <span>
@@ -706,13 +707,18 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import axios from "axios";
+
+// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
+import 'swiper/scss';
+import 'swiper/scss/pagination';
+import 'swiper/scss/navigation';
 
 
 export default defineComponent({
@@ -732,10 +738,10 @@ export default defineComponent({
     return {
       onSwiper,
       onSlideChange,
-
-
+      modules: [Navigation, Pagination, Scrollbar, A11y],
     };
   },
+
 
   /*components: {
     Carousel,
