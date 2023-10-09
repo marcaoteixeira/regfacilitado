@@ -727,7 +727,7 @@ export default defineComponent({
 
   created() {
 
-    axios.get("http://localhost:8686/admin/artigo/" + this.$route.params.id).then(res => {
+    axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
       //this.artigos = res.data;
       this.id = res.data.id
@@ -737,7 +737,7 @@ export default defineComponent({
       console.log(err);
     })
 
-    axios.post("http://localhost:8686/admin/artigo/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = res.data;
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
@@ -745,20 +745,20 @@ export default defineComponent({
       console.log(err);
     });
 
-    axios.post("http://localhost:8686/admin/inciso/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
     }).catch(err => {
       console.log(err);
     });
-    axios.post("http://localhost:8686/admin/alinea/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-    axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
       return this.paragrafos;
@@ -766,56 +766,56 @@ export default defineComponent({
       console.log(err);
     });
 
-    const qosPromise = axios.post("http://localhost:8686/listqordem").then(res => {
+    const qosPromise = axios.post("http://18.229.118.205:8686/listqordem").then(res => {
       this.qordens = res.data.map(qordem => ({ ...qordem, showDialog: false }));
       return this.qordens;
     }).catch(err => {
       console.log(err);
     });
 
-    const praPromise = axios.post("http://localhost:8686/listpratica").then(res => {
+    const praPromise = axios.post("http://18.229.118.205:8686/listpratica").then(res => {
       this.praticas = res.data.map(pratica => ({ ...pratica, showDialog: false }));
       return this.praticas;
     }).catch(err => {
       console.log(err);
     });
 
-    const conPromise = axios.post("http://localhost:8686/listconsulta").then(res => {
+    const conPromise = axios.post("http://18.229.118.205:8686/listconsulta").then(res => {
       this.consultas = res.data.map(consulta => ({ ...consulta, showDialog: false }));
       return this.consultas;
     }).catch(err => {
       console.log(err);
     });
 
-    const decPromise = axios.post("http://localhost:8686/listdecisao").then(res => {
+    const decPromise = axios.post("http://18.229.118.205:8686/listdecisao").then(res => {
       this.decisoes = res.data.map(decisao => ({ ...decisao, showDialog: false }));
       return this.decisoes;
     }).catch(err => {
       console.log(err);
     });
 
-    const recPromise = axios.post("http://localhost:8686/listrec").then(res => {
+    const recPromise = axios.post("http://18.229.118.205:8686/listrec").then(res => {
       this.recursos = res.data.map(recurso => ({ ...recurso, showDialog: false }));
       return this.recursos;
     }).catch(err => {
       console.log(err);
     });
 
-    const remPromise = axios.post("http://localhost:8686/listrem").then(res => {
+    const remPromise = axios.post("http://18.229.118.205:8686/listrem").then(res => {
       this.reclamacoes = res.data.map(reclamacao => ({ ...reclamacao, showDialog: false }));
       return this.reclamacoes;
     }).catch(err => {
       console.log(err);
     });
 
-    const sumPromise = axios.post("http://localhost:8686/listsumula").then(res => {
+    const sumPromise = axios.post("http://18.229.118.205:8686/listsumula").then(res => {
       this.sumulas = res.data.map(sumula => ({ ...sumula, showDialog: false }));
       return this.sumulas;
     }).catch(err => {
       console.log(err);
     });
 
-    const stfPromise = axios.post("http://localhost:8686/liststf").then(res => {
+    const stfPromise = axios.post("http://18.229.118.205:8686/liststf").then(res => {
       this.stfs = res.data.map(stf => ({ ...stf, showDialog: false }));
       return this.stfs;
 
@@ -823,14 +823,14 @@ export default defineComponent({
       console.log(err);
     });
 
-    const prePromise = axios.post("http://localhost:8686/listprecedente").then(res => {
+    const prePromise = axios.post("http://18.229.118.205:8686/listprecedente").then(res => {
       this.precedentes = res.data.map(precedente => ({ ...precedente, showDialog: false }));
       return this.precedentes;
     }).catch(err => {
       console.log(err);
     });
 
-    const obsPromise = axios.post("http://localhost:8686/listobs").then(res => {
+    const obsPromise = axios.post("http://18.229.118.205:8686/listobs").then(res => {
       this.observacoes = res.data.map(observacao => ({ ...observacao, showDialog: false }));
       return this.observacoes;
     }).catch(err => {
@@ -838,7 +838,7 @@ export default defineComponent({
     });
 
 
-    const notasPromise = axios.post("http://localhost:8686/listnota").then(res => {
+    const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
       return this.notas;
     }).catch(err => {
