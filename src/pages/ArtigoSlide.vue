@@ -4,8 +4,7 @@
     <q-card>
       <div class="q-pa-md">
         <div class="q-gutter-md">
-          <swiper :modules="modules" :slides-per-view="1" :space-between="5" navigation :scrollbar="{ draggable: true }"
-            @swiper="onSwiper" @slideChange="onSlideChange">
+          <swiper :slides-per-view="1">
             <swiper-slide v-for="artigo in artigos" :key="artigo.id">
 
               <span>
@@ -1742,4 +1741,5 @@ export default defineComponent({
 .carousel__next {
   box-sizing: content-box;
   border: 5px solid white;
-}</style>
+}
+</style>
