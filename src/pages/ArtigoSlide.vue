@@ -688,8 +688,6 @@
                               </q-card>
                             </q-expansion-item>
                           </template>
-
-
                         </template>
                       </span>
                     </template>
@@ -698,7 +696,7 @@
               </span>
             </span>
           </swiper-slide>
-        </swiper>>
+        </swiper>
       </q-card-section>
     </q-card>
   </q-page>
