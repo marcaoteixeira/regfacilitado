@@ -1,9 +1,9 @@
 <template>
   <q-page>
-    <!--<h5>Artigos</h5>-->
+    <!--  <h5>Artigos</h5> -->
     <q-card align="top">
       <q-card-section>
-        <swiper :slides-per-view="1" :space-between="50" @swiper="onSwiper" @slideChange="onSlideChange">
+        <swiper>
           <swiper-slide v-for="artigo in      artigos     " :key="artigo.id" :virtual-index="artigo.id">
 
             <span>
@@ -721,18 +721,7 @@ export default defineComponent({
     Swiper,
     SwiperSlide,
   },
-  setup() {
-    const onSwiper = (swiper) => {
-      console.log(swiper);
-    };
-    const onSlideChange = () => {
-      console.log('slide change');
-    };
-    return {
-      onSwiper,
-      onSlideChange,
-    };
-  },
+
 
   /*components: {
     Carousel,
