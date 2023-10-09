@@ -24,6 +24,11 @@ const routes = [
       {
         path: "/carousel",
         name: "carousel",
+        component: () => import("pages/ArtigoCarousel.vue"),
+      },
+      {
+        path: "/artigoslide",
+        name: "artigoslide",
         component: () => import("pages/ArtigoSlide.vue"),
       },
     ],

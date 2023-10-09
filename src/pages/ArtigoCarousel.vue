@@ -2,19 +2,13 @@
   <q-card>
     <div class="q-pa-md">
       <div class="q-gutter-md">
-        <carousel>
-          <slide v-for="titulo in titulos" :key="titulo.id" :name='titulo.id'>
+        <Swiper>
+          <SwiperSlide v-for="titulo in titulos" :key="titulo.id" :name='titulo.id'>
             <div>
               {{ titulo.titulo }}
             </div>
-          </slide>
-          <template #addons>
-            <navigation />
-            <pagination />
-
-          </template>
-
-        </carousel>
+          </SwiperSlide>
+        </Swiper>
       </div>
     </div>
 
@@ -22,24 +16,47 @@
 </template>
 
 <script>
+
+
 import { defineComponent, ref } from "vue"
-import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import axios from "axios";
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+
+// Import Swiper styles
+import 'swiper/scss';
+import 'swiper/scss/pagination';
+import 'swiper/scss/navigation';
 
 
 export default defineComponent({
 
   components: {
-    Carousel,
-    Slide,
-    Pagination,
-    Navigation
+    Swiper,
+    SwiperSlide,
+
+  },
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Navigation, Pagination, Scrollbar, A11y],
+    };
   },
 
   created() {
 
-    axios.post("http://localhost:8686/admin/titulo/list").then(res => {
+    axios.post("http://18.229.118.205:8686/admin/titulo/list").then(res => {
       console.log(res);
       this.titulos = res.data;
       /*this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)*/
