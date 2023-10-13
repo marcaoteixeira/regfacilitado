@@ -229,7 +229,7 @@ export default defineComponent({
 
   created() {
 
-    /* axios.get("http://localhost:8686/admin/artigo/" + this.$route.params.id).then(res => {
+    /* axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
        console.log(res);
        //this.artigos = res.data;
        this.id = res.data.id
@@ -239,7 +239,7 @@ export default defineComponent({
        console.log(err);
      })*/
 
-    const artigoPromise = axios.post("http://localhost:8686/admin/artigo/list").then(res => {
+    const artigoPromise = axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = res.data;
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
@@ -247,21 +247,21 @@ export default defineComponent({
       console.log(err);
     });
 
-    const incisoPromise = axios.post("http://localhost:8686/admin/inciso/list").then(res => {
+    const incisoPromise = axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-    const alineaPromise = axios.post("http://localhost:8686/admin/alinea/list").then(res => {
+    const alineaPromise = axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-    const paragrafoPromise = axios.post("http://localhost:8686/admin/paragrafo/list").then(res => {
+    const paragrafoPromise = axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
       return this.paragrafos;
@@ -269,21 +269,21 @@ export default defineComponent({
       console.log(err);
     });
 
-    const jurisprudenciaPromise = axios.post("http://localhost:8686/listjurisprudencia").then(res => {
+    const jurisprudenciaPromise = axios.post("http://18.229.118.205:8686/listjurisprudencia").then(res => {
       this.jurisprudencias = res.data.map(jurisprudencia => ({ ...jurisprudencia, showDialog: false }));
       return this.jurisprudencias;
     }).catch(err => {
       console.log(err);
     });
 
-    const remissaoPromise = axios.post("http://localhost:8686/listremissao").then(res => {
+    const remissaoPromise = axios.post("http://18.229.118.205:8686/listremissao").then(res => {
       this.remissoes = res.data.map(remissao => ({ ...remissao, showDialog: false }));
       return this.remissoes;
     }).catch(err => {
       console.log(err);
     });
 
-    const observacoesPromise = axios.post("http://localhost:8686/listobservacao").then(res => {
+    const observacoesPromise = axios.post("http://18.229.118.205:8686/listobservacao").then(res => {
       this.observacoes = res.data.map(observacao => ({ ...observacao, showDialog: false }));
       return this.observacoes;
     }).catch(err => {
