@@ -7,8 +7,8 @@
           <swiper :slides-per-view="1">
             <swiper-slide v-for="artigo in artigos" :key="artigo.id">
 
-              <span class="text-body1">{{ artigo.artigo }} - </span>
-              <span class="text-body1" v-html="artigo.caput"></span>
+              <span class="text-body1"><b>{{ artigo.artigo }}</b> - </span>
+              <span class="text-body1" v-html=removeHTMLTags(artigo.caput)></span>
               <!--<p style="text-align: left;">{{ artigo.artigo }}&nbsp; - &nbsp;<span v-html=artigo.caput></span>
               </p> -->
               <template v-if="artigo.id != null">
@@ -35,7 +35,8 @@
 
               <span v-for="     inciso      in      incisos     " :key="inciso.id">
                 <template v-if="artigo.id === inciso.id_artigo && inciso.id_paragrafo === null">
-                  <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                  <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span
+                      v-html="removeHTMLTags(inciso.caput)"></span></p>
 
                   <template v-if="inciso.jurisprudenciasConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -59,7 +60,7 @@
 
                   <span v-for="alinea in alineas" :key="alinea.id">
                     <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
-                      <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                      <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
 
                       <template v-if="alinea.jurisprudenciasConteudos">
                         <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -89,8 +90,10 @@
 
               <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
 
+
                 <template v-if="artigo.id === paragrafo.id_artigo">
-                  <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span v-html=paragrafo.caput></span>
+                  <p style="text-align: left;">{{ paragrafo.paragrafo }}&nbsp;<span
+                      v-html=removeHTMLTags(paragrafo.caput)></span>
                   </p>
 
                   <template v-if="paragrafo.jurisprudenciasConteudos">
@@ -115,7 +118,8 @@
 
                   <span v-for="      inciso       in       incisos      " :key="inciso.id">
                     <template v-if="paragrafo.id === inciso.id_paragrafo">
-                      <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span v-html=inciso.caput></span></p>
+                      <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span
+                          v-html=removeHTMLTags(inciso.caput)></span></p>
 
                       <template v-if="inciso.jurisprudenciasConteudosp">
                         <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -138,7 +142,7 @@
                       </template>
                       <span v-for="alinea in alineas" :key="alinea.id">
                         <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
-                          <p style="text-align: left;"><span v-html=alinea.alinea></span></p>
+                          <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
 
                           <template v-if="alinea.jurisprudenciasConteudos">
                             <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -540,7 +544,18 @@ export default defineComponent({
       })
   },
 
+  methods: {
+
+    removeHTMLTags(str) {
+      return str.replace(/<[^>]*>/g, '');
+    }
+
+  },
+
+
   data() {
+
+
 
     return {
       artigo: '',
@@ -556,7 +571,6 @@ export default defineComponent({
       showDialog: false,
 
 
-
     }
 
   },
@@ -566,6 +580,25 @@ export default defineComponent({
 
 </script>
 <style>
+.swiper {
+  /*width: 800px;
+  height: 800px;
+  align-items: left;*/
+}
+
+.bg-teal-0 {
+  background-color: rgb(250, 250, 249);
+  border: 1px solid #000000;
+  border-color: black;
+}
+
+.bg-teal-1 {
+  background-color: rgb(0, 10, 0);
+  border: 1px solid #000000;
+  border-color: black;
+
+}
+
 .carousel__item {
   font-size: 20px;
   border-radius: 8px;
