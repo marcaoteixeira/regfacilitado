@@ -582,8 +582,8 @@ export default defineComponent({
 <style>
 .swiper {
   /*width: 800px;
-  height: 800px;
-  align-items: left;*/
+  height: 800px;*/
+  align-items: left;
 }
 
 .bg-teal-0 {
