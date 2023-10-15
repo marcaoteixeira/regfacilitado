@@ -4,9 +4,9 @@
     <q-card>
       <div class="q-pa-md">
         <div class="q-gutter-md">
-          <q-carousel v-model="slide" transition-prev="scale" transition-next="scale" swipeable animated
-            control-color="white" padding height="600px" class="shadow-1 rounded-borders">
-            <q-carousel-slide v-for="(artigo, id) in artigos" :key="id" :name="id">
+          <swiper :slides-per-view="1" :modules="modules" :scrollbar="{ draggable: true }" @swiper="onSwiper"
+            @slideChange="onSlideChange">
+            <swiper-slide v-for="artigo in artigos" :key="artigo.id">
 
               <span><b>{{ artigo.artigo }}</b> - </span>
               <span v-html=removeHTMLTags(artigo.caput)></span>
@@ -175,8 +175,8 @@
                   </span>
                 </template>
               </span>
-            </q-carousel-slide>
-          </q-carousel>
+            </swiper-slide>
+          </swiper>
         </div>
       </div>
 
@@ -188,12 +188,49 @@
 import { defineComponent, ref } from 'vue';
 import axios from "axios";
 
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+
+
+// Import Swiper styles
+import 'swiper/scss';
+import 'swiper/scss/pagination';
+import 'swiper/scss/navigation';
 
 
 export default defineComponent({
 
+  components: {
+    Swiper,
+    SwiperSlide,
 
+  },
+  setup() {
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return {
+      onSwiper,
+      onSlideChange,
+      modules: [Navigation, Pagination, Scrollbar, A11y],
+    };
+  },
+
+
+  /*components: {
+    Carousel,
+    Slide,
+    Pagination,
+    Navigation
+*/
+  // Vamos juntar os conteudos de todas as notas de um parágrafo
+  // Quando
 
   created() {
 
@@ -207,37 +244,35 @@ export default defineComponent({
        console.log(err);
      })*/
 
-    axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
+    const artigoPromise = axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
-      this.artigos = ref(res.data);
+      this.artigos = res.data;
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
     }).catch(err => {
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
-      console.log(res);
-      this.paragrafos = res.data;
-      return this.paragrafos;
-    }).catch(err => {
-      console.log(err);
-    });
-
-    axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
+    const incisoPromise = axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
+    const alineaPromise = axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
     }).catch(err => {
       console.log(err);
     });
 
-
+    const paragrafoPromise = axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
+      console.log(res);
+      this.paragrafos = res.data;
+      return this.paragrafos;
+    }).catch(err => {
+      console.log(err);
+    });
 
     const jurisprudenciaPromise = axios.post("http://18.229.118.205:8686/listjurisprudencia").then(res => {
       this.jurisprudencias = res.data.map(jurisprudencia => ({ ...jurisprudencia, showDialog: false }));
@@ -261,7 +296,7 @@ export default defineComponent({
     });
 
 
-    Promise.all([jurisprudenciaPromise, remissaoPromise, observacoesPromise])
+    Promise.all([artigoPromise, paragrafoPromise, incisoPromise, alineaPromise, jurisprudenciaPromise, remissaoPromise, observacoesPromise])
       .then((rets) => {
 
         // Pega as notas
@@ -510,10 +545,6 @@ export default defineComponent({
       })
   },
 
-
-
-
-
   methods: {
 
     removeHTMLTags(str) {
@@ -539,7 +570,6 @@ export default defineComponent({
       observacoes: [],
       notas: [],
       showDialog: false,
-      slide: ref(0)
 
 
     }
@@ -561,7 +591,7 @@ span {
   text-justify: inter-word;
 }
 
-.q-carousel {
+.swiper {
   /*width: 800px;*/
   /*height: 800px;*/
   align-items: left;
