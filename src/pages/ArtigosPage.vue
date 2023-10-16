@@ -217,7 +217,7 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
-      //return this.paragrafos;
+      return this.paragrafos;
     }).catch(err => {
       console.log(err);
     });
