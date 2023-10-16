@@ -4,7 +4,7 @@
     <q-card>
       <div class="q-pa-md">
         <div class="q-gutter-md">
-          <q-carousel v-model="slide" transition-prev="scale" transition-next="scale" swipeable animated
+          <q-carousel v-model="slide" infi transition-prev="scale" transition-next="scale" swipeable animated
             control-color="white" padding height="600px" class="shadow-1 rounded-borders" name="carousel">
             <q-carousel-slide v-for="(artigo, id) in artigos" :key="id" :name="id">
 
@@ -185,18 +185,19 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref } from 'vue'
 import axios from "axios";
-
-
 
 
 export default defineComponent({
 
-
   created() {
 
-    axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
+    this.id = this.$route.params.id
+    console.log(this.id)
+
+
+    /*axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
       this.id = res.data.id
       this.artigo = res.data.artigo
@@ -204,12 +205,14 @@ export default defineComponent({
       return this.id, this.artigo, this.caput
     }).catch(err => {
       console.log(err);
-    })
+    });*/
 
     axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = ref(res.data);
+      //this.id = this.$route.parrams.id
       this.slide = ref(this.artigos.findIndex(o => o.id == this.id))
+      console.log(this.slide)
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
       return this.artigos, this.slide
     }).catch(err => {
