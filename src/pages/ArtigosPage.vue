@@ -198,7 +198,6 @@ export default defineComponent({
 
     axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
-      //this.artigos = res.data;
       this.id = res.data.id
       this.artigo = res.data.artigo
       this.caput = res.data.caput
@@ -210,7 +209,6 @@ export default defineComponent({
       console.log(res);
       this.artigos = ref(res.data);
       this.slide = ref(this.artigos.findIndex(c => c.id === this.id))
-
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
     }).catch(err => {
       console.log(err);
@@ -219,7 +217,7 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
-      return this.paragrafos;
+      //return this.paragrafos;
     }).catch(err => {
       console.log(err);
     });
