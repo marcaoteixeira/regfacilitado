@@ -194,7 +194,6 @@ import axios from "axios";
 export default defineComponent({
 
 
-
   created() {
 
     /* axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
@@ -210,6 +209,8 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = ref(res.data);
+      console.log(this.artigos.indexOf(60))
+
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
     }).catch(err => {
       console.log(err);
