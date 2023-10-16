@@ -201,6 +201,7 @@ export default defineComponent({
       this.id = res.data.id
       this.artigo = res.data.artigo
       this.caput = res.data.caput
+      return this.id, this.artigo, this.caput
     }).catch(err => {
       console.log(err);
     })
@@ -208,8 +209,9 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = ref(res.data);
-      this.slide = ref(this.artigos.findIndex(c => c.id === this.id))
+      this.slide = ref(this.artigos.map(o => o.id).indexOf(this.id))
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
+      return this.artigos, this.slide
     }).catch(err => {
       console.log(err);
     });
@@ -225,6 +227,7 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
+      return this.incisos
     }).catch(err => {
       console.log(err);
     });
@@ -232,10 +235,10 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
+      return this.alineas
     }).catch(err => {
       console.log(err);
     });
-
 
 
     const jurisprudenciaPromise = axios.post("http://18.229.118.205:8686/listjurisprudencia").then(res => {
@@ -517,7 +520,7 @@ export default defineComponent({
 
     removeHTMLTags(str) {
       return str.replace(/<[^>]*>/g, '');
-    }
+    },
 
   },
 
