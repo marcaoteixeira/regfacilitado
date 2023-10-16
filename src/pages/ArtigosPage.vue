@@ -5,7 +5,7 @@
       <div class="q-pa-md">
         <div class="q-gutter-md">
           <q-carousel v-model="slide" transition-prev="scale" transition-next="scale" swipeable animated
-            control-color="white" padding height="600px" class="shadow-1 rounded-borders">
+            control-color="white" padding height="600px" class="shadow-1 rounded-borders" name="carousel">
             <q-carousel-slide v-for="(artigo, id) in artigos" :key="id" :name="id">
 
               <span><b>{{ artigo.artigo }}</b> - </span>
@@ -209,7 +209,7 @@ export default defineComponent({
     axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = ref(res.data);
-      this.slide = ref(this.artigos.map(o => o.id).indexOf(this.id))
+      this.slide = ref(this.artigos.findIndex(o => o.id == this.id))
       //this.artigos = this.artigos.filter(c => c.id == this.$route.params.id)
       return this.artigos, this.slide
     }).catch(err => {
