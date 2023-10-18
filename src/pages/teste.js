@@ -1,5 +1,3 @@
-//pega as Observações
-
 this.artigos.map((obsart) => {
   const observacoesDesteArtigo = this.observacoes.filter(
     (observacao) =>
@@ -29,8 +27,7 @@ this.paragrafos.map((obspar) => {
     (observacao) =>
       obspar.id === observacao.id_paragrafo &&
       observacao.id_inciso === null &&
-      observacao.id_alinea === null &&
-      observacao.id_tipo === 8
+      observacao.id_alinea === null
   );
   obspar.observacoesConteudos = null;
   if (
@@ -53,8 +50,7 @@ this.incisos.map((obsinc) => {
     (observacao) =>
       obsinc.id === observacao.id_inciso &&
       observacao.id_paragrafo === null &&
-      observacao.id_alinea === null &&
-      observacao.id_tipo === 8
+      observacao.id_alinea === null
   );
   obsinc.observacoesConteudos = null;
   if (
@@ -73,22 +69,20 @@ this.incisos.map((obsinc) => {
 });
 
 this.incisos.map((obsincp) => {
-  const observacoesDesteIncisocp = this.observacoes.filter(
+  const observacoeesteIncisocp = this.observacoes.filter(
     (observacao) =>
-      obsincp.id === observacao.id_inciso &&
-      observacao.id_paragrafo != null &&
-      observacao.id_alinea != null
+      obsincp.id === observacao.id_inciso && observacao.id_paragrafo != null
   );
   obsincp.observacoesConteudosp = null;
   if (
-    !Array.isArray(observacoesDesteIncisocp) ||
-    !observacoesDesteIncisocp.length
+    !Array.isArray(observacoeesteIncisocp) ||
+    !observacoeesteIncisocp.length
   ) {
     return obsincp;
   }
   obsincp.showDialog = false;
   obsincp.observacoesConteudosp =
-    observacoesDesteIncisocp.reduce((conteudo, currentValue) => {
+    observacoeesteIncisocp.reduce((conteudo, currentValue) => {
       return conteudo + `<li>${currentValue.conteudo}</li>`;
     }, "<ul>") + "</ul>";
 

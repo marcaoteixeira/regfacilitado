@@ -265,54 +265,21 @@ export default defineComponent({
       console.log(err);
     });
 
+    const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
+      this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
+      return this.notas;
+    }).catch(err => {
+      console.log(err);
+    });
 
-    Promise.all([jurisprudenciaPromise, remissaoPromise, observacoesPromise])
+
+    Promise.all([jurisprudenciaPromise, remissaoPromise, observacoesPromise, notasPromise])
       .then((rets) => {
 
         // Pega as notas
 
-        /* this.paragrafos.map(par => {
-           const notasDesteParagrafo = this.notas.filter(nota => (par.id === nota.id_paragrafo && nota.id_tipo === 18))
-           par.notasConteudos = null;
-           if (!Array.isArray(notasDesteParagrafo) || !notasDesteParagrafo.length) {
-             return par;
-           }
-           par.showDialog = false;
-           par.notasConteudos = notasDesteParagrafo
-             .reduce((conteudo, currentValue) => {
-               return conteudo + `<li>${currentValue.conteudo}</li>`;
-             }, '<ul>') + '</ul>'
-           return par
 
-         });
-         this.incisos.map(inc => {
-           const notasDesteInciso = this.notas.filter(nota => (inc.id === nota.id_inciso && nota.id_tipo === 18))
-           inc.notasConteudos = null;
-           if (!Array.isArray(notasDesteInciso) || !notasDesteInciso.length) {
-             return inc;
-           }
-           inc.showDialog = false;
-           inc.notasConteudos = notasDesteInciso
-             .reduce((conteudo, currentValue) => {
-               return conteudo + `<li>${currentValue.conteudo}</li>`;
-             }, '<ul>') + '</ul>'
 
-           return inc;
-         });
-         this.alineas.map(ali => {
-           const notasDestaAlinea = this.notas.filter(nota => (ali.id === nota.id_alinea && nota.id_tipo === 18))
-           ali.notasConteudos = null;
-           if (!Array.isArray(notasDestaAlinea) || !notasDestaAlinea.length) {
-             return ali;
-           }
-           ali.showDialog = false;
-           ali.notasConteudos = notasDestaAlinea
-             .reduce((conteudo, currentValue) => {
-               return conteudo + `<li>${currentValue.conteudo}</li>`;
-             }, '<ul>') + '</ul>'
-
-           return ali;
-         });*/
 
         //pega as Jurisprudências
 
@@ -332,7 +299,7 @@ export default defineComponent({
         });
 
         this.paragrafos.map(juripar => {
-          const jurisprudenciasDesteParagrafo = this.jurisprudencias.filter(jurisprudencia => (juripar.id === jurisprudencia.id_paragrafo && jurisprudencia.id_inciso === null && jurisprudencia.id_alinea === null && jurisprudencia.id_tipo === 8))
+          const jurisprudenciasDesteParagrafo = this.jurisprudencias.filter(jurisprudencia => (juripar.id === jurisprudencia.id_paragrafo && jurisprudencia.id_inciso === null && jurisprudencia.id_alinea === null))
           juripar.jurisprudenciasConteudos = null;
           if (!Array.isArray(jurisprudenciasDesteParagrafo) || !jurisprudenciasDesteParagrafo.length) {
             return juripar;
@@ -348,7 +315,7 @@ export default defineComponent({
         });
 
         this.incisos.map(juriinc => {
-          const jurisprudenciasDesteInciso = this.jurisprudencias.filter(jurisprudencia => (juriinc.id === jurisprudencia.id_inciso && jurisprudencia.id_paragrafo === null && jurisprudencia.id_alinea === null && jurisprudencia.id_tipo === 8))
+          const jurisprudenciasDesteInciso = this.jurisprudencias.filter(jurisprudencia => (juriinc.id === jurisprudencia.id_inciso && jurisprudencia.id_paragrafo === null && jurisprudencia.id_alinea === null))
           juriinc.jurisprudenciasConteudos = null;
           if (!Array.isArray(jurisprudenciasDesteInciso) || !jurisprudenciasDesteInciso.length) {
             return juriinc;
@@ -363,7 +330,7 @@ export default defineComponent({
         });
 
         this.incisos.map(juriincp => {
-          const jurisDesteIncisocp = this.jurisprudencias.filter(jurisprudencia => (juriincp.id === jurisprudencia.id_inciso && jurisprudencia.id_paragrafo != null && jurisprudencia.id_alinea != null))
+          const jurisDesteIncisocp = this.jurisprudencias.filter(jurisprudencia => (juriincp.id === jurisprudencia.id_inciso && jurisprudencia.id_paragrafo != null))
           juriincp.jurisprudenciasConteudosp = null;
           if (!Array.isArray(jurisDesteIncisocp) || !jurisDesteIncisocp.length) {
             return juriincp;
@@ -395,120 +362,84 @@ export default defineComponent({
 
         //pega as Observações
 
-        this.artigos.map((obsart) => {
-          const observacoesDesteArtigo = this.observacoes.filter(
-            (observacao) =>
-              obsart.id === observacao.id_artigo &&
-              observacao.id_paragrafo === null &&
-              observacao.id_inciso === null &&
-              observacao.id_alinea === null
-          );
+        this.artigos.map(obsart => {
+          const observacoesDesteArtigo = this.observacoes.filter(observacao => (obsart.id === observacao.id_artigo && observacao.id_paragrafo === null && observacao.id_inciso === null && observacao.id_alinea === null))
           obsart.observacoesConteudos = null;
-          if (
-            !Array.isArray(observacoesDesteArtigo) ||
-            !observacoesDesteArtigo.length
-          ) {
+          if (!Array.isArray(observacoesDesteArtigo) || !observacoesDesteArtigo.length) {
             return obsart;
           }
           obsart.showDialog = false;
-          obsart.observacoesConteudos =
-            observacoesDesteArtigo.reduce((conteudo, currentValue) => {
+          obsart.observacoesConteudos = observacoesDesteArtigo
+            .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, "<ul>") + "</ul>";
+            }, '<ul>') + '</ul>'
 
           return obsart;
         });
 
-        this.paragrafos.map((obspar) => {
-          const observacoesDesteParagrafo = this.observacoes.filter(
-            (observacao) =>
-              obspar.id === observacao.id_paragrafo &&
-              observacao.id_inciso === null &&
-              observacao.id_alinea === null &&
-              observacao.id_tipo === 8
-          );
+        this.paragrafos.map(obspar => {
+          const observacoesDesteParagrafo = this.observacoes.filter(observacao => (obspar.id === observacao.id_paragrafo && observacao.id_inciso === null && observacao.id_alinea === null))
           obspar.observacoesConteudos = null;
-          if (
-            !Array.isArray(observacoesDesteParagrafo) ||
-            !observacoesDesteParagrafo.length
-          ) {
+          if (!Array.isArray(observacoesDesteParagrafo) || !observacoesDesteParagrafo.length) {
             return obspar;
           }
           obspar.showDialog = false;
-          obspar.observacoesConteudos =
-            observacoesDesteParagrafo.reduce((conteudo, currentValue) => {
+          obspar.observacoesConteudos = observacoesDesteParagrafo
+            .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, "<ul>") + "</ul>";
+            }, '<ul>') + '</ul>'
 
           return obspar;
+
         });
 
-        this.incisos.map((obsinc) => {
-          const observacoesDesteInciso = this.observacoes.filter(
-            (observacao) =>
-              obsinc.id === observacao.id_inciso &&
-              observacao.id_paragrafo === null &&
-              observacao.id_alinea === null &&
-              observacao.id_tipo === 8
-          );
+        this.incisos.map(obsinc => {
+          const observacoesDesteInciso = this.observacoes.filter(observacao => (obsinc.id === observacao.id_inciso && observacao.id_paragrafo === null && observacao.id_alinea === null))
           obsinc.observacoesConteudos = null;
-          if (
-            !Array.isArray(observacoesDesteInciso) ||
-            !observacoesDesteInciso.length
-          ) {
+          if (!Array.isArray(observacoesDesteInciso) || !observacoesDesteInciso.length) {
             return obsinc;
           }
           obsinc.showDialog = false;
-          obsinc.observacoesConteudos =
-            observacoesDesteInciso.reduce((conteudo, currentValue) => {
+          obsinc.observacoesConteudos = observacoesDesteInciso
+            .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, "<ul>") + "</ul>";
+            }, '<ul>') + '</ul>'
 
           return obsinc;
         });
 
-        this.incisos.map((obsincp) => {
-          const observacoesDesteIncisocp = this.observacoes.filter(
-            (observacao) =>
-              obsincp.id === observacao.id_inciso &&
-              observacao.id_paragrafo != null &&
-              observacao.id_alinea != null
-          );
+        this.incisos.map(obsincp => {
+          const observacoeesteIncisocp = this.observacoes.filter(observacao => (obsincp.id === observacao.id_inciso && observacao.id_paragrafo != null))
           obsincp.observacoesConteudosp = null;
-          if (
-            !Array.isArray(observacoesDesteIncisocp) ||
-            !observacoesDesteIncisocp.length
-          ) {
+          if (!Array.isArray(observacoeesteIncisocp) || !observacoeesteIncisocp.length) {
             return obsincp;
           }
           obsincp.showDialog = false;
-          obsincp.observacoesConteudosp =
-            observacoesDesteIncisocp.reduce((conteudo, currentValue) => {
+          obsincp.observacoesConteudosp = observacoeesteIncisocp
+            .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, "<ul>") + "</ul>";
+            }, '<ul>') + '</ul>'
 
           return obsincp;
         });
 
-        this.alineas.map((obsali) => {
-          const observacoesDestaAlinea = this.observacoes.filter(
-            (observacao) => obsali.id === observacao.id_alinea
-          );
+
+        this.alineas.map(obsali => {
+          const observacoesDestaAlinea = this.observacoes.filter(observacao => (obsali.id === observacao.id_alinea))
           obsali.observacoesConteudos = null;
-          if (
-            !Array.isArray(observacoesDestaAlinea) ||
-            !observacoesDestaAlinea.length
-          ) {
+          if (!Array.isArray(observacoesDestaAlinea) || !observacoesDestaAlinea.length) {
             return obsali;
           }
           obsali.showDialog = false;
-          obsali.observacoesConteudos =
-            observacoesDestaAlinea.reduce((conteudo, currentValue) => {
+          obsali.observacoesConteudos = observacoesDestaAlinea
+            .reduce((conteudo, currentValue) => {
               return conteudo + `<li>${currentValue.conteudo}</li>`;
-            }, "<ul>") + "</ul>";
+            }, '<ul>') + '</ul>'
 
           return obsali;
         });
+
+
 
 
 
