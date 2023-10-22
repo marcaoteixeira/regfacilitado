@@ -32,6 +32,16 @@
                   </q-expansion-item>
                 </template>
 
+                <template v-if="artigo.notasConteudos">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                    <q-card class="bg-teal-0">
+                      <q-card-section>
+                        <span v-html=artigo.notasConteudos></span> </q-card-section><br>
+                    </q-card>
+                  </q-expansion-item>
+                </template>
+
+
               </template>
 
               <span v-for="     inciso      in      incisos     " :key="inciso.id">
@@ -59,6 +69,15 @@
                     </q-expansion-item>
                   </template>
 
+                  <template v-if="inciso.notasConteudos">
+                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                      <q-card class="bg-teal-0">
+                        <q-card-section>
+                          <span v-html=inciso.notasConteudos></span> </q-card-section><br>
+                      </q-card>
+                    </q-expansion-item>
+                  </template>
+
                   <span v-for="alinea in alineas" :key="alinea.id">
                     <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                       <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
@@ -80,6 +99,15 @@
                           <q-card class="bg-teal-0">
                             <q-card-section>
                               <span v-html=alinea.observacoesConteudos></span> </q-card-section><br>
+                          </q-card>
+                        </q-expansion-item>
+                      </template>
+
+                      <template v-if="alinea.notasConteudos">
+                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                          <q-card class="bg-teal-0">
+                            <q-card-section>
+                              <span v-html=alinea.notasConteudos></span> </q-card-section><br>
                           </q-card>
                         </q-expansion-item>
                       </template>
@@ -117,6 +145,16 @@
                     </q-expansion-item>
                   </template>
 
+                  <template v-if="paragrafo.notasConteudos">
+                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                      <q-card class="bg-teal-0">
+                        <q-card-section>
+                          <span v-html=paragrafo.notasConteudos></span> </q-card-section><br>
+                      </q-card>
+                    </q-expansion-item>
+                  </template>
+
+
                   <span v-for="      inciso       in       incisos      " :key="inciso.id">
                     <template v-if="paragrafo.id === inciso.id_paragrafo">
                       <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span
@@ -132,6 +170,8 @@
                         </q-expansion-item>
                       </template>
 
+
+
                       <template v-if="inciso.observacoesConteudosp">
                         <q-expansion-item dense dense-toggle expand-separator icon="" label="Observações"
                           class="bg-teal-1">
@@ -141,6 +181,17 @@
                           </q-card>
                         </q-expansion-item>
                       </template>
+
+                      <template v-if="inciso.notasConteudosp">
+                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                          <q-card class="bg-teal-0">
+                            <q-card-section>
+                              <span v-html=inciso.notasConteudosp></span> </q-card-section><br>
+                          </q-card>
+                        </q-expansion-item>
+                      </template>
+
+
                       <span v-for="alinea in alineas" :key="alinea.id">
                         <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                           <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
@@ -162,6 +213,15 @@
                               <q-card class="bg-teal-0">
                                 <q-card-section>
                                   <span v-html=alinea.observacoesConteudos></span> </q-card-section><br>
+                              </q-card>
+                            </q-expansion-item>
+                          </template>
+
+                          <template v-if="alinea.notasConteudos">
+                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                              <q-card class="bg-teal-0">
+                                <q-card-section>
+                                  <span v-html=alinea.notasConteudos></span> </q-card-section><br>
                               </q-card>
                             </q-expansion-item>
                           </template>
@@ -439,8 +499,83 @@ export default defineComponent({
           return obsali;
         });
 
+        //pega as Notervações
 
+        this.artigos.map(notart => {
+          const notasDesteArtigo = this.notas.filter(nota => (notart.id === nota.id_artigo && nota.id_paragrafo === null && nota.id_inciso === null && nota.id_alinea === null))
+          notart.notasConteudos = null;
+          if (!Array.isArray(notasDesteArtigo) || !notasDesteArtigo.length) {
+            return notart;
+          }
+          notart.showDialog = false;
+          notart.notasConteudos = notasDesteArtigo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
 
+          return notart;
+        });
+
+        this.paragrafos.map(notpar => {
+          const notasDesteParagrafo = this.notas.filter(nota => (notpar.id === nota.id_paragrafo && nota.id_inciso === null && nota.id_alinea === null))
+          notpar.notasConteudos = null;
+          if (!Array.isArray(notasDesteParagrafo) || !notasDesteParagrafo.length) {
+            return notpar;
+          }
+          notpar.showDialog = false;
+          notpar.notasConteudos = notasDesteParagrafo
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return notpar;
+
+        });
+
+        this.incisos.map(notinc => {
+          const notasDesteInciso = this.notas.filter(nota => (notinc.id === nota.id_inciso && nota.id_paragrafo === null && nota.id_alinea === null))
+          notinc.notasConteudos = null;
+          if (!Array.isArray(notasDesteInciso) || !notasDesteInciso.length) {
+            return notinc;
+          }
+          notinc.showDialog = false;
+          notinc.notasConteudos = notasDesteInciso
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return notinc;
+        });
+
+        this.incisos.map(notincp => {
+          const notasDesteIncisocp = this.notas.filter(nota => (notincp.id === nota.id_inciso && nota.id_paragrafo != null))
+          notincp.notasConteudosp = null;
+          if (!Array.isArray(notasDesteIncisocp) || !notasDesteIncisocp.length) {
+            return notincp;
+          }
+          notincp.showDialog = false;
+          notincp.notasConteudosp = notasDesteIncisocp
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return notincp;
+        });
+
+        this.alineas.map(notali => {
+          const notasDestaAlinea = this.notas.filter(nota => (notali.id === nota.id_alinea))
+          notali.notasConteudos = null;
+          if (!Array.isArray(notasDestaAlinea) || !notasDestaAlinea.length) {
+            return notali;
+          }
+          notali.showDialog = false;
+          notali.notasConteudos = notasDestaAlinea
+            .reduce((conteudo, currentValue) => {
+              return conteudo + `<li>${currentValue.conteudo}</li>`;
+            }, '<ul>') + '</ul>'
+
+          return notali;
+        });
 
 
       })
