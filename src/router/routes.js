@@ -10,26 +10,19 @@ const routes = [
       },
       {
         path: "/regimento",
+        name: "regimento",
         component: () => import("pages/RegimentoPage.vue"),
       },
-      {
-        path: "/regimentofull",
-        component: () => import("pages/RegimentoFull.vue"),
-      },
+
       {
         path: "/artigos/:id",
         name: "artigos",
         component: () => import("pages/ArtigosPage.vue"),
       },
       {
-        path: "/carousel",
-        name: "carousel",
-        component: () => import("pages/ArtigoCarousel.vue"),
-      },
-      {
-        path: "/artigoslide",
-        name: "artigoslide",
-        component: () => import("pages/ArtigoSlide.vue"),
+        path: "/artigosr/:id",
+        name: "artigosr",
+        component: () => import("pages/ArtigosPager.vue"),
       },
     ],
   },

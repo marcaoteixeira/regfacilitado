@@ -1,10 +1,9 @@
 <template>
   <q-page>
+    <q-btn color="botao-secundario" text-color="texto-botao-secundario" icon="keyboard_backspace" no-caps
+      @click="$router.go(-1)" />
     <!--  <h5>Artigos</h5> -->
     <q-card>
-      <q-btn color="botao-secundario" text-color="texto-botao-secundario" icon="keyboard_backspace" no-caps
-        @click="$router.go(-1)" />
-
       <div class="q-pa-md">
         <div class="q-gutter-md">
           <q-carousel v-model="slide" infi transition-prev="scale" transition-next="scale" swipeable animated
@@ -18,12 +17,13 @@
               <template v-if="artigo.id != null"><br>
 
                 <span v-for="remissao in remissoes" :key='remissao.id'>
-                  <template
-                    v-if="remissao.id_artigo === artigo.id && remissao.id_paragrafo === null && remissao.id_inciso === null && remissao.id_alinea === null">
+                  <template v-if="remissao.id_artigo === artigo.id">
 
                     <router-link :to="{ name: 'artigos', params: { id: remissao.linkartigo } }">
-                      <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                    </router-link><span>&nbsp; ;</span>
+                      <span>{{ removeHTMLTags(remissao.conteudo) }}</span>
+                    </router-link>&nbsp;
+
+
                   </template>
                 </span>
 
@@ -66,17 +66,6 @@
                   <p style="text-align: justify;">{{ inciso.inciso }}&nbsp;<span
                       v-html="removeHTMLTags(inciso.caput)"></span></p>
 
-                  <span v-for="remissao in remissoes" :key='remissao.id'>
-                    <template
-                      v-if="remissao.id_inciso === inciso.id && remissao.id_paragrafo === null && remissao.id_alinea === null">
-
-                      <router-link :to="{ name: 'artigosr', params: { id: remissao.linkartigo } }">
-                        <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                      </router-link>&nbsp;
-
-                    </template>
-                  </span>
-
                   <template v-if="inciso.jurisprudenciasConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
                       class="bg-teal-1">
@@ -109,16 +98,6 @@
                   <span v-for="alinea in alineas" :key="alinea.id">
                     <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                       <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
-                      <span v-for="remissao in remissoes" :key='remissao.id'>
-                        <template v-if="remissao.id_alinea === alinea.id">
-
-                          <router-link :to="{ name: 'artigosr', params: { id: remissao.linkartigo } }">
-                            <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                          </router-link>&nbsp;
-
-
-                        </template>
-                      </span>
 
                       <template v-if="alinea.jurisprudenciasConteudos">
                         <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -162,17 +141,6 @@
                   <p style="text-align: justify;">{{ paragrafo.paragrafo }}&nbsp;<span
                       v-html=removeHTMLTags(paragrafo.caput)></span>
                   </p>
-                  <span v-for="remissao in remissoes" :key='remissao.id'>
-                    <template
-                      v-if="remissao.id_paragrafo === paragrafo.id && remissao.id_inciso === null && remissao.id_alinea === null">
-
-                      <router-link :to="{ name: 'artigosr', params: { id: remissao.linkartigo } }">
-                        <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                      </router-link>&nbsp;
-
-
-                    </template>
-                  </span>
 
                   <template v-if="paragrafo.jurisprudenciasConteudos">
                     <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -209,17 +177,6 @@
                       <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span
                           v-html=removeHTMLTags(inciso.caput)></span></p>
 
-                      <span v-for="remissao in remissoes" :key='remissao.id'>
-                        <template
-                          v-if="remissao.id_inciso === inciso.id && remissao.id_paragrafo === null && remissao.id_alinea === null">
-
-                          <router-link :to="{ name: 'artigosr', params: { id: remissao.linkartigo } }">
-                            <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                          </router-link>&nbsp;
-
-                        </template>
-                      </span>
-
                       <template v-if="inciso.jurisprudenciasConteudosp">
                         <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
                           class="bg-teal-1">
@@ -255,16 +212,6 @@
                       <span v-for="alinea in alineas" :key="alinea.id">
                         <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                           <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
-
-                          <span v-for="remissao in remissoes" :key='remissao.id'>
-                            <template v-if="remissao.id_alinea === alinea.id">
-
-                              <router-link :to="{ name: 'artigosr', params: { id: remissao.linkartigo } }">
-                                <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                              </router-link>&nbsp;
-
-                            </template>
-                          </span>
 
                           <template v-if="alinea.jurisprudenciasConteudos">
                             <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
@@ -315,8 +262,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { ref } from 'vue';
+import { defineComponent } from 'vue'
+import { ref } from 'vue'
 import axios from "axios";
 import { useRouter, useRoute } from 'vue-router';
 
@@ -738,7 +685,6 @@ export default defineComponent({
 
 
   methods: {
-
     backpage() {
       const handleBack = router.back();
       return handleBack
@@ -751,10 +697,13 @@ export default defineComponent({
 
   },
 
+  setup() {
+    const handleBack = () => router.back();
+
+  },
+
 
   data() {
-
-    const handleBack = () => router.back();
 
     return {
       artigo: '',
@@ -768,7 +717,7 @@ export default defineComponent({
       observacoes: [],
       notas: [],
       showDialog: false,
-      slide: ref(0)
+      slide: ref(0),
 
 
     }
@@ -780,11 +729,6 @@ export default defineComponent({
 
 </script>
 <style>
-a {
-  color: rgb(72, 133, 209);
-  text-decoration: none;
-}
-
 div {
   text-align: justify;
   text-justify: inter-word;

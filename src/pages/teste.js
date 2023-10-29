@@ -1,110 +1,100 @@
-this.artigos.map((obsart) => {
-  const observacoesDesteArtigo = this.observacoes.filter(
-    (observacao) =>
-      obsart.id === observacao.id_artigo &&
-      observacao.id_paragrafo === null &&
-      observacao.id_inciso === null &&
-      observacao.id_alinea === null
+//pega as Jurisprudências
+
+this.artigos.map((remiart) => {
+  const remissoesDesteArtigo = this.remissoes.filter(
+    (remissao) =>
+      remiart.id === remissao.id_artigo &&
+      remissao.id_paragrafo === null &&
+      remissao.id_inciso === null &&
+      remissao.id_alinea === null
   );
-  obsart.observacoesConteudos = null;
-  if (
-    !Array.isArray(observacoesDesteArtigo) ||
-    !observacoesDesteArtigo.length
-  ) {
-    return obsart;
+  remiart.remissoesConteudos = null;
+  if (!Array.isArray(remissoesDesteArtigo) || !remissoesDesteArtigo.length) {
+    return remiart;
   }
-  obsart.showDialog = false;
-  obsart.observacoesConteudos =
-    observacoesDesteArtigo.reduce((conteudo, currentValue) => {
+  remiart.showDialog = false;
+  remiart.remissoesConteudos =
+    remissoesDesteArtigo.reduce((conteudo, currentValue) => {
       return conteudo + `<li>${currentValue.conteudo}</li>`;
     }, "<ul>") + "</ul>";
 
-  return obsart;
+  return remiart;
 });
 
-this.paragrafos.map((obspar) => {
-  const observacoesDesteParagrafo = this.observacoes.filter(
-    (observacao) =>
-      obspar.id === observacao.id_paragrafo &&
-      observacao.id_inciso === null &&
-      observacao.id_alinea === null
+this.paragrafos.map((remipar) => {
+  const remissoesDesteParagrafo = this.remissoes.filter(
+    (remissao) =>
+      remipar.id === remissao.id_paragrafo &&
+      remissao.id_inciso === null &&
+      remissao.id_alinea === null
   );
-  obspar.observacoesConteudos = null;
+  remipar.remissoesConteudos = null;
   if (
-    !Array.isArray(observacoesDesteParagrafo) ||
-    !observacoesDesteParagrafo.length
+    !Array.isArray(remissoesDesteParagrafo) ||
+    !remissoesDesteParagrafo.length
   ) {
-    return obspar;
+    return remipar;
   }
-  obspar.showDialog = false;
-  obspar.observacoesConteudos =
-    observacoesDesteParagrafo.reduce((conteudo, currentValue) => {
+  remipar.showDialog = false;
+  remipar.remissoesConteudos =
+    remissoesDesteParagrafo.reduce((conteudo, currentValue) => {
       return conteudo + `<li>${currentValue.conteudo}</li>`;
     }, "<ul>") + "</ul>";
 
-  return obspar;
+  return remipar;
 });
 
-this.incisos.map((obsinc) => {
-  const observacoesDesteInciso = this.observacoes.filter(
-    (observacao) =>
-      obsinc.id === observacao.id_inciso &&
-      observacao.id_paragrafo === null &&
-      observacao.id_alinea === null
+this.incisos.map((remiinc) => {
+  const remissoesDesteInciso = this.remissoes.filter(
+    (remissao) =>
+      remiinc.id === remissao.id_inciso &&
+      remissao.id_paragrafo === null &&
+      remissao.id_alinea === null
   );
-  obsinc.observacoesConteudos = null;
-  if (
-    !Array.isArray(observacoesDesteInciso) ||
-    !observacoesDesteInciso.length
-  ) {
-    return obsinc;
+  remiinc.remissoesConteudos = null;
+  if (!Array.isArray(remissoesDesteInciso) || !remissoesDesteInciso.length) {
+    return remiinc;
   }
-  obsinc.showDialog = false;
-  obsinc.observacoesConteudos =
-    observacoesDesteInciso.reduce((conteudo, currentValue) => {
+  remiinc.showDialog = false;
+  remiinc.remissoesConteudos =
+    remissoesDesteInciso.reduce((conteudo, currentValue) => {
       return conteudo + `<li>${currentValue.conteudo}</li>`;
     }, "<ul>") + "</ul>";
 
-  return obsinc;
+  return remiinc;
 });
 
-this.incisos.map((obsincp) => {
-  const observacoeesteIncisocp = this.observacoes.filter(
-    (observacao) =>
-      obsincp.id === observacao.id_inciso && observacao.id_paragrafo != null
+this.incisos.map((remiincp) => {
+  const jurisDesteIncisocp = this.remissoes.filter(
+    (remissao) =>
+      remiincp.id === remissao.id_inciso && remissao.id_paragrafo != null
   );
-  obsincp.observacoesConteudosp = null;
-  if (
-    !Array.isArray(observacoeesteIncisocp) ||
-    !observacoeesteIncisocp.length
-  ) {
-    return obsincp;
+  remiincp.remissoesConteudosp = null;
+  if (!Array.isArray(jurisDesteIncisocp) || !jurisDesteIncisocp.length) {
+    return remiincp;
   }
-  obsincp.showDialog = false;
-  obsincp.observacoesConteudosp =
-    observacoeesteIncisocp.reduce((conteudo, currentValue) => {
+  remiincp.showDialog = false;
+  remiincp.remissoesConteudosp =
+    jurisDesteIncisocp.reduce((conteudo, currentValue) => {
       return conteudo + `<li>${currentValue.conteudo}</li>`;
     }, "<ul>") + "</ul>";
 
-  return obsincp;
+  return remiincp;
 });
 
-this.alineas.map((obsali) => {
-  const observacoesDestaAlinea = this.observacoes.filter(
-    (observacao) => obsali.id === observacao.id_alinea
+this.alineas.map((remiali) => {
+  const remissoesDestaAlinea = this.remissoes.filter(
+    (remissao) => remiali.id === remissao.id_alinea
   );
-  obsali.observacoesConteudos = null;
-  if (
-    !Array.isArray(observacoesDestaAlinea) ||
-    !observacoesDestaAlinea.length
-  ) {
-    return obsali;
+  remiali.remissoesConteudos = null;
+  if (!Array.isArray(remissoesDestaAlinea) || !remissoesDestaAlinea.length) {
+    return remiali;
   }
-  obsali.showDialog = false;
-  obsali.observacoesConteudos =
-    observacoesDestaAlinea.reduce((conteudo, currentValue) => {
+  remiali.showDialog = false;
+  remiali.remissoesConteudos =
+    remissoesDestaAlinea.reduce((conteudo, currentValue) => {
       return conteudo + `<li>${currentValue.conteudo}</li>`;
     }, "<ul>") + "</ul>";
 
-  return obsali;
+  return remiali;
 });
