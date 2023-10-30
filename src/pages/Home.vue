@@ -5,9 +5,8 @@
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
         <q-toolbar-title> Regimento Interno Facilitado </q-toolbar-title>
       </q-toolbar>
-      <div class="q-px-lg q-pt-xl q-md-md">
-        <div class="text-subtitlel"></div>
-      </div>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<h7><b>Câmara dos Deputados</b></h7>
+
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>

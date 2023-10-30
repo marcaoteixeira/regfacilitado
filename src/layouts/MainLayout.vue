@@ -3,10 +3,10 @@
     <q-header>
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-        <q-toolbar-title> Regimento Facilitado </q-toolbar-title>
+        <q-toolbar-title> Regimento Facilitado</q-toolbar-title>
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-md-md">
-        <div class="text-subtitlel"></div>
+        <div class="text-subtitlel">Câmara dos Deputados</div>
       </div>
     </q-header>
 

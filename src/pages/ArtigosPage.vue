@@ -2,8 +2,7 @@
   <q-page>
     <!--  <h5>Artigos</h5> -->
     <q-card>
-      <q-btn color="botao-secundario" text-color="texto-botao-secundario" icon="keyboard_backspace" no-caps
-        @click="$router.go(-1)" />
+      <q-btn class="mybtnback" icon="keyboard_backspace" no-caps @click="$router.go(-1)" />
 
       <div class="q-pa-md">
         <div class="q-gutter-md">
@@ -21,9 +20,11 @@
                   <template
                     v-if="remissao.id_artigo === artigo.id && remissao.id_paragrafo === null && remissao.id_inciso === null && remissao.id_alinea === null">
 
-                    <router-link :to="{ name: 'artigos', params: { id: remissao.linkartigo } }">
+                    <router-link :to="{ name: 'artigosr', params: { id: remissao.linkartigo } }">
                       <span v-html=removeHTMLTags(remissao.conteudo)></span>
-                    </router-link><span>&nbsp; ;</span>
+                    </router-link>&nbsp;
+
+
                   </template>
                 </span>
 
@@ -793,6 +794,12 @@ div {
 span {
   text-align: justify;
   text-justify: inter-word;
+}
+
+.mybtnback {
+  background-color: white;
+  color: #0c8367;
+  border-style: none;
 }
 
 .q-carousel {

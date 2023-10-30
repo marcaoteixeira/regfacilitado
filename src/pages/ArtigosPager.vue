@@ -1,7 +1,6 @@
 <template>
   <q-page>
-    <q-btn color="botao-secundario" text-color="texto-botao-secundario" icon="keyboard_backspace" no-caps
-      @click="$router.go(-1)" />
+    <q-btn class="mybtnback" icon="keyboard_backspace" no-caps @click="$router.go(-1)" />
     <!--  <h5>Artigos</h5> -->
     <q-card>
       <div class="q-pa-md">
@@ -729,6 +728,11 @@ export default defineComponent({
 
 </script>
 <style>
+a {
+  color: rgb(72, 133, 209);
+  text-decoration: none;
+}
+
 div {
   text-align: justify;
   text-justify: inter-word;
@@ -738,6 +742,13 @@ span {
   text-align: justify;
   text-justify: inter-word;
 }
+
+.mybtnback {
+  background-color: white;
+  color: #0c8367;
+  border: 0cap;
+}
+
 
 .q-carousel {
   /*width: 800px;*/
