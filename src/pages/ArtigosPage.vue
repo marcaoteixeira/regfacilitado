@@ -51,12 +51,29 @@
                 </template>
 
                 <template v-if="artigo.notasConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                  <!--<q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                     <q-card class="bg-teal-0">
                       <q-card-section>
                         <span v-html=artigo.notasConteudos></span> </q-card-section><br>
                     </q-card>
-                  </q-expansion-item>
+                  </q-expansion-item> -->
+
+                  <hr>
+                  <q-dialog v-model="artigo.showDialog">
+                    <q-card>
+                      <q-card-section>
+                      </q-card-section>
+                      <q-card-section style="max-height: 50vh" class="scroll">
+                        <span v-html="artigo.notasConteudos"></span>
+                      </q-card-section>
+                      <q-separator />
+                      <q-card-actions align="right">
+                        <q-btn round size="10px" label="X" color="primary" v-close-popup />
+                      </q-card-actions>
+                    </q-card>
+                  </q-dialog>
+                  <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
+                    @click="artigo.showDialog = true" />
                 </template>
 
 
@@ -99,12 +116,28 @@
                   </template>
 
                   <template v-if="inciso.notasConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                    <!-- <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
                           <span v-html=inciso.notasConteudos></span> </q-card-section><br>
                       </q-card>
-                    </q-expansion-item>
+                    </q-expansion-item> -->
+                    <hr>
+                    <q-dialog v-model="inciso.showDialog">
+                      <q-card>
+                        <q-card-section>
+                        </q-card-section>
+                        <q-card-section style="max-height: 50vh" class="scroll">
+                          <span v-html="inciso.notasConteudos"></span>
+                        </q-card-section>
+                        <q-separator />
+                        <q-card-actions align="right">
+                          <q-btn round size="10px" label="X" color="primary" v-close-popup />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+                    <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
+                      @click="inciso.showDialog = true" />
                   </template>
 
                   <span v-for="alinea in alineas" :key="alinea.id">
@@ -143,12 +176,28 @@
                       </template>
 
                       <template v-if="alinea.notasConteudos">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                        <!-- <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                           <q-card class="bg-teal-0">
                             <q-card-section>
                               <span v-html=alinea.notasConteudos></span> </q-card-section><br>
                           </q-card>
-                        </q-expansion-item>
+                        </q-expansion-item> -->
+                        <hr>
+                        <q-dialog v-model="alinea.showDialog">
+                          <q-card>
+                            <q-card-section>
+                            </q-card-section>
+                            <q-card-section style="max-height: 50vh" class="scroll">
+                              <span v-html="alinea.notasConteudos"></span>
+                            </q-card-section>
+                            <q-separator />
+                            <q-card-actions align="right">
+                              <q-btn round size="10px" label="X" color="primary" v-close-popup />
+                            </q-card-actions>
+                          </q-card>
+                        </q-dialog>
+                        <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
+                          @click="alinea.showDialog = true" />
                       </template>
 
                     </template>
@@ -196,12 +245,28 @@
                   </template>
 
                   <template v-if="paragrafo.notasConteudos">
-                    <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                    <!--  <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                       <q-card class="bg-teal-0">
                         <q-card-section>
                           <span v-html=paragrafo.notasConteudos></span> </q-card-section><br>
                       </q-card>
-                    </q-expansion-item>
+                    </q-expansion-item> -->
+                    <hr>
+                    <q-dialog v-model="paragrafo.showDialog">
+                      <q-card>
+                        <q-card-section>
+                        </q-card-section>
+                        <q-card-section style="max-height: 50vh" class="scroll">
+                          <span v-html="paragrafo.notasConteudos"></span>
+                        </q-card-section>
+                        <q-separator />
+                        <q-card-actions align="right">
+                          <q-btn round size="10px" label="X" color="primary" v-close-popup />
+                        </q-card-actions>
+                      </q-card>
+                    </q-dialog>
+                    <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
+                      @click="paragrafo.showDialog = true" />
                   </template>
 
 
@@ -244,14 +309,29 @@
                       </template>
 
                       <template v-if="inciso.notasConteudosp">
-                        <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                        <!--<q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                           <q-card class="bg-teal-0">
                             <q-card-section>
                               <span v-html=inciso.notasConteudosp></span> </q-card-section><br>
                           </q-card>
-                        </q-expansion-item>
+                        </q-expansion-item> -->
+                        <hr>
+                        <q-dialog v-model="inciso.showDialog">
+                          <q-card>
+                            <q-card-section>
+                            </q-card-section>
+                            <q-card-section style="max-height: 50vh" class="scroll">
+                              <span v-html="inciso.notasConteudos"></span>
+                            </q-card-section>
+                            <q-separator />
+                            <q-card-actions align="right">
+                              <q-btn round size="10px" label="X" color="primary" v-close-popup />
+                            </q-card-actions>
+                          </q-card>
+                        </q-dialog>
+                        <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
+                          @click="inciso.showDialog = true" />
                       </template>
-
 
                       <span v-for="alinea in alineas" :key="alinea.id">
                         <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
@@ -289,12 +369,29 @@
                           </template>
 
                           <template v-if="alinea.notasConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                            <!--<q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
                               <q-card class="bg-teal-0">
                                 <q-card-section>
                                   <span v-html=alinea.notasConteudos></span> </q-card-section><br>
                               </q-card>
-                            </q-expansion-item>
+                            </q-expansion-item> -->
+                            <hr>
+                            <q-dialog v-model="alinea.showDialog">
+                              <q-card>
+                                <q-card-section>
+                                </q-card-section>
+                                <q-card-section style="max-height: 50vh" class="scroll">
+                                  <span v-html="alinea.notasConteudos"></span>
+                                </q-card-section>
+                                <q-separator />
+                                <q-card-actions align="right">
+                                  <q-btn round size="10px" label="X" color="primary" v-close-popup />
+                                </q-card-actions>
+                              </q-card>
+                            </q-dialog>
+                            <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
+                              @click="alinea.showDialog = true" />
+
                           </template>
 
                         </template>
@@ -768,7 +865,7 @@ export default defineComponent({
       remissoes: [],
       observacoes: [],
       notas: [],
-      showDialog: false,
+      showDialog: true,
       slide: ref(0)
 
 
