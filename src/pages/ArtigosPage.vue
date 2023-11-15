@@ -58,7 +58,7 @@
                     </q-card>
                   </q-expansion-item> -->
 
-                  <hr>
+
                   <q-dialog v-model="artigo.showDialog">
                     <q-card>
                       <q-card-section>
@@ -74,6 +74,8 @@
                   </q-dialog>
                   <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
                     @click="artigo.showDialog = true" />
+                  <hr>
+
                 </template>
 
 
@@ -122,7 +124,7 @@
                           <span v-html=inciso.notasConteudos></span> </q-card-section><br>
                       </q-card>
                     </q-expansion-item> -->
-                    <hr>
+
                     <q-dialog v-model="inciso.showDialog">
                       <q-card>
                         <q-card-section>
@@ -138,6 +140,8 @@
                     </q-dialog>
                     <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
                       @click="inciso.showDialog = true" />
+                    <hr>
+
                   </template>
 
                   <span v-for="alinea in alineas" :key="alinea.id">
@@ -182,7 +186,7 @@
                               <span v-html=alinea.notasConteudos></span> </q-card-section><br>
                           </q-card>
                         </q-expansion-item> -->
-                        <hr>
+
                         <q-dialog v-model="alinea.showDialog">
                           <q-card>
                             <q-card-section>
@@ -198,6 +202,8 @@
                         </q-dialog>
                         <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
                           @click="alinea.showDialog = true" />
+                        <hr>
+
                       </template>
 
                     </template>
@@ -251,7 +257,7 @@
                           <span v-html=paragrafo.notasConteudos></span> </q-card-section><br>
                       </q-card>
                     </q-expansion-item> -->
-                    <hr>
+
                     <q-dialog v-model="paragrafo.showDialog">
                       <q-card>
                         <q-card-section>
@@ -267,6 +273,8 @@
                     </q-dialog>
                     <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
                       @click="paragrafo.showDialog = true" />
+                    <hr>
+
                   </template>
 
 
@@ -315,7 +323,7 @@
                               <span v-html=inciso.notasConteudosp></span> </q-card-section><br>
                           </q-card>
                         </q-expansion-item> -->
-                        <hr>
+
                         <q-dialog v-model="inciso.showDialog">
                           <q-card>
                             <q-card-section>
@@ -331,6 +339,8 @@
                         </q-dialog>
                         <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
                           @click="inciso.showDialog = true" />
+                        <hr>
+
                       </template>
 
                       <span v-for="alinea in alineas" :key="alinea.id">
@@ -375,7 +385,6 @@
                                   <span v-html=alinea.notasConteudos></span> </q-card-section><br>
                               </q-card>
                             </q-expansion-item> -->
-                            <hr>
                             <q-dialog v-model="alinea.showDialog">
                               <q-card>
                                 <q-card-section>
@@ -391,6 +400,8 @@
                             </q-dialog>
                             <q-btn round size="10px" color="primary" icon="speaker_notes" title="Notas"
                               @click="alinea.showDialog = true" />
+                            <hr>
+
 
                           </template>
 
