@@ -31,7 +31,8 @@
                 </template> -->
 
                 <template v-if="artigo.jurisprudenciasConteudos">
-                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências" class="bg-teal-1">
+                  <q-expansion-item dense dense-toggle expand-separator icon="" label="Jurisprudências"
+                    class="bg-teal-1">
                     <q-card class="bg-teal-0">
                       <q-card-section>
                         <span v-html=artigo.jurisprudenciasConteudos></span> </q-card-section><br>
@@ -60,7 +61,8 @@
 
               </template>
 
-              <span v-for="     inciso      in      incisos     " :key="inciso.id">
+              <span v-for="     inciso in incisos     " :key="inciso.id">
+
                 <template v-if="artigo.id === inciso.id_artigo && inciso.id_paragrafo === null">
                   <p style="text-align: justify;">{{ inciso.inciso }}&nbsp;<span
                       v-html="removeHTMLTags(inciso.caput)"></span></p>
@@ -95,6 +97,7 @@
                   </template>
 
                   <span v-for="alinea in alineas" :key="alinea.id">
+
                     <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                       <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
 
@@ -133,7 +136,7 @@
                 </template>
               </span>
 
-              <span v-for="     paragrafo      in       paragrafos      " :key="paragrafo.id">
+              <span v-for="     paragrafo in paragrafos      " :key="paragrafo.id">
 
 
                 <template v-if="artigo.id === paragrafo.id_artigo">
@@ -171,7 +174,8 @@
                   </template>
 
 
-                  <span v-for="      inciso       in       incisos      " :key="inciso.id">
+                  <span v-for="      inciso in incisos      " :key="inciso.id">
+
                     <template v-if="paragrafo.id === inciso.id_paragrafo">
                       <p style="text-align: left;">{{ inciso.inciso }}&nbsp;<span
                           v-html=removeHTMLTags(inciso.caput)></span></p>
@@ -209,6 +213,7 @@
 
 
                       <span v-for="alinea in alineas" :key="alinea.id">
+
                         <template v-if="alinea.id_paragrafo === null && alinea.id_inciso === inciso.id">
                           <p style="text-align: left;"><span v-html=removeHTMLTags(alinea.alinea)></span></p>
 
@@ -234,7 +239,8 @@
                           </template>
 
                           <template v-if="alinea.notasConteudos">
-                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas" class="bg-teal-1">
+                            <q-expansion-item dense dense-toggle expand-separator icon="" label="Notas"
+                              class="bg-teal-1">
                               <q-card class="bg-teal-0">
                                 <q-card-section>
                                   <span v-html=alinea.notasConteudos></span> </q-card-section><br>
@@ -275,7 +281,7 @@ export default defineComponent({
     console.log(this.id)
 
 
-    /*axios.get("http://18.229.118.205:8686/admin/artigo/" + this.$route.params.id).then(res => {
+    /*axios.get("http://18.188.66.94:8686/admin/artigo/" + this.$route.params.id).then(res => {
       console.log(res);
       this.id = res.data.id
       this.artigo = res.data.artigo
@@ -285,7 +291,7 @@ export default defineComponent({
       console.log(err);
     });*/
 
-    axios.post("http://18.229.118.205:8686/admin/artigo/list").then(res => {
+    axios.post("http://18.188.66.94:8686/admin/artigo/list").then(res => {
       console.log(res);
       this.artigos = ref(res.data);
       //this.id = this.$route.parrams.id
@@ -297,7 +303,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/paragrafo/list").then(res => {
+    axios.post("http://18.188.66.94:8686/admin/paragrafo/list").then(res => {
       console.log(res);
       this.paragrafos = res.data;
       return this.paragrafos;
@@ -305,7 +311,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/inciso/list").then(res => {
+    axios.post("http://18.188.66.94:8686/admin/inciso/list").then(res => {
       console.log(res);
       this.incisos = res.data;
       return this.incisos
@@ -313,7 +319,7 @@ export default defineComponent({
       console.log(err);
     });
 
-    axios.post("http://18.229.118.205:8686/admin/alinea/list").then(res => {
+    axios.post("http://18.188.66.94:8686/admin/alinea/list").then(res => {
       console.log(res);
       this.alineas = res.data;
       return this.alineas
@@ -322,28 +328,28 @@ export default defineComponent({
     });
 
 
-    const jurisprudenciaPromise = axios.post("http://18.229.118.205:8686/listjurisprudencia").then(res => {
+    const jurisprudenciaPromise = axios.post("http://18.188.66.94:8686/listjurisprudencia").then(res => {
       this.jurisprudencias = res.data.map(jurisprudencia => ({ ...jurisprudencia, showDialog: false }));
       return this.jurisprudencias;
     }).catch(err => {
       console.log(err);
     });
 
-    const remissaoPromise = axios.post("http://18.229.118.205:8686/listremissao").then(res => {
+    const remissaoPromise = axios.post("http://18.188.66.94:8686/listremissao").then(res => {
       this.remissoes = res.data.map(remissao => ({ ...remissao, showDialog: false }));
       return this.remissoes;
     }).catch(err => {
       console.log(err);
     });
 
-    const observacoesPromise = axios.post("http://18.229.118.205:8686/listobservacao").then(res => {
+    const observacoesPromise = axios.post("http://18.188.66.94:8686/listobservacao").then(res => {
       this.observacoes = res.data.map(observacao => ({ ...observacao, showDialog: false }));
       return this.observacoes;
     }).catch(err => {
       console.log(err);
     });
 
-    const notasPromise = axios.post("http://18.229.118.205:8686/listnota").then(res => {
+    const notasPromise = axios.post("http://18.188.66.94:8686/listnota").then(res => {
       this.notas = res.data.map(nota => ({ ...nota, showDialog: false }));
       return this.notas;
     }).catch(err => {
@@ -727,6 +733,7 @@ export default defineComponent({
 });
 
 </script>
+
 <style>
 a {
   color: rgb(72, 133, 209);
